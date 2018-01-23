@@ -23,25 +23,48 @@
                 </div>
               </div>
               <div class="form-group">
-                  <label class="col-sm-3 control-label">Mã món hàng</label>
+                  <label class="col-sm-3 control-label">Ngày đặt hàng</label>
                   <div class="col-sm-6">
-                       <input type="text" name="id_monhang" class="form-control" placeholder="Mã món hàng" >
+                       <input type="date" name="id_monhang" class="form-control"  >
                   </div>
               </div>
               <div class="form-group">
-                  <label class="col-sm-3 control-label">Chọn sản phẩm</label>
+                  <label class="col-sm-3 control-label">Ngày giao hàng</label>
                   <div class="col-sm-6">
-                      <select id="decalpriceform-decaltype" class="form-control" name="id_sanpham" required="" aria-required="true">
-                      <option selected hidden disabled value="">Chọn sản phẩm</option>
-                      <?php
-                      if(!$sanpham) echo "<option value='0'>Empty</option>";
-                      else{
-                        foreach ($sanpham as $sp) {
-                          echo "<option value='".$sp['id_sanpham']."' >".$sp['ten_sanpham']."</option>";
-                        }
-                      }
-                      ?>
-                      </select>
+                       <input type="date" name="id_monhang" class="form-control"  >
+                  </div>
+              </div>
+              
+              <div class="form-group">
+                  <label class="col-sm-3 control-label">Loại hình</label>
+                  <div class="col-sm-6">
+                       <select class="form-control" name="phuongthuc_thanhtoan">
+                         <option value="1">Hàng Lazada</option>
+                         <option value="2">Hàng Shopee</option>
+                         <option value="3">Hàng bỏ sỉ</option>
+                         <option value="4">Hàng bán lẻ</option>
+                       </select>
+                  </div>
+              </div> 
+              <div class="form-group">
+                  <label class="col-sm-3 control-label">Trạng thái đơn hàng</label>
+                  <div class="col-sm-6">
+                       <select class="form-control" name="phuongthuc_thanhtoan">
+                         <option value="1">Đang giao hàng</option>
+                         <option value="2">Đã giao hàng</option>
+                         <option value="3">Trả lại</option>
+                         <option value="4">Đã nhận hàng trả</option>
+                       </select>
+                  </div>
+              </div>
+              <div class="form-group">
+                  <label class="col-sm-3 control-label">Phương thức thanh toán</label>
+                  <div class="col-sm-6">
+                       <select class="form-control" name="phuongthuc_thanhtoan">
+                         <option value="CashOnDelivery">CashOnDelivery</option>
+                         <option value="Cybersource">Cybersource</option>
+                         <option value="VN123Pay">VN123Pay</option>
+                       </select>
                   </div>
               </div>
               <div class="form-group">
@@ -55,7 +78,7 @@
                   <div class="col-md-6">
                      <input type="tel" pattern="[0-9]{10,11}"  title="10-11 chữ số." name="phone" class="form-control" placeholder="Số điện thoại" >
                   </div>
-              </div>                                
+              </div>                               
               <div class="form-group">
                   <label class="col-sm-3 control-label">Thông tin đơn hàng</label>
                   <div class="col-sm-6">
@@ -222,8 +245,84 @@
                   </div>
               </div>
               <div id="donhang" style="display: none;">
+<<<<<<< HEAD
                 
                 
+=======
+                <div class="form-group">
+                  <label class="col-sm-3 control-label">Chọn sản phẩm</label>
+                  <div class="col-sm-6">
+                      <select id="decalpriceform-decaltype" class="form-control" name="id_sanpham" required="" aria-required="true">
+                      <option selected hidden disabled value="">Chọn sản phẩm</option>
+                      <?php
+                      if(!$sanpham) echo "<option value='0'>Empty</option>";
+                      else{
+                        foreach ($sanpham as $sp) {
+                          echo "<option value='".$sp['id_sanpham']."' >".$sp['ten_sanpham']."</option>";
+                        }
+                      }
+                      ?>
+                      </select>
+                  </div>
+                </div>
+                
+                <div class="form-group">
+                  <label class="col-sm-3 control-label"></label>
+                  <div class="col-sm-6">
+                       <input type="text" name="sales_deliver" value="0" class="form-control so" >
+                  </div>
+                  <span>*Giá bán</span>
+                </div>
+                <div class="form-group">
+                  <label class="col-sm-3 control-label"></label>
+                  <div class="col-sm-6">
+                       <input type="text" name="qty" value="0" class="form-control so" >
+                  </div>
+                  <span>*Số lượng</span>
+                </div>
+                <div class="form-group">
+                  <label class="col-sm-3 control-label"></label>
+                  <div class="col-sm-6">
+                       <input type="text" name="tro_gia" value="0" class="form-control so" >
+                  </div>
+                  <span>*Thành tiền</span>
+                </div>
+                <div class="form-group">
+                  <label class="col-sm-3 control-label"></label>
+                  <div class="col-sm-6">
+                       <input type="text" name="phi_co_dinh" value="0" class="form-control so" >
+                  </div>
+                  <span>*Phí cố định</span>
+                </div>
+                <div class="form-group">
+                  <label class="col-sm-3 control-label"></label>
+                  <div class="col-sm-6">
+                       <input type="text" name="phi_vanchuyen" value="0" class="form-control so" >
+                  </div>
+                  <span>*Các loại phí khác</span>
+                </div>
+                <div class="form-group">
+                  <label class="col-sm-3 control-label"></label>
+                  <div class="col-sm-6">
+                       <input type="text" name="phi_co_dinh" value="0" class="form-control so" >
+                  </div>
+                  <span>*Thuế GTGT</span>
+                </div>
+                <div class="form-group">
+                  <label class="col-sm-3 control-label"></label>
+                  <div class="col-sm-6">
+                       <input type="text" name="phi_co_dinh" value="0" class="form-control so" >
+                  </div>
+                  <span>*Khoản WHT</span>
+                </div>
+                <div class="form-group">
+                  <label class="col-sm-3 control-label"></label>
+                  <div class="col-sm-6">
+                       <input type="text" name="phi_co_dinh" value="0" class="form-control so" >
+                  </div>
+                  <span>*Khoản thanh toán</span>
+                </div>
+>>>>>>> 125ed364586d3da629db58a5e1bbc34e84d50543
               </div>
               <div class="form-group">
                 <div style="margin: 0px 90%;">
