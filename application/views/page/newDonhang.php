@@ -1,3 +1,4 @@
+
 <div>
   <div class="content-wrapper">
   <h1>Thêm Đơn Hàng Mới</h1>
@@ -58,69 +59,174 @@
               <div class="form-group">
                   <label class="col-sm-3 control-label">Thông tin đơn hàng</label>
                   <div class="col-sm-6">
-                      <input type="hidden" id="statusDonhang" value="0" class="form-control" >
+                    <ul id="tabs" class="nav nav-tabs form-group" data-tabs="tabs">
+                        <li class="active"><a href="#red" data-toggle="tab">Sp 1 <span class="glyphicon glyphicon-remove remove-tab" onclick="removeTab()"></span></a></li>
+                        <li><a href="#orange" data-toggle="tab">Sp 2 <span class="glyphicon glyphicon-remove remove-tab" onclick="removeTab()"></span></a></li>
+                        <li class="add-tab"><a onclick="newTab()" data-toggle="tab"><span class="glyphicon glyphicon-plus"></span></a></li>
+                    </ul>
+                    <div id="my-tab-content" class="tab-content form-group">
+                        <div class="tab-pane active" id="red">
+                          <h1>Name</h1>
+                          <div class="form-group">
+                            <div class="col-sm-9">
+                                 <select class="form-control" name="status">
+                                   <option value="delivered">delivered</option>
+                                 </select>
+                            </div>
+                            <span>*Trạng thái</span>
+                          </div>
+                          <div class="form-group">
+                            <div class="col-sm-9">
+                                 <input type="text" name="ma_van_don"  class="form-control" >
+                            </div>
+                            <span>*Mã vận đơn</span>
+                          </div>
+                          <div class="form-group">
+                              <div class="col-sm-9">
+                                   <select class="form-control" name="phuongthuc_thanhtoan">
+                                     <option value="CashOnDelivery">CashOnDelivery</option>
+                                     <option value="Cybersource">Cybersource</option>
+                                     <option value="VN123Pay">VN123Pay</option>
+                                   </select>
+                              </div>
+                              <span>*Phương thức thanh toán</span>
+                          </div>
+                          <div class="form-group">
+                            <div class="col-sm-9">
+                                 <input type="text" name="sales_deliver" value="0" class="form-control so" >
+                            </div>
+                            <span>*Giá bán</span>
+                          </div>
+                          <div class="form-group">
+                            <div class="col-sm-9">
+                                 <input type="text" name="tro_gia" value="0" class="form-control so" >
+                            </div>
+                            <span>*Trợ giá</span>
+                          </div>
+                          <div class="form-group">
+                            <div class="col-sm-9">
+                                 <input type="text" name="phi_co_dinh" value="0" class="form-control so" >
+                            </div>
+                            <span>*Phí cố định</span>
+                          </div>
+                          <div class="form-group">
+                            <div class="col-sm-9">
+                                 <input type="text" name="phi_vanchuyen" value="0" class="form-control so" >
+                            </div>
+                            <span>*Phí vận chuyển</span>
+                          </div>
+                        </div>
+                        <div class="tab-pane" id="orange">
+                          <h1>Orange</h1>
+                          <div class="form-group">
+                            <div class="col-sm-9">
+                                 <select class="form-control" name="status">
+                                   <option value="delivered">delivered</option>
+                                 </select>
+                            </div>
+                            <span>*Trạng thái</span>
+                          </div>
+                          <div class="form-group">
+                            <div class="col-sm-9">
+                                 <input type="text" name="ma_van_don"  class="form-control" >
+                            </div>
+                            <span>*Mã vận đơn</span>
+                          </div>
+                          <div class="form-group">
+                              <div class="col-sm-9">
+                                   <select class="form-control" name="phuongthuc_thanhtoan">
+                                     <option value="CashOnDelivery">CashOnDelivery</option>
+                                     <option value="Cybersource">Cybersource</option>
+                                     <option value="VN123Pay">VN123Pay</option>
+                                   </select>
+                              </div>
+                              <span>*Phương thức thanh toán</span>
+                          </div>
+                          <div class="form-group">
+                            <div class="col-sm-9">
+                                 <input type="text" name="sales_deliver" value="0" class="form-control so" >
+                            </div>
+                            <span>*Giá bán</span>
+                          </div>
+                          <div class="form-group">
+                            <div class="col-sm-9">
+                                 <input type="text" name="tro_gia" value="0" class="form-control so" >
+                            </div>
+                            <span>*Trợ giá</span>
+                          </div>
+                          <div class="form-group">
+                            <div class="col-sm-9">
+                                 <input type="text" name="phi_co_dinh" value="0" class="form-control so" >
+                            </div>
+                            <span>*Phí cố định</span>
+                          </div>
+                          <div class="form-group">
+                            <div class="col-sm-9">
+                                 <input type="text" name="phi_vanchuyen" value="0" class="form-control so" >
+                            </div>
+                            <span>*Phí vận chuyển</span>
+                          </div>
+                        </div>
+                        <div class="tab-pane" id="yellow">
+                          <h1>Yellow</h1>
+                          <div class="form-group">
+                            <div class="col-sm-9">
+                                 <select class="form-control" name="status">
+                                   <option value="delivered">delivered</option>
+                                 </select>
+                            </div>
+                            <span>*Trạng thái</span>
+                          </div>
+                          <div class="form-group">
+                            <div class="col-sm-9">
+                                 <input type="text" name="ma_van_don"  class="form-control" >
+                            </div>
+                            <span>*Mã vận đơn</span>
+                          </div>
+                          <div class="form-group">
+                              <div class="col-sm-9">
+                                   <select class="form-control" name="phuongthuc_thanhtoan">
+                                     <option value="CashOnDelivery">CashOnDelivery</option>
+                                     <option value="Cybersource">Cybersource</option>
+                                     <option value="VN123Pay">VN123Pay</option>
+                                   </select>
+                              </div>
+                              <span>*Phương thức thanh toán</span>
+                          </div>
+                          <div class="form-group">
+                            <div class="col-sm-9">
+                                 <input type="text" name="sales_deliver" value="0" class="form-control so" >
+                            </div>
+                            <span>*Giá bán</span>
+                          </div>
+                          <div class="form-group">
+                            <div class="col-sm-9">
+                                 <input type="text" name="tro_gia" value="0" class="form-control so" >
+                            </div>
+                            <span>*Trợ giá</span>
+                          </div>
+                          <div class="form-group">
+                            <div class="col-sm-9">
+                                 <input type="text" name="phi_co_dinh" value="0" class="form-control so" >
+                            </div>
+                            <span>*Phí cố định</span>
+                          </div>
+                          <div class="form-group">
+                            <div class="col-sm-9">
+                                 <input type="text" name="phi_vanchuyen" value="0" class="form-control so" >
+                            </div>
+                            <span>*Phí vận chuyển</span>
+                          </div>
+                        </div>
+                    </div>
                   </div>
-                  <button class="btn btn-primary" id="btnDonhang"><i class="fa fa-angle-down" aria-hidden="true"></i></button>
               </div>
               <div id="donhang" style="display: none;">
-                <div class="form-group">
-                  <label class="col-sm-3 control-label"></label>
-                  <div class="col-sm-6">
-                       <select class="form-control" name="status">
-                         <option value="delivered">delivered</option>
-                       </select>
-                  </div>
-                  <span>*Trạng thái</span>
-                </div>
-                <div class="form-group">
-                  <label class="col-sm-3 control-label"></label>
-                  <div class="col-sm-6">
-                       <input type="text" name="ma_van_don"  class="form-control" >
-                  </div>
-                  <span>*Mã vận đơn</span>
-                </div>
-                <div class="form-group">
-                    <label class="col-sm-3 control-label"></label>
-                    <div class="col-sm-6">
-                         <select class="form-control" name="phuongthuc_thanhtoan">
-                           <option value="CashOnDelivery">CashOnDelivery</option>
-                           <option value="Cybersource">Cybersource</option>
-                           <option value="VN123Pay">VN123Pay</option>
-                         </select>
-                    </div>
-                    <span>*Phương thức thanh toán</span>
-                </div>
-                <div class="form-group">
-                  <label class="col-sm-3 control-label"></label>
-                  <div class="col-sm-6">
-                       <input type="text" name="sales_deliver" value="0" class="form-control so" >
-                  </div>
-                  <span>*Giá bán</span>
-                </div>
-                <div class="form-group">
-                  <label class="col-sm-3 control-label"></label>
-                  <div class="col-sm-6">
-                       <input type="text" name="tro_gia" value="0" class="form-control so" >
-                  </div>
-                  <span>*Trợ giá</span>
-                </div>
-                <div class="form-group">
-                  <label class="col-sm-3 control-label"></label>
-                  <div class="col-sm-6">
-                       <input type="text" name="phi_co_dinh" value="0" class="form-control so" >
-                  </div>
-                  <span>*Phí cố định</span>
-                </div>
-                <div class="form-group">
-                  <label class="col-sm-3 control-label"></label>
-                  <div class="col-sm-6">
-                       <input type="text" name="phi_vanchuyen" value="0" class="form-control so" >
-                  </div>
-                  <span>*Phí vận chuyển</span>
-                </div>
+                
+                
               </div>
               <div class="form-group">
-                <div style="margin: 0px 45%;">
+                <div style="margin: 0px 90%;">
                   <button type="button" class="btn btn-sm btn-info saveDH"  id="btn-add"> Lưu <span class="glyphicon glyphicon-saved"></span></button>
                 </div>
               </div>
@@ -208,10 +314,33 @@ $(document).ready(function() {
       })
       .fail(function() {
         console.log("error");
-      });
-      
-      
+      });   
     });
 });
+// function newTab(){
+//   var current = $('#tabs').children('li').length;
+//   $('#tabs').find(' > li:nth-last-child(1)').before('<li id="tab'+current+'"><a href="#tab'+current+'" data-toggle="tab">Sp '+current+' <span class="glyphicon glyphicon-remove remove-tab" onclick="removeTab('+current+')"></a></li>');
+//   $('#my-tab-content').find(' > div:nth-last-child(1)').after('<div class="tab-pane" id="tab'+current+'"><h1>Name '+current+'</h1><div class="form-group"><div class="col-sm-9"><select class="form-control" name="status"><option value="delivered">delivered</option></select></div><span>*Trạng thái</span></div><div class="form-group"><div class="col-sm-9"><input type="text" name="ma_van_don"  class="form-control" ></div><span>*Mã vận đơn</span></div><div class="form-group"><div class="col-sm-9"><select class="form-control" name="phuongthuc_thanhtoan"><option value="CashOnDelivery">CashOnDelivery</option><option value="Cybersource">Cybersource</option><option value="VN123Pay">VN123Pay</option></select></div><span>*Phương thức thanh toán</span></div><div class="form-group"><div class="col-sm-9"><input type="text" name="sales_deliver" value="0" class="form-control so" ></div><span>*Giá bán</span></div><div class="form-group"><div class="col-sm-9"><input type="text" name="tro_gia" value="0" class="form-control so" ></div><span>*Trợ giá</span></div><div class="form-group"><div class="col-sm-9"><input type="text" name="phi_co_dinh" value="0" class="form-control so" ></div><span>*Phí cố định</span></div><div class="form-group"><div class="col-sm-9"><input type="text" name="phi_vanchuyen" value="0" class="form-control so" ></div><span>*Phí vận chuyển</span></div></div>');
+// }
+// function removeTab(id){
+//   var elem = document.getElementById('tab'+id);
+//   elem.parentNode.removeChild(elem);
+// }
+$(".nav-tabs").on("click", "a", function(e){
+      e.preventDefault();
+      $(this).tab('show');
+    })
+    .on("click", "span", function () {
+        var anchor = $(this).siblings('a');
+        $(anchor.attr('href')).remove();
+        $(this).parent().remove();
+        $(".nav-tabs li").children('a').first().click();
+    });
 
+    $('.add-contact').click(function(e) {
+        e.preventDefault();
+        var id = $(".nav-tabs").children().length; //think about it ;)
+        $(this).closest('li').before('<li><a href="#contact_'+id+'">New Tab</a><span>x</span></li>');         
+        $('.tab-content').append('<div class="tab-pane" id="contact_'+id+'">Contact Form: New Contact '+id+'</div>');
+});
 </script>

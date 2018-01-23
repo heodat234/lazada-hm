@@ -1,3 +1,10 @@
 .btn {
 	text-transform: none;
 }
+.remove-tab:hover {
+	background-color: #df7474;
+	cursor: pointer;
+}
+.add-tab:hover {
+	cursor: pointer;
+}
