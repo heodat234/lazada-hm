@@ -23,25 +23,27 @@
                 </div>
               </div>
               <div class="form-group">
-                  <label class="col-sm-3 control-label">Mã món hàng</label>
-                  <div class="col-sm-6">
-                       <input type="text" name="id_monhang" class="form-control" placeholder="Mã món hàng" >
-                  </div>
+                <label class="col-sm-3 control-label">Mã vận chuyển</label>
+                <div class="col-sm-6">
+                     <input type="text" name="id_delivery" id="id_delivery" class="form-control" placeholder="Nhập mã vận chuyển" required="">
+                </div>
               </div>
               <div class="form-group">
-                  <label class="col-sm-3 control-label">Chọn sản phẩm</label>
+                <label class="col-sm-3 control-label">Trạng thái</label>
+                <div class="col-sm-6">
+                     <select class="form-control" name="status">
+                       <option value="delivered">delivered</option>
+                     </select>
+                </div>
+              </div>
+              <div class="form-group">
+                  <label class="col-sm-3 control-label">P.T Thanh toán</label>
                   <div class="col-sm-6">
-                      <select id="decalpriceform-decaltype" class="form-control" name="id_sanpham" required="" aria-required="true">
-                      <option selected hidden disabled value="">Chọn sản phẩm</option>
-                      <?php
-                      if(!$sanpham) echo "<option value='0'>Empty</option>";
-                      else{
-                        foreach ($sanpham as $sp) {
-                          echo "<option value='".$sp['id_sanpham']."' >".$sp['ten_sanpham']."</option>";
-                        }
-                      }
-                      ?>
-                      </select>
+                       <select class="form-control" name="phuongthuc_thanhtoan">
+                         <option value="CashOnDelivery">CashOnDelivery</option>
+                         <option value="Cybersource">Cybersource</option>
+                         <option value="VN123Pay">VN123Pay</option>
+                       </select>
                   </div>
               </div>
               <div class="form-group">
@@ -55,7 +57,23 @@
                   <div class="col-md-6">
                      <input type="tel" pattern="[0-9]{10,11}"  title="10-11 chữ số." name="phone" class="form-control" placeholder="Số điện thoại" >
                   </div>
-              </div>                                
+              </div>     
+              <div id="product-list" style="display: none;">
+                <div class="col-sm-9">
+                    <select id="decalpriceform-decaltype" class="form-control" name="id_sanpham" required="" aria-required="true">
+                    <option selected hidden disabled value="">Chọn sản phẩm</option>
+                    <?php
+                    if(!$sanpham) echo "<option value='0'>Empty</option>";
+                    else{
+                      foreach ($sanpham as $sp) {
+                        echo "<option value='".$sp['id_sanpham']."' >".$sp['ten_sanpham']."</option>";
+                      }
+                    }
+                    ?>
+                    </select>
+                </div>
+                <span>*Sản phẩm</span>
+              </div>                           
               <div class="form-group">
                   <label class="col-sm-3 control-label">Thông tin đơn hàng</label>
                   <div class="col-sm-6">
@@ -67,50 +85,48 @@
                         <div class="tab-pane active" id="contact_01">
                           <h1>Sản phẩm 1</h1>
                           <div class="form-group">
-                            <div class="col-sm-9">
-                                 <select class="form-control" name="status">
-                                   <option value="delivered">delivered</option>
-                                 </select>
-                            </div>
-                            <span>*Trạng thái</span>
-                          </div>
-                          <div class="form-group">
-                            <div class="col-sm-9">
-                                 <input type="text" name="ma_van_don"  class="form-control" >
-                            </div>
-                            <span>*Mã vận đơn</span>
-                          </div>
-                          <div class="form-group">
                               <div class="col-sm-9">
-                                   <select class="form-control" name="phuongthuc_thanhtoan">
-                                     <option value="CashOnDelivery">CashOnDelivery</option>
-                                     <option value="Cybersource">Cybersource</option>
-                                     <option value="VN123Pay">VN123Pay</option>
-                                   </select>
+                                  <select id="decalpriceform-decaltype" class="form-control" name="id_sanpham_1" required="" aria-required="true">
+                                  <option selected hidden disabled value="">Chọn sản phẩm</option>
+                                  <?php
+                                  if(!$sanpham) echo "<option value='0'>Empty</option>";
+                                  else{
+                                    foreach ($sanpham as $sp) {
+                                      echo "<option value='".$sp['id_sanpham']."' >".$sp['ten_sanpham']."</option>";
+                                    }
+                                  }
+                                  ?>
+                                  </select>
                               </div>
-                              <span>*Phương thức thanh toán</span>
+                              <span>*Sản phẩm</span>
                           </div>
                           <div class="form-group">
                             <div class="col-sm-9">
-                                 <input type="text" name="sales_deliver" value="0" class="form-control so" >
+                                 <input type="text" name="qty_1" value="0" class="form-control so" >
+                            </div>
+                            <span>*Số lượng</span>
+                          </div>
+                          <div class="form-group">
+                            <div class="col-sm-9">
+                                 <input type="text" name="sales_deliver_1" value="0" class="form-control so" >
                             </div>
                             <span>*Giá bán</span>
                           </div>
                           <div class="form-group">
                             <div class="col-sm-9">
-                                 <input type="text" name="tro_gia" value="0" class="form-control so" >
+                                 <input type="text" name="tro_gia_1" value="0" class="form-control so" >
                             </div>
                             <span>*Trợ giá</span>
                           </div>
                           <div class="form-group">
                             <div class="col-sm-9">
-                                 <input type="text" name="phi_co_dinh" value="0" class="form-control so" >
+                                 <input type="text" name="phi_co_dinh_1" value="0" class="form-control so" >
                             </div>
                             <span>*Phí cố định</span>
                           </div>
                           <div class="form-group">
                             <div class="col-sm-9">
-                                 <input type="text" name="phi_vanchuyen" value="0" class="form-control so" >
+                                 <input type="text" name="phi_vanchuyen_1" value="0" class="form-control so" >
                             </div>
                             <span>*Phí vận chuyển</span>
                           </div>
@@ -212,15 +228,6 @@ $(document).ready(function() {
       });   
     });
 });
-// function newTab(){
-//   var current = $('#tabs').children('li').length;
-//   $('#tabs').find(' > li:nth-last-child(1)').before('<li id="tab'+current+'"><a href="#tab'+current+'" data-toggle="tab">Sp '+current+' <span class="glyphicon glyphicon-remove remove-tab" onclick="removeTab('+current+')"></a></li>');
-//   $('#my-tab-content').find(' > div:nth-last-child(1)').after('<div class="tab-pane" id="tab'+current+'"><h1>Name '+current+'</h1><div class="form-group"><div class="col-sm-9"><select class="form-control" name="status"><option value="delivered">delivered</option></select></div><span>*Trạng thái</span></div><div class="form-group"><div class="col-sm-9"><input type="text" name="ma_van_don"  class="form-control" ></div><span>*Mã vận đơn</span></div><div class="form-group"><div class="col-sm-9"><select class="form-control" name="phuongthuc_thanhtoan"><option value="CashOnDelivery">CashOnDelivery</option><option value="Cybersource">Cybersource</option><option value="VN123Pay">VN123Pay</option></select></div><span>*Phương thức thanh toán</span></div><div class="form-group"><div class="col-sm-9"><input type="text" name="sales_deliver" value="0" class="form-control so" ></div><span>*Giá bán</span></div><div class="form-group"><div class="col-sm-9"><input type="text" name="tro_gia" value="0" class="form-control so" ></div><span>*Trợ giá</span></div><div class="form-group"><div class="col-sm-9"><input type="text" name="phi_co_dinh" value="0" class="form-control so" ></div><span>*Phí cố định</span></div><div class="form-group"><div class="col-sm-9"><input type="text" name="phi_vanchuyen" value="0" class="form-control so" ></div><span>*Phí vận chuyển</span></div></div>');
-// }
-// function removeTab(id){
-//   var elem = document.getElementById('tab'+id);
-//   elem.parentNode.removeChild(elem);
-// }
 $(document).ready(function(){
 
 $(".nav-tabs").on("click", "a", function(e){
@@ -233,14 +240,14 @@ $(".nav-tabs").on("click", "a", function(e){
         $(this).parent().remove();
         $(".nav-tabs >li").children('a').first().click();
     });
-
   $('.add-contact').click(function(e) {
       e.preventDefault();
       var id = $(".nav-tabs").children().length; //think about it ;)
+      var product_list = $('#product-list').html();
       $(this).parent().removeClass("active");
       $(this).closest('li').before('<li class="active"><a href="#contact_'+id+'">Sản phẩm '+id+'</a><span class="glyphicon glyphicon-remove remove-tab"></span></li>');
       $(".tab-content >div").removeClass("active");  
-      $('.tab-content').append('<div class="tab-pane active" id="contact_'+id+'"><h1>Sản phẩm '+id+'</h1><div class="form-group"><div class="col-sm-9"><select class="form-control" name="status"><option value="delivered">delivered</option></select></div><span>*Trạng thái</span></div><div class="form-group"><div class="col-sm-9"><input type="text" name="ma_van_don"  class="form-control" ></div><span>*Mã vận đơn</span></div><div class="form-group"><div class="col-sm-9"><select class="form-control" name="phuongthuc_thanhtoan"><option value="CashOnDelivery">CashOnDelivery</option><option value="Cybersource">Cybersource</option><option value="VN123Pay">VN123Pay</option></select></div><span>*Phương thức thanh toán</span></div><div class="form-group"><div class="col-sm-9"><input type="text" name="sales_deliver" value="0" class="form-control so" ></div><span>*Giá bán</span></div><div class="form-group"><div class="col-sm-9"><input type="text" name="tro_gia" value="0" class="form-control so" ></div><span>*Trợ giá</span></div><div class="form-group"><div class="col-sm-9"><input type="text" name="phi_co_dinh" value="0" class="form-control so" ></div><span>*Phí cố định</span></div><div class="form-group"><div class="col-sm-9"><input type="text" name="phi_vanchuyen" value="0" class="form-control so" ></div><span>*Phí vận chuyển</span></div></div>');
+      $('.tab-content').append('<div class="tab-pane active" id="contact_'+id+'"><h1>Sản phẩm '+id+'</h1><div class="form-group">'+product_list.replace('id_sanpham','id_sanpham'+id)+'</div><div class="form-group"><div class="col-sm-9"><input type="text" name="qty_'+id+'" value="0" class="form-control so" ></div><span>*Số lượng</span></div><div class="form-group"><div class="col-sm-9"><input type="text" name="sales_deliver_'+id+'" value="0" class="form-control so" ></div><span>*Giá bán</span></div><div class="form-group"><div class="col-sm-9"><input type="text" name="tro_gia_'+id+'" value="0" class="form-control so" ></div><span>*Trợ giá</span></div><div class="form-group"><div class="col-sm-9"><input type="text" name="phi_co_dinh_'+id+'" value="0" class="form-control so" ></div><span>*Phí cố định</span></div><div class="form-group"><div class="col-sm-9"><input type="text" name="phi_vanchuyen_'+id+'" value="0" class="form-control so" ></div><span>*Phí vận chuyển</span></div></div>');
 });
 });
 </script>
