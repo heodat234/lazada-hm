@@ -126,49 +126,49 @@ class Donhang extends CI_Controller {
             if (substr($commission, 0,1) == '-') 
                     $commission = trim($commission,'-');
 
-            $sum_of_fee = $objWorksheet->getCellByColumnAndRow(29,$row)->getCalculatedValue();
+            $phi_khac  = $objWorksheet->getCellByColumnAndRow(17,$row)->getValue() + $objWorksheet->getCellByColumnAndRow(19,$row)->getValue();
+            // $sum_of_fee = $objWorksheet->getCellByColumnAndRow(29,$row)->getCalculatedValue();
             $gia_nhap   = $objWorksheet->getCellByColumnAndRow(13,$row)->getCalculatedValue();
-            if (substr($sum_of_fee, 0,1) == '-') 
-                    $sum_of_fee = trim($sum_of_fee,'-');
+            
 
             $id_sanpham = $objWorksheet->getCellByColumnAndRow(2,$row)->getValue();
             $ten_sanpham = $objWorksheet->getCellByColumnAndRow(3,$row)->getValue();
 
-            $data = array(
+            $master = array(
                 'id_donhang'            => $objWorksheet->getCellByColumnAndRow(0,$row)->getValue(),
-                'id_monhang'            => $objWorksheet->getCellByColumnAndRow(1,$row)->getValue(),
-                'id_sanpham'            => $id_sanpham,
-                'item_name'             => $ten_sanpham,
-                'ten_khachhang'         => $objWorksheet->getCellByColumnAndRow(4,$row)->getValue(),
-                'phone'                 => $objWorksheet->getCellByColumnAndRow(5,$row)->getValue(),
-                'created_at'            => $objWorksheet->getCellByColumnAndRow(6,$row)->getValue(),
-                'status'                => $objWorksheet->getCellByColumnAndRow(7,$row)->getValue(),
+                'type_bill'             => 'Hàng Lazada',                
+                'order_day'             => $objWorksheet->getCellByColumnAndRow(6,$row)->getValue(),
+                'payment_status'        => $objWorksheet->getCellByColumnAndRow(7,$row)->getValue(),
                 'updated_at'            => $objWorksheet->getCellByColumnAndRow(8,$row)->getValue(),
-                'ma_van_don'            => $objWorksheet->getCellByColumnAndRow(9,$row)->getValue(),
-                'phuongthuc_giaohang'   => $objWorksheet->getCellByColumnAndRow(10,$row)->getValue(),
-                'phuongthuc_thanhtoan'  => $objWorksheet->getCellByColumnAndRow(11,$row)->getValue(),
-                'sales_deliver'         => $objWorksheet->getCellByColumnAndRow(12,$row)->getValue(),
-                'sales_return'          => $gia_nhap,
-                'tro_gia'               => $objWorksheet->getCellByColumnAndRow(17,$row)->getValue(),
-                'commission'            => $commission,
-                'customer_shipping_fee' => $objWorksheet->getCellByColumnAndRow(19,$row)->getValue(),
-                'phi_boi_thuong'        => $objWorksheet->getCellByColumnAndRow(28,$row)->getValue(),
-                'sum_of_fee'            => $sum_of_fee,
+                // 'ma_van_don'            => $objWorksheet->getCellByColumnAndRow(9,$row)->getValue(),
+                'payment_status'        => $objWorksheet->getCellByColumnAndRow(10,$row)->getValue(),
+                'payment_method'        => $objWorksheet->getCellByColumnAndRow(11,$row)->getValue(),
+                'other_cost'            => $phi_khac,
+            );
+            $detail = array(
+                'id_product' => $objWorksheet->getCellByColumnAndRow(1,$row)->getValue(), 
+                'id_sku_seller'         => $id_sanpham,
+                'price'                 => $objWorksheet->getCellByColumnAndRow(12,$row)->getValue(),
+                'cost'                  => $commission,
+            );
+            $customer = array(
+                'name'                  => $objWorksheet->getCellByColumnAndRow(4,$row)->getValue(),
+                'phone'                 => $objWorksheet->getCellByColumnAndRow(5,$row)->getValue(),
             );
             $this->Donhang_model->insert_donhang($data);
 
             $array = array(
-                'id_sanpham'        => $id_sanpham,
-                'ten_sanpham'       => $ten_sanpham,
-                'gia_nhap'          => $gia_nhap,
-                'so_luong_ban'      => 1,
+                'id_product'        => $id_sanpham,
+                'name'              => $ten_sanpham,
+                'price'             => $gia_nhap,
+                'export_qty'        => 1,
             );
             if ($this->Sanpham_model->checkSanpham($id_sanpham) == false) {
                 $this->Sanpham_model->insert_sanpham($array);
             }else{
                 $sp = $this->Sanpham_model->checkSanpham($id_sanpham);
-                $so_luong_ban   = $sp['so_luong_ban'];
-                $_data['so_luong_ban'] = $so_luong_ban +1;
+                $so_luong_ban   = $sp['export_qty'];
+                $_data['export_qty'] = $so_luong_ban +1;
                 $this->Sanpham_model->edit_sanpham( $id_sanpham, $_data);
             }
         }

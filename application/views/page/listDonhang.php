@@ -156,7 +156,7 @@
                   <div class="form-group">
                      <div><b>Thêm bằng file Excel</b></div>
                      <div class="input-group">
-                      <button class="btn_margin_bottom btn btn-success btn_quick_filter" onclick="addFile()"><i class="fa fa-plus"></i> Thêm bằng file Excel</button> 
+                      <button type="button" class="btn_margin_bottom btn btn-success btn_quick_filter" onclick="addFile()"><i class="fa fa-plus"></i> Thêm bằng file Excel</button> 
                      </div>
                   </div>
                </div>
