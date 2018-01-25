@@ -45,7 +45,7 @@ class Donhang extends CI_Controller {
     public function insertDonhang()
     {
         $post = $this->input->post();
-        
+        var_dump($post);
 
         $master = array(
                 'id_donhang'            => $post['id_donhang'],
@@ -57,7 +57,7 @@ class Donhang extends CI_Controller {
                 'deliv_day'             => $post['deliv_day'],
                 
         );
-        $this->Donhang_model->insert_master($master);
+        // $this->Donhang_model->insert_master($master);
 
 
 
@@ -73,10 +73,10 @@ class Donhang extends CI_Controller {
             'acc_wht'               => unNumber_Format($post['khoan_gtgt']),
             'acc_payment'           => unNumber_Format($post['khoan_thanhtoan']),
         );
-        $this->Donhang_model->insert_detail($detail);
+        // $this->Donhang_model->insert_detail($detail);
        
 
-        redirect(base_url('donhang'));
+        // redirect(base_url('donhang'));
     }
     public function addDonhangExcel() 
     {
