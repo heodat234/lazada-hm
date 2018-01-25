@@ -92,7 +92,7 @@
                           <h1>Sản phẩm 1</h1>
                           <div class="form-group">
                               <div class="col-sm-9">
-                                  <select id="decalpriceform-decaltype" class="form-control" name="id_sanpham[1]" required="" aria-required="true">
+                                  <select id="decalpriceform-decaltype" class="form-control" name="product[1][id_sanpham]" required="" aria-required="true">
                                   <option selected hidden disabled value="">Chọn sản phẩm</option>
                                   <?php
                                   if(!$sanpham) echo "<option value='0'>Empty</option>";
@@ -108,49 +108,49 @@
                           </div>
                           <div class="form-group">
                             <div class="col-sm-9">
-                                 <input type="text" name="qty[1]" value="0" class="form-control so" >
+                                 <input type="text" name="product[1][qty]" value="0" class="form-control so" >
                             </div>
                             <span>*Số lượng</span>
                           </div>
                           <div class="form-group">
                             <div class="col-sm-9">
-                                 <input type="text" name="sales_deliver[1]" value="0" class="form-control so" >
+                                 <input type="text" name="product[1][sales_deliver]" value="0" class="form-control so" >
                             </div>
                             <span>*Giá bán</span>
                           </div>
                           <div class="form-group">
                             <div class="col-sm-9">
-                                 <input type="text" name="phi_co_dinh[1]" value="0" class="form-control so" >
+                                 <input type="text" name="product[1][phi_co_dinh]" value="0" class="form-control so" >
                             </div>
                             <span>*Phí cố định</span>
                           </div>
                           <div class="form-group">
                             <div class="col-sm-9">
-                                 <input type="text" name="phi_khac[1]" value="0" class="form-control so" >
+                                 <input type="text" name="product[1][phi_khac]" value="0" class="form-control so" >
                             </div>
                             <span>*Phí khác</span>
                           </div>
                           <div class="form-group">
                             <div class="col-sm-9">
-                                 <input type="text" name="phi_gtgt[1]" value="0" class="form-control so" >
+                                 <input type="text" name="product[1][phi_gtgt]" value="0" class="form-control so" >
                             </div>
                             <span>*Phí GTGT</span>
                           </div>
                           <div class="form-group">
                             <div class="col-sm-9">
-                                 <input type="text" name="khoan_wht[1]" value="0" class="form-control so" >
+                                 <input type="text" name="product[1][khoan_wht]" value="0" class="form-control so" >
                             </div>
                             <span>*Khoản WHT</span>
                           </div>
                           <div class="form-group">
                             <div class="col-sm-9">
-                                 <input type="text" name="khoan_thanh_toan[1]" value="0" class="form-control so" >
+                                 <input type="text" name="product[1][khoan_thanh_toan]" value="0" class="form-control so" >
                             </div>
                             <span>*Khoản thanh toán</span>
                           </div>
                           <div class="form-group">
                             <div class="col-sm-9">
-                                 <input type="text" name="phi_vanchuyen[1]" value="0" class="form-control so" >
+                                 <input type="text" name="product[1][phi_vanchuyen]" value="0" class="form-control so" >
                             </div>
                             <span>*Phí vận chuyển</span>
                           </div>
@@ -271,7 +271,7 @@ $(".nav-tabs").on("click", "a", function(e){
       $(this).parent().removeClass("active");
       $(this).closest('li').before('<li class="active"><a href="#contact_'+id+'">Sản phẩm '+id+'</a><span class="glyphicon glyphicon-remove remove-tab"></span></li>');
       $(".tab-content >div").removeClass("active");  
-      $('.tab-content').append('<div class="tab-pane active" id="contact['+id+']"><h1>Sản phẩm '+id+'</h1><div class="form-group">'+product_list.replace('id_sanpham','id_sanpham['+id+']')+'</div><div class="form-group"><div class="col-sm-9"><input type="text" name="qty['+id+']" value="0" class="form-control so" ></div><span>*Số lượng</span></div><div class="form-group"><div class="col-sm-9"><input type="text" name="sales_deliver['+id+']" value="0" class="form-control so" ></div><span>*Giá bán</span></div><div class="form-group"><div class="col-sm-9"><input type="text" name="phi_co_dinh['+id+']" value="0" class="form-control so" ></div><span>*Phí cố định</span></div><div class="form-group"><div class="col-sm-9"><input type="text" name="phi_khac['+id+']" value="0" class="form-control so" ></div><span>*Phí khác</span></div><div class="form-group"><div class="col-sm-9"><input type="text" name="phi_gtgt['+id+']" value="0" class="form-control so" ></div><span>*Phí GTGT</span></div><div class="form-group"><div class="col-sm-9"><input type="text" name="khoan_wht['+id+']" value="0" class="form-control so" ></div><span>*Khoản WHT</span></div><div class="form-group"><div class="col-sm-9"><input type="text" name="khoan_thanh_toan['+id+']" value="0" class="form-control so" ></div><span>*Khoản thanh toán</span></div><div class="form-group"><div class="col-sm-9"><input type="text" name="phi_vanchuyen['+id+']" value="0" class="form-control so" ></div><span>*Phí vận chuyển</span></div></div>');
+      $('.tab-content').append('<div class="tab-pane active" id="contact_'+id+'"><h1>Sản phẩm '+id+'</h1><div class="form-group">'+product_list.replace('name="id_sanpham"','name="product['+id+'][id_sanpham]"')+'</div><div class="form-group"><div class="col-sm-9"><input type="text" name="product['+id+'][qty]" value="0" class="form-control so" ></div><span>*Số lượng</span></div><div class="form-group"><div class="col-sm-9"><input type="text" name="product['+id+'][sales_deliver]" value="0" class="form-control so" ></div><span>*Giá bán</span></div><div class="form-group"><div class="col-sm-9"><input type="text" name="product['+id+'][phi_co_dinh]" value="0" class="form-control so" ></div><span>*Phí cố định</span></div><div class="form-group"><div class="col-sm-9"><input type="text" name="product['+id+'][phi_khac]" value="0" class="form-control so" ></div><span>*Phí khác</span></div><div class="form-group"><div class="col-sm-9"><input type="text" name="product['+id+'][phi_gtgt]" value="0" class="form-control so" ></div><span>*Phí GTGT</span></div><div class="form-group"><div class="col-sm-9"><input type="text" name="product['+id+'][khoan_wht]" value="0" class="form-control so" ></div><span>*Khoản WHT</span></div><div class="form-group"><div class="col-sm-9"><input type="text" name="product['+id+'][khoan_thanh_toan]" value="0" class="form-control so" ></div><span>*Khoản thanh toán</span></div><div class="form-group"><div class="col-sm-9"><input type="text" name="product['+id+'][phi_vanchuyen]" value="0" class="form-control so" ></div><span>*Phí vận chuyển</span></div></div>');
 });
 });
 </script>
