@@ -58,7 +58,7 @@
               <button type="button" class="btn btn-box-tool thuphong" data-widget="collapse"><i class="fa fa-minus"></i></button>
             </h3>
             <div class="row" style="margin-top: 10px;">
-              <div class="col-sm-3">
+              <!-- <div class="col-sm-3">
                 <h5>Số lượng đơn hàng: <strong class="label label-info"><?php echo number_format($thongke[0]['qty']) ?></strong></h5>
               </div>
               <div class="col-sm-3">
@@ -69,7 +69,7 @@
               </div>
               <div class="col-sm-3">
                 <h5>Lợi nhuận: <strong class="label label-danger"><?php echo number_format($thongke[0]['doanhthu'] - $thongke[0]['chiphi']) ?></strong></h5>
-              </div>
+              </div> -->
             </div>
           </div>
           <div class="animate_1">
@@ -79,22 +79,12 @@
                   <tr>
                     <th class="col-data-table-0-2"></th>
                     <th class="col-data-table-0-7">Mã đơn hàng</th>
-                    <th class="col-data-table-0-7">Mã món hàng</th>
-                    <th class="col-data-table-0-7">Mã sản phẩm</th>
-                    <th class="col-data-table-1-7">Tên sản phẩm</th>
-                    <th class="col-data-table-1-7">Tên khách hàng</th>
-                    <th class="col-data-table-1-2">Số điện thoại</th>
-                    <th class="col-data-table-0-7">Trạng thái</th>
-                    <th class="col-data-table-1-7">Mã vận đơn</th>
-                    <th class="col-data-table-1-7">Ngày tạo</th>
-                    <th class="col-data-table-1-7">Phương thức giao hàng</th>
+                    <th class="col-data-table-0-7">Loại đơn hàng</th>
+                    <th class="col-data-table-0-7">Trạng thái đơn hàng</th>
+                    <th class="col-data-table-1-7">Ngày đặt hàng</th>
+                    <th class="col-data-table-1-7">Ngày giao hàng</th>
                     <th class="col-data-table-1-7">Phương thức thanh toán</th>
-                    <th class="col-data-table-1-7">DT hàng giao thành công</th>
-                    <th class="col-data-table-1-7">DT hàng bán bị trả lại</th>
-                    <th class="col-data-table-0-7">Trợ giá</th>
-                    <th class="col-data-table-0-7">Phí cố định</th>
-                    <th class="col-data-table-0-7">Phí vận chuyển thu của khách hàng</th>
-                    <th class="col-data-table-0-7">Tổng các loại phí</th>
+                    <th class="col-data-table-1-7">Tình trạng thanh toán</th>
                     <th class="col-data-table-0-7">Thao tác</th>
                   </tr>
                 </thead>
@@ -102,23 +92,13 @@
                   <?php foreach ($donhang as $row): ?>
                       <tr>
                         <td></td>
-                        <td><?php echo $row['id_donhang'] ?></td>
-                        <td><?php echo $row['id_monhang'] ?></td>
-                        <td><?php echo $row['id_sanpham'] ?></td>
-                        <td><?php echo $row['item_name'] ?></td>
-                        <td><?php echo $row['ten_khachhang'] ?></td>
-                        <td><?php echo $row['phone'] ?></td>
-                        <td><?php echo $row['status'] ?></td>
-                        <td><?php echo $row['ma_van_don'] ?></td>
-                        <td><?php echo date('d-m-Y H:i:s',strtotime($row['created_at'])) ?></td>
-                        <td><?php echo $row['phuongthuc_giaohang'] ?></td>
-                        <td><?php echo $row['phuongthuc_thanhtoan'] ?></td>
-                        <td><?php echo number_format($row['sales_deliver']) ?></td>
-                        <td><?php echo number_format($row['sales_return']) ?></td>
-                        <td><?php echo number_format($row['tro_gia']) ?></td>
-                        <td><?php echo number_format($row['commission']) ?></td>
-                        <td><?php echo number_format($row['customer_shipping_fee']) ?></td>
-                        <td><?php echo number_format($row['sum_of_fee']) ?></td>
+                        <td><?php echo $row['id_bill'] ?></td>
+                        <td><?php echo $row['type_bill'] ?></td>
+                        <td><?php echo $row['bill_status'] ?></td>
+                        <td><?php echo date('d-m-Y H:i:s',strtotime($row['orday_day'])) ?></td>
+                         <td><?php echo date('d-m-Y H:i:s',strtotime($row['deliv_day'])) ?></td>
+                        <td><?php echo $row['payment_method'] ?></td>
+                        <td><?php echo $row['payment_status'] ?></td>
                         <td><!-- <button class="btn btn-primary btn-flat" data-toggle="modal" data-id='<?php echo $row['id_donhang'];?>' data-target="#addPrice"><i class="fa fa-lg fa-edit"></i>Thêm giá bán</button> --></td>
                       </tr>                    
                   <?php endforeach;?>

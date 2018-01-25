@@ -2,7 +2,7 @@
 class Sanpham_model extends CI_Model{
 	
 	/* Gán tên bảng cần xử lý*/
-	private $_name = 'sanpham';
+	private $_name = 'product';
 	
 	function __construct(){
         parent::__construct();
@@ -10,7 +10,7 @@ class Sanpham_model extends CI_Model{
     } 
     function checkSanpham( $id_sp ){
         $sp =   $this->db->select()
-                            ->where('id_sanpham', $id_sp)
+                            ->where('id_product', $id_sp)
                             ->get($this->_name)
                             ->row_array();
         if(count($sp) >0){
@@ -30,7 +30,7 @@ class Sanpham_model extends CI_Model{
         $sanpham = $this->db->insert($this->_name,$data);
     }
     function edit_sanpham($id,$data){
-        $sanpham = $this->db->where('id_sanpham',$id)->update($this->_name,$data); 
+        $sanpham = $this->db->where('id_product',$id)->update($this->_name,$data); 
     }
     function loc_donhang($match)
     {

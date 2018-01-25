@@ -20,9 +20,9 @@ class Donhang extends CI_Controller {
          {
             $match= '';
             $data['donhang'] = $this->Donhang_model->list_donhang();
-            $data['thongke'] = $this->Donhang_model->thongke_donhang($match);
+            // $data['thongke'] = $this->Donhang_model->thongke_donhang($match);
             $this->cache->save('donhang', $data['donhang'], 600);
-            $this->cache->save('thongke', $data['thongke'], 600);
+            // $this->cache->save('thongke', $data['thongke'], 600);
          }
         $this->_data['html_body'] = $this->load->view('page/listDonhang',$data,true); 	        
 		return $this->load->view('home/master', $this->_data);
@@ -46,9 +46,7 @@ class Donhang extends CI_Controller {
     {
         $post = $this->input->post();
         // var_dump($post['product']);
-        if ($this->checkDonhang($post['id_bill'])) {
-            redirect_back();  
-        }
+        
         $master = array(
                 'id_bill'               => $post['id_bill'],
                 'type_bill'             => $post['type_bill'],
@@ -59,7 +57,7 @@ class Donhang extends CI_Controller {
                 'deliv_day'             => $post['deliv_day'],
                 
         );
-        // $this->Donhang_model->insert_master($master);
+        $this->Donhang_model->insert_master($master);
 
 
         for ($i=0; $i < count($post['product']) ; $i++) { 
@@ -187,7 +185,7 @@ class Donhang extends CI_Controller {
             'created_at <='=>$post['to']
         );
         $data['donhang'] = $this->Donhang_model->loc_donhang($match);
-        $data['thongke'] = $this->Donhang_model->thongke_donhang($match);
+        // $data['thongke'] = $this->Donhang_model->thongke_donhang($match);
         $data['start']      = $post['from'];
         $data['end']        = $post['to'];
         $this->_data['html_body'] = $this->load->view('page/listDonhang',$data,true);           
