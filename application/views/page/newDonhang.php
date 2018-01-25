@@ -23,16 +23,25 @@
                 </div>
               </div>
               <div class="form-group">
-                <label class="col-sm-3 control-label">Mã vận chuyển</label>
-                <div class="col-sm-6">
-                     <input type="text" name="id_delivery" id="id_delivery" class="form-control" placeholder="Nhập mã vận chuyển" required="">
-                </div>
+                  <label class="col-sm-3 control-label">Loại đơn hàng</label>
+                  <div class="col-sm-6">
+                       <select class="form-control" name="phuongthuc_thanhtoan">
+                         <option value="1">Hàng Lazada</option>
+                         <option value="2">Hàng Shopee</option>
+                         <option value="3">Hàng bỏ sỉ</option>
+                         <option value="4">Hàng bán lẻ</option>
+                       </select>
+                  </div>
               </div>
+              
               <div class="form-group">
                 <label class="col-sm-3 control-label">Trạng thái</label>
                 <div class="col-sm-6">
                      <select class="form-control" name="status">
-                       <option value="delivered">delivered</option>
+                       <option value="1">Đang giao hàng</option>
+                       <option value="2">Đã giao hàng</option>
+                       <option value="3">Trả lại</option>
+                       <option value="4">Đã nhận hàng trả</option>
                      </select>
                 </div>
               </div>
@@ -47,17 +56,14 @@
                   </div>
               </div>
               <div class="form-group">
-                  <label class="col-sm-3 control-label">Tên khách hàng</label>
+                  <label class="col-sm-3 control-label">Trạng thái Thanh toán</label>
                   <div class="col-sm-6">
-                       <input type="text" name="ten_khachhang" class="form-control" placeholder="Tên khách hàng" >
+                       <select class="form-control" name="phuongthuc_thanhtoan">
+                         <option value="1">Chờ thanh toán</option>
+                         <option value="2">Đã thanh toán</option>
+                       </select>
                   </div>
-              </div>
-              <div class="form-group">
-                  <div class="col-md-3 control-label">Số điện thoại</div>
-                  <div class="col-md-6">
-                     <input type="tel" pattern="[0-9]{10,11}"  title="10-11 chữ số." name="phone" class="form-control" placeholder="Số điện thoại" >
-                  </div>
-              </div>     
+              </div>    
               <div id="product-list" style="display: none;">
                 <div class="col-sm-9">
                     <select id="decalpriceform-decaltype" class="form-control" name="id_sanpham" required="" aria-required="true">
