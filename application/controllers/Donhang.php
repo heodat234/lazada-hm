@@ -83,14 +83,7 @@ class Donhang extends CI_Controller {
             );
             $this->Donhang_model->insert_detail($detail);
         }
-<<<<<<< HEAD
-        // redirect(base_url('donhang'));
-=======
-        
-       
-
         redirect(base_url('donhang'));
->>>>>>> 0a749c568f736dcf1907cdc3bc87bc73eebdc24e
     }
     public function addDonhangExcel() 
     {
