@@ -34,6 +34,13 @@ class Donhang extends CI_Controller {
         $this->_data['html_body'] = $this->load->view('page/newDonhang',$data,true);           
         return $this->load->view('home/master', $this->_data);
     }
+    public function editDonhang($id_product)
+    {   
+        // $data['donhang'] = $this->Donhang_model->list_donhang();
+        $data['sanpham'] = $this->Sanpham_model->list_sanpham();
+        $this->_data['html_body'] = $this->load->view('page/newDonhang',$data,true);           
+        return $this->load->view('home/master', $this->_data);
+    }
     public function checkDonhang()
     {
         $id_donhang = $this->input->post('id');
@@ -76,9 +83,6 @@ class Donhang extends CI_Controller {
             );
             // $this->Donhang_model->insert_detail($detail);
         }
-        
-       
-
         // redirect(base_url('donhang'));
     }
     public function addDonhangExcel() 
