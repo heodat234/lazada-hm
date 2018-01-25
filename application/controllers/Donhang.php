@@ -45,33 +45,37 @@ class Donhang extends CI_Controller {
     public function insertDonhang()
     {
         $post = $this->input->post();
-        $sp = $this->Sanpham_model->checkSanpham($post['id_sanpham']);
-            $ten_sp         = $sp['ten_sanpham'];
-            $gia_nhap       = $sp['gia_nhap'];
-            $so_luong_ban   = $sp['so_luong_ban'];
-        // var_dump($post['id_sanpham']);
-        $data = array(
+        
+
+        $master = array(
                 'id_donhang'            => $post['id_donhang'],
-                'id_monhang'            => $post['id_monhang'],
-                'id_sanpham'            => $post['id_sanpham'],
-                'item_name'             => $ten_sp,
-                'ten_khachhang'         => $post['ten_khachhang'],
-                'phone'                 => $post['phone'],
-                'status'                => $post['status'],
-                'ma_van_don'            => $post['ma_van_don'],
-                'phuongthuc_giaohang'   => 'Dropshipping',
-                'phuongthuc_thanhtoan'  => $post['phuongthuc_thanhtoan'],
-                'sales_deliver'         => unNumber_Format($post['sales_deliver']),
-                'sales_return'          => $gia_nhap,
-                'tro_gia'               => unNumber_Format($post['tro_gia']),
-                'commission'            => unNumber_Format($post['phi_co_dinh']),
-                'customer_shipping_fee' => unNumber_Format($post['phi_vanchuyen']),
-                'phi_boi_thuong'        => '0',
-                'sum_of_fee'            => unNumber_Format($post['phi_co_dinh']),
+                'type_bill'             => $post['type_bill'],
+                'bill_status'           => $post['bill_status'],
+                'payment_status'        => $post['payment_status'],
+                'payment_method'        => $post['payment_method'],
+                'order_day'             => $post['order_day'],
+                'deliv_day'             => $post['deliv_day'],
+                
         );
-        $this->Donhang_model->insert_donhang($data);
-        $_data['so_luong_ban'] = $so_luong_ban +1;
-        $this->Sanpham_model->edit_sanpham( $post['id_sanpham'], $_data);
+        $this->Donhang_model->insert_master($master);
+
+
+
+        $detail = array(
+            'id_product'            => $post['id_product'],
+            'id_sku_seller'         => $post['id_sku_seller'],
+            'price'                 => unNumber_Format($post['price']),
+            'qty'                   => unNumber_Format($post['qty']),
+            'into_money'            => unNumber_Format($post['into_money']),
+            'cost'                  => unNumber_Format($post['phi_co_dinh']),
+            'other_cost'            => unNumber_Format($post['phi_khac']),
+            'tax_gtgt'              => unNumber_Format($post['phi_gtgt']),
+            'acc_wht'               => unNumber_Format($post['khoan_gtgt']),
+            'acc_payment'           => unNumber_Format($post['khoan_thanhtoan']),
+        );
+        $this->Donhang_model->insert_detail($detail);
+       
+
         redirect(base_url('donhang'));
     }
     public function addDonhangExcel() 
@@ -151,10 +155,7 @@ class Donhang extends CI_Controller {
                 'price'                 => $objWorksheet->getCellByColumnAndRow(12,$row)->getValue(),
                 'cost'                  => $commission,
             );
-            $customer = array(
-                'name'                  => $objWorksheet->getCellByColumnAndRow(4,$row)->getValue(),
-                'phone'                 => $objWorksheet->getCellByColumnAndRow(5,$row)->getValue(),
-            );
+            
             $this->Donhang_model->insert_donhang($data);
 
             $array = array(
