@@ -26,10 +26,10 @@
                   <label class="col-sm-3 control-label">Loại đơn hàng</label>
                   <div class="col-sm-6">
                        <select class="form-control" name="type_bill">
-                         <option value="1">Hàng Lazada</option>
-                         <option value="2">Hàng Shopee</option>
-                         <option value="3">Hàng bỏ sỉ</option>
-                         <option value="4">Hàng bán lẻ</option>
+                         <option value="Hàng Lazada">Hàng Lazada</option>
+                         <option value="Hàng Shopee">Hàng Shopee</option>
+                         <option value="Hàng bỏ sỉ">Hàng bỏ sỉ</option>
+                         <option value="Hàng bán lẻ">Hàng bán lẻ</option>
                        </select>
                   </div>
               </div>
@@ -38,10 +38,10 @@
                 <label class="col-sm-3 control-label">Trạng thái</label>
                 <div class="col-sm-6">
                      <select class="form-control" name="bill_status">
-                       <option value="1">Đang giao hàng</option>
-                       <option value="2">Đã giao hàng</option>
-                       <option value="3">Trả lại</option>
-                       <option value="4">Đã nhận hàng trả</option>
+                       <option value="Đang giao hàng">Đang giao hàng</option>
+                       <option value="Đã giao hàng">Đã giao hàng</option>
+                       <option value="Trả lại">Trả lại</option>
+                       <option value="Đã nhận hàng trả">Đã nhận hàng trả</option>
                      </select>
                 </div>
               </div>
@@ -59,8 +59,8 @@
                   <label class="col-sm-3 control-label">Trạng thái Thanh toán</label>
                   <div class="col-sm-6">
                        <select class="form-control" name="payment_status">
-                         <option value="1">Chờ thanh toán</option>
-                         <option value="2">Đã thanh toán</option>
+                         <option value="Chờ thanh toán">Chờ thanh toán</option>
+                         <option value="Đã thanh toán">Đã thanh toán</option>
                        </select>
                   </div>
               </div>
@@ -84,7 +84,7 @@
                     if(!$sanpham) echo "<option value='0'>Empty</option>";
                     else{
                       foreach ($sanpham as $sp) {
-                        echo "<option value='".$sp['id_sanpham']."' >".$sp['ten_sanpham']."</option>";
+                        echo "<option value='".$sp['id_product']."' >".$sp['name']."</option>";
                       }
                     }
                     ?>
@@ -96,7 +96,7 @@
                   <label class="col-sm-3 control-label">Thông tin đơn hàng</label>
                   <div class="col-sm-6">
                     <ul class="nav nav-tabs">
-                        <li class="active"><a href="#contact_01" data-toggle="tab">Sản phẩm 1 </a><span class="glyphicon glyphicon-remove remove-tab"></span></li>
+                        <li class="active"><a href="#contact_01" data-toggle="tab">S.phẩm 1 </a><span class="glyphicon glyphicon-remove remove-tab"></span></li>
                         <li><a href="#" class="add-contact" data-toggle="tab"><span class="glyphicon glyphicon-plus"></span> Thêm</a></li>
                     </ul>
                     <div class="tab-content">
@@ -273,7 +273,7 @@ $(".nav-tabs").on("click", "a", function(e){
       e.preventDefault();
       var id = $(".nav-tabs").children().length; //think about it ;)
       var product_list = $('#product-list').html();
-      $(this).closest('li').before('<li><a href="#contact_'+id+'">Sản phẩm '+id+'</a><span class="glyphicon glyphicon-remove remove-tab"></span></li>');
+      $(this).closest('li').before('<li><a href="#contact_'+id+'">S.phẩm '+id+'</a><span class="glyphicon glyphicon-remove remove-tab"></span></li>');
       $(".tab-content >div").removeClass("active");  
       $('.tab-content').append('<div class="tab-pane active" id="contact_'+id+'"><h1>Sản phẩm '+id+'</h1><div class="form-group">'+product_list.replace('name="id_sanpham"','name="product['+id+'][id_sanpham]"')+'</div><div class="form-group"><div class="col-sm-9"><input type="text" name="product['+id+'][qty]" value="0" class="form-control so" ></div><span>*Số lượng</span></div><div class="form-group"><div class="col-sm-9"><input type="text" name="product['+id+'][sales_deliver]" value="0" class="form-control so" ></div><span>*Giá bán</span></div><div class="form-group"><div class="col-sm-9"><input type="text" name="product['+id+'][phi_co_dinh]" value="0" class="form-control so" ></div><span>*Phí cố định</span></div><div class="form-group"><div class="col-sm-9"><input type="text" name="product['+id+'][phi_khac]" value="0" class="form-control so" ></div><span>*Phí khác</span></div><div class="form-group"><div class="col-sm-9"><input type="text" name="product['+id+'][phi_gtgt]" value="0" class="form-control so" ></div><span>*Phí GTGT</span></div><div class="form-group"><div class="col-sm-9"><input type="text" name="product['+id+'][khoan_wht]" value="0" class="form-control so" ></div><span>*Khoản WHT</span></div><div class="form-group"><div class="col-sm-9"><input type="text" name="product['+id+'][khoan_thanh_toan]" value="0" class="form-control so" ></div><span>*Khoản thanh toán</span></div><div class="form-group"><div class="col-sm-9"><input type="text" name="product['+id+'][phi_vanchuyen]" value="0" class="form-control so" ></div><span>*Phí vận chuyển</span></div></div>');
 });
