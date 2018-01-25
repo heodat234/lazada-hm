@@ -16,7 +16,7 @@ class Donhang extends CI_Controller {
     }
 	public function index()
 	{	
-        if ( ! $data['donhang'] = $this->cache->get('donhang') && ! $data['thongke'] = $this->cache->get('thongke'))
+        if ( ! $data['donhang'] = $this->cache->get('donhang') )
          {
             $match= '';
             $data['donhang'] = $this->Donhang_model->list_donhang();
@@ -67,7 +67,7 @@ class Donhang extends CI_Controller {
         $this->Donhang_model->insert_master($master);
 
 
-        for ($i=0; $i < count($post['product']) ; $i++) { 
+        for ($i=1; $i <= count($post['product']) ; $i++) { 
             $detail = array(
                 'id_bill'               => $post['id_bill'],
                 'id_product'            => $post['product'][$i]['id_sanpham'],
@@ -81,9 +81,16 @@ class Donhang extends CI_Controller {
                 'acc_wht'               => unNumber_Format($post['product'][$i]['khoan_gtgt']),
                 'acc_payment'           => unNumber_Format($post['product'][$i]['khoan_thanhtoan']),
             );
-            // $this->Donhang_model->insert_detail($detail);
+            $this->Donhang_model->insert_detail($detail);
         }
+<<<<<<< HEAD
         // redirect(base_url('donhang'));
+=======
+        
+       
+
+        redirect(base_url('donhang'));
+>>>>>>> 0a749c568f736dcf1907cdc3bc87bc73eebdc24e
     }
     public function addDonhangExcel() 
     {

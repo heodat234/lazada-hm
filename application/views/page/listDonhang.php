@@ -95,11 +95,11 @@
                         <td><?php echo $row['id_bill'] ?></td>
                         <td><?php echo $row['type_bill'] ?></td>
                         <td><?php echo $row['bill_status'] ?></td>
-                        <td><?php echo date('d-m-Y H:i:s',strtotime($row['orday_day'])) ?></td>
+                        <td><?php echo date('d-m-Y H:i:s',strtotime($row['order_day'])) ?></td>
                          <td><?php echo date('d-m-Y H:i:s',strtotime($row['deliv_day'])) ?></td>
                         <td><?php echo $row['payment_method'] ?></td>
                         <td><?php echo $row['payment_status'] ?></td>
-                        <td><!-- <button class="btn btn-primary btn-flat" data-toggle="modal" data-id='<?php echo $row['id_donhang'];?>' data-target="#addPrice"><i class="fa fa-lg fa-edit"></i>Thêm giá bán</button> --></td>
+                        <td><!-- <button class="btn btn-primary btn-flat" data-toggle="modal" data-id='<?php echo $row['id_bill'];?>' data-target="#addPrice"><i class="fa fa-lg fa-edit"></i>Thêm giá bán</button> --></td>
                       </tr>                    
                   <?php endforeach;?>
                 </tbody>
