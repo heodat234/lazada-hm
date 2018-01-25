@@ -78,8 +78,8 @@
               </div>    
               <div id="product-list" style="display: none;">
                 <div class="col-sm-9">
-                    <select id="decalpriceform-decaltype" class="form-control" name="id_sanpham" required="" aria-required="true">
-                    <option selected hidden disabled value="">Chọn sản phẩm</option>
+                    <input type="text" list="product-data-list" id="decalpriceform-decaltype" class="form-control" name="id_sanpham" required="" aria-required="true">
+                    <datalist id="product-data-list">
                     <?php
                     if(!$sanpham) echo "<option value='0'>Empty</option>";
                     else{
@@ -88,7 +88,7 @@
                       }
                     }
                     ?>
-                    </select>
+                    </datalist>
                 </div>
                 <span>*Sản phẩm</span>
               </div>                           
@@ -104,17 +104,7 @@
                           <h1>Sản phẩm 1</h1>
                           <div class="form-group">
                               <div class="col-sm-9">
-                                  <select id="decalpriceform-decaltype" class="form-control" name="product[1][id_sanpham]" required="" aria-required="true">
-                                  <option selected hidden disabled value="">Chọn sản phẩm</option>
-                                  <?php
-                                  if(!$sanpham) echo "<option value='0'>Empty</option>";
-                                  else{
-                                    foreach ($sanpham as $sp) {
-                                      echo "<option value='".$sp['id_sanpham']."' >".$sp['ten_sanpham']."</option>";
-                                    }
-                                  }
-                                  ?>
-                                  </select>
+                                <input type="text" list="product-data-list" id="decalpriceform-decaltype" class="form-control" name="product[1][id_sanpham]" required="" aria-required="true">
                               </div>
                               <span>*Sản phẩm</span>
                           </div>
