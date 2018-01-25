@@ -69,23 +69,21 @@
                   <th class="col-data-table-1-6">Tên sản phẩm</th>
                   <th class="col-data-table-1-4">Giá nhập (VNĐ)</th>
                   <th class="col-data-table-0-7">Số lượng nhập</th>
-                  <th class="col-data-table-0-7">Số lượng bán</th>
                   <th class="col-data-table-0-7">Ngày nhập </th>
                   <th class="col-data-table-0-7">Thao tác</th>
                 </tr>
               </thead>
               <tbody>
                 <?php foreach ($sanpham as $row): ?>
-                    <tr id="row_<?php echo $row['id_sanpham'] ?>">
+                    <tr id="row_<?php echo $row['id_product'] ?>">
                       <td></td>
-                      <td><?php echo $row['id_sanpham'] ?></td>
-                      <td><?php echo $row['ten_sanpham'] ?></td>
-                      <td><?php echo number_format($row['gia_nhap']) ?></td>
-                      <td><?php echo number_format($row['so_luong']) ?></td>
-                      <td><?php echo number_format($row['so_luong_ban']) ?></td>
+                      <td><?php echo $row['id_product'] ?></td>
+                      <td><?php echo $row['name'] ?></td>
+                      <td><?php echo number_format($row['price']) ?></td>
+                      <td><?php echo number_format($row['qty']) ?></td>
                       <td><?php echo date('d-m-Y H:i:s',strtotime($row['created_at'])) ?></td>
                       <td>
-                        <button class="btn btn-info btn-flat" data-toggle="modal" data-target="#edit" data-id='<?php echo $row['id_sanpham'] ?>' data-name='<?php echo $row['ten_sanpham'] ?>' data-gianhap='<?php echo $row['gia_nhap'] ?>' data-soluong='<?php echo $row['so_luong'] ?>'><i class="fa fa-lg fa-pencil"></i></button>
+                        <button class="btn btn-info btn-flat" data-toggle="modal" data-target="#edit" data-id='<?php echo $row['id_product'] ?>' data-name='<?php echo $row['name'] ?>' data-gianhap='<?php echo $row['price'] ?>' data-soluong='<?php echo $row['qty'] ?>'><i class="fa fa-lg fa-pencil"></i></button>
                       </td>
                     </tr>                    
                 <?php endforeach;?>
