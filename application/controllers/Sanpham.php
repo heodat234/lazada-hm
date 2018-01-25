@@ -28,13 +28,13 @@ class Sanpham extends CI_Controller {
     public function insertSanpham()
     {   
         $post = $this->input->post();
-        $data['id_sanpham']     = $post['id_sanpham'];
-        $data['ten_sanpham']    = $post['ten_sanpham'];
-        $data['gia_nhap']       = unNumber_Format($post['gia_nhap']);
-        $data['so_luong']       = unNumber_Format($post['so_luong']);
-        if ($this->Sanpham_model->checkSanpham($post['id_sanpham']) == false) {
+        $data['id_product']     = $post['id_sanpham'];
+        $data['name']           = $post['ten_sanpham'];
+        $data['price']          = unNumber_Format($post['gia_nhap']);
+        $data['qty']            = unNumber_Format($post['so_luong']);
+        if ($this->Sanpham_model->checkSanpham($post['id_product']) == false) {
             $this->Sanpham_model->insert_sanpham($data);
-            $sp = $this->Sanpham_model->checkSanpham($post['id_sanpham']);
+            $sp = $this->Sanpham_model->checkSanpham($post['id_product']);
             $_data['mess'] = 'success';
             $_data['ngay_tao'] = $sp['created_at'];
             // var_dump($sp);
@@ -48,9 +48,9 @@ class Sanpham extends CI_Controller {
     {   
         $post = $this->input->post();
     
-        $data['ten_sanpham']    = $post['ten_sanpham'];
-        $data['gia_nhap']       = unNumber_Format($post['gia_nhap']);
-        $data['so_luong']       = unNumber_Format($post['so_luong']);
+        $data['name']       = $post['ten_sanpham'];
+        $data['price']      = unNumber_Format($post['gia_nhap']);
+        $data['qty']        = unNumber_Format($post['so_luong']);
         $this->Sanpham_model->edit_sanpham( $post['id_sanpham'], $data);
         
     }
