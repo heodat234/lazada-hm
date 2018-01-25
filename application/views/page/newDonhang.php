@@ -103,10 +103,10 @@
                         <div class="tab-pane active" id="contact_01">
                           <h1>Sản phẩm 1</h1>
                           <div class="form-group">
-                              <div class="col-sm-9">
-                                <input type="text" list="product-data-list" id="decalpriceform-decaltype" class="form-control" name="product[1][id_sanpham]" required="" aria-required="true">
-                              </div>
-                              <span>*Sản phẩm</span>
+                            <div class="col-sm-9">
+                              <input type="text" list="product-data-list" id="decalpriceform-decaltype" class="form-control" name="product[1][id_sanpham]" required="" aria-required="true">
+                            </div>
+                            <span>*Sản phẩm</span>
                           </div>
                           <div class="form-group">
                             <div class="col-sm-9">
