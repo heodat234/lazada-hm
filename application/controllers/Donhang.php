@@ -45,10 +45,12 @@ class Donhang extends CI_Controller {
     public function insertDonhang()
     {
         $post = $this->input->post();
-        var_dump($post);
-
+        // var_dump($post['product']);
+        if ($this->checkDonhang($post['id_bill'])) {
+            redirect_back();  
+        }
         $master = array(
-                'id_donhang'            => $post['id_donhang'],
+                'id_bill'               => $post['id_bill'],
                 'type_bill'             => $post['type_bill'],
                 'bill_status'           => $post['bill_status'],
                 'payment_status'        => $post['payment_status'],
@@ -60,20 +62,23 @@ class Donhang extends CI_Controller {
         // $this->Donhang_model->insert_master($master);
 
 
-
-        $detail = array(
-            'id_product'            => $post['id_product'],
-            'id_sku_seller'         => $post['id_sku_seller'],
-            'price'                 => unNumber_Format($post['price']),
-            'qty'                   => unNumber_Format($post['qty']),
-            'into_money'            => unNumber_Format($post['into_money']),
-            'cost'                  => unNumber_Format($post['phi_co_dinh']),
-            'other_cost'            => unNumber_Format($post['phi_khac']),
-            'tax_gtgt'              => unNumber_Format($post['phi_gtgt']),
-            'acc_wht'               => unNumber_Format($post['khoan_gtgt']),
-            'acc_payment'           => unNumber_Format($post['khoan_thanhtoan']),
-        );
-        // $this->Donhang_model->insert_detail($detail);
+        for ($i=0; $i < count($post['product']) ; $i++) { 
+            $detail = array(
+                'id_bill'               => $post['id_bill'],
+                'id_product'            => $post['product'][$i]['id_sanpham'],
+                'id_sku_seller'         => $post['product'][$i]['id_sanpham'],
+                'price'                 => unNumber_Format($post['product'][$i]['price']),
+                'qty'                   => unNumber_Format($post['product'][$i]['qty']),
+                'into_money'            => unNumber_Format($post['product'][$i]['into_money']),
+                'cost'                  => unNumber_Format($post['product'][$i]['phi_co_dinh']),
+                'other_cost'            => unNumber_Format($post['product'][$i]['phi_khac']),
+                'tax_gtgt'              => unNumber_Format($post['product'][$i]['phi_gtgt']),
+                'acc_wht'               => unNumber_Format($post['product'][$i]['khoan_gtgt']),
+                'acc_payment'           => unNumber_Format($post['product'][$i]['khoan_thanhtoan']),
+            );
+            // $this->Donhang_model->insert_detail($detail);
+        }
+        
        
 
         // redirect(base_url('donhang'));

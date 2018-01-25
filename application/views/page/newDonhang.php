@@ -19,13 +19,13 @@
               <div class="form-group">
                 <label class="col-sm-3 control-label">Mã đơn hàng</label>
                 <div class="col-sm-6">
-                     <input type="text" name="id_donhang" id="id_donhang" class="form-control" placeholder="Nhập mã đơn hàng" required="">
+                     <input type="text" name="id_bill" id="id_donhang" class="form-control" placeholder="Nhập mã đơn hàng" required="">
                 </div>
               </div>
               <div class="form-group">
                   <label class="col-sm-3 control-label">Loại đơn hàng</label>
                   <div class="col-sm-6">
-                       <select class="form-control" name="phuongthuc_thanhtoan">
+                       <select class="form-control" name="type_bill">
                          <option value="1">Hàng Lazada</option>
                          <option value="2">Hàng Shopee</option>
                          <option value="3">Hàng bỏ sỉ</option>
@@ -37,7 +37,7 @@
               <div class="form-group">
                 <label class="col-sm-3 control-label">Trạng thái</label>
                 <div class="col-sm-6">
-                     <select class="form-control" name="status">
+                     <select class="form-control" name="bill_status">
                        <option value="1">Đang giao hàng</option>
                        <option value="2">Đã giao hàng</option>
                        <option value="3">Trả lại</option>
@@ -48,7 +48,7 @@
               <div class="form-group">
                   <label class="col-sm-3 control-label">P.T Thanh toán</label>
                   <div class="col-sm-6">
-                       <select class="form-control" name="phuongthuc_thanhtoan">
+                       <select class="form-control" name="payment_method">
                          <option value="CashOnDelivery">CashOnDelivery</option>
                          <option value="Cybersource">Cybersource</option>
                          <option value="VN123Pay">VN123Pay</option>
@@ -58,11 +58,23 @@
               <div class="form-group">
                   <label class="col-sm-3 control-label">Trạng thái Thanh toán</label>
                   <div class="col-sm-6">
-                       <select class="form-control" name="phuongthuc_thanhtoan">
+                       <select class="form-control" name="payment_status">
                          <option value="1">Chờ thanh toán</option>
                          <option value="2">Đã thanh toán</option>
                        </select>
                   </div>
+              </div>
+              <div class="form-group">
+                <label class="col-sm-3 control-label">Ngày đặt hàng</label>
+                <div class="col-sm-6">
+                     <input type="date" name="order_day" class="form-control today" required="">
+                </div>
+              </div>
+              <div class="form-group">
+                <label class="col-sm-3 control-label">Ngày giao hàng</label>
+                <div class="col-sm-6">
+                     <input type="date" name="deliv_day"  class="form-control today" required="">
+                </div>
               </div>    
               <div id="product-list" style="display: none;">
                 <div class="col-sm-9">
@@ -174,7 +186,10 @@
 </div>
 </div>
 <script type="text/javascript">
-
+  var x = document.querySelectorAll(".today");
+  for (var i = 0; i < x.length; i++) {
+    x[i].valueAsDate = new Date();
+  }
 
 $("#btnDonhang").on('click', function(event) {
   event.preventDefault();
