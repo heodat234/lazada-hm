@@ -12,7 +12,7 @@
           </div>
           <div class="animate">
             <div class="box-body no-padding-bottom" >
-              <form method="post" action="<?php echo base_url() ?>locSanpham" id="filter-form">
+              <form method="post" action="<?php echo base_url() ?>locLichSuNhapId" id="filter-form">
                 <div class="row">
                   <div class="col-sm-3">
                     <div class="form-group">
@@ -288,6 +288,7 @@
 $('#btn-add').on('click',function(){
   var route="<?= base_url()?>insertKho";
   var frm = new FormData($('form#add-form')[0]);
+  var id = frm.get('id_sanpham');
   var price = frm.get('price');
   var qty = frm.get('qty');
   

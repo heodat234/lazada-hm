@@ -28,6 +28,7 @@ class Sanpham extends CI_Controller {
     {   
         $data['sp'] = $this->Sanpham_model->selsectSPById($id);
         $data['import'] = $this->Sanpham_model->nhap_kho_id_product($id);
+        // var_dump($data['import']);
         $this->_data['html_body'] = $this->load->view('page/chitiet_sanpham',$data,true);           
         return $this->load->view('home/master', $this->_data);
     }
@@ -68,7 +69,7 @@ class Sanpham extends CI_Controller {
         $adata['qty']            = unNumber_Format($post['qty']);
 
         $this->Sanpham_model->insert_import_sanpham($adata);
-        $sp = $this->Sanpham_model->checkSanpham($post['id_product']);
+        $sp = $this->Sanpham_model->selsectSPById($post['id_sanpham']);
         $_data['ngay_tao'] = $sp['created_at'];
             // var_dump($sp);
        
@@ -85,6 +86,19 @@ class Sanpham extends CI_Controller {
         $data['start']      = $post['from'];
         $data['end']        = $post['to'];
         $this->_data['html_body'] = $this->load->view('page/listSanpham',$data,true);           
+        return $this->load->view('home/master', $this->_data);
+    }
+    public function locLichSuNhapId()
+    {
+        $post   = $this->input->post();
+        $match = array(
+            'created_at >='=>$post['from'],
+            'created_at <='=>$post['to']
+        );
+        $data['import'] = $this->Sanpham_model->loc_lichSuNhapKho($match);
+        $data['start']      = $post['from'];
+        $data['end']        = $post['to'];
+        $this->_data['html_body'] = $this->load->view('page/chitiet_sanpham',$data,true);           
         return $this->load->view('home/master', $this->_data);
     }
 }

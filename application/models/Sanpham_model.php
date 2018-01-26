@@ -36,7 +36,7 @@ class Sanpham_model extends CI_Model{
     }
     function nhap_kho_id_product($id){
         $im = $this->db->select()->where('id_product',$id)
-                        ->get($this->_name)
+                        ->get($this->_import)
                         ->result_array();
         return $im;
     }
@@ -54,6 +54,14 @@ class Sanpham_model extends CI_Model{
         $dh =   $this->db->select()
                     ->where($match)
                     ->get($this->_name)
+                    ->result_array();
+        return $dh;
+    }
+    function loc_lichSuNhapKho($match)
+    {
+        $im =   $this->db->select()
+                    ->where($match)
+                    ->get($this->_import)
                     ->result_array();
         return $dh;
     }
