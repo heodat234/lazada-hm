@@ -54,7 +54,7 @@
       <div class="col-md-12">
         <div class="box">
           <div class="box-header with-boder">
-            <h3 class="box-title">Danh sách sản phẩm</h3>
+            <h3 class="box-title">Danh sách nhập kho sản phẩm</h3>
             <h3 class="box-tools pull-right">
               <button type="button" class="btn btn-box-tool thuphong" data-widget="collapse"><i class="fa fa-minus"></i></button>
             </h3>
@@ -65,26 +65,26 @@
               <thead>
                 <tr>
                   <th class="col-data-table-0-2"></th>
-                  <th class="col-data-table-1-3">Mã sản phẩm</th>
-                  <th class="col-data-table-1-6">Tên sản phẩm</th>
-                  <th class="col-data-table-0-7">Ngày nhập </th>
-                  <th class="col-data-table-0-7">Sửa</th>
-                  <th class="col-data-table-0-7">Chi tiết nhập kho</th>
+                  <th class="col-data-table-2-3">Giá nhập (VNĐ)</th>
+                  <th class="col-data-table-2-6">Số lượng nhập</th>
+                  <th class="col-data-table-1-7">Ngày nhập </th>
+                  <!-- <th class="col-data-table-0-7">Sửa</th> -->
+                  <!-- <th class="col-data-table-0-7">Chi tiết nhập kho</th> -->
                 </tr>
               </thead>
               <tbody>
-                <?php foreach ($sanpham as $row): ?>
+                <?php foreach ($import as $row): ?>
                     <tr id="row_<?php echo $row['id_product'] ?>">
                       <td></td>
-                      <td><?php echo $row['id_product'] ?></td>
-                      <td><?php echo $row['name'] ?></td>
+                      <td><?php echo number_format($row['price']) ?></td>
+                      <td><?php echo number_format($row['qty']) ?></td>
                       <td><?php echo date('d-m-Y H:i:s',strtotime($row['created_at'])) ?></td>
-                      <td>
+                      <!-- <td>
                         <button class="btn btn-info btn-flat" data-toggle="modal" data-target="#edit" data-id='<?php echo $row['id_product'] ?>' data-name='<?php echo $row['name'] ?>' ><i class="fa fa-lg fa-pencil"></i></button>
                       </td>
                       <td>
-                        <a class="btn btn-success btn-flat" href="<?php echo base_url().'chitietnhapkho/'.$row['id_product'] ?> "><i class="fa fa-lg fa-eye"></i></a>
-                      </td>
+                        <a class="btn btn-success btn-flat" href=""><i class="fa fa-lg fa-eye"></i></a>
+                      </td> -->
                     </tr>                    
                 <?php endforeach;?>
               </tbody>

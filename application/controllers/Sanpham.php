@@ -24,14 +24,19 @@ class Sanpham extends CI_Controller {
         $this->_data['html_body'] = $this->load->view('page/listSanpham',$data,true); 	        
 		return $this->load->view('home/master', $this->_data);
 	}
-
+    public function lichSuNhapKho($idProduct)
+    {   
+        $data['import'] = $this->Sanpham_model->nhap_kho_id_product($idProduct);
+        $this->_data['html_body'] = $this->load->view('page/chitiet_sanpham',$data,true);           
+        return $this->load->view('home/master', $this->_data);
+    }
     public function insertSanpham()
     {   
         $post = $this->input->post();
         $data['id_product']     = $post['id_sanpham'];
         $data['name']           = $post['ten_sanpham'];
-        $data['price']          = unNumber_Format($post['gia_nhap']);
-        $data['qty']            = unNumber_Format($post['so_luong']);
+        // $adata['price']          = unNumber_Format($post['gia_nhap']);
+        // $adata['qty']            = unNumber_Format($post['so_luong']);
         if ($this->Sanpham_model->checkSanpham($post['id_product']) == false) {
             $this->Sanpham_model->insert_sanpham($data);
             $sp = $this->Sanpham_model->checkSanpham($post['id_product']);
@@ -49,10 +54,25 @@ class Sanpham extends CI_Controller {
         $post = $this->input->post();
     
         $data['name']       = $post['ten_sanpham'];
-        $data['price']      = unNumber_Format($post['gia_nhap']);
-        $data['qty']        = unNumber_Format($post['so_luong']);
+        // $data['price']      = unNumber_Format($post['gia_nhap']);
+        // $data['qty']        = unNumber_Format($post['so_luong']);
         $this->Sanpham_model->edit_sanpham( $post['id_sanpham'], $data);
         
+    }
+    public function insertKho()
+    {   
+        $post = $this->input->post();
+        $adata['id_product']     = $post['id_sanpham'];
+        $adata['price']          = unNumber_Format($post['gia_nhap']);
+        $adata['qty']            = unNumber_Format($post['so_luong']);
+
+        $this->Sanpham_model->insert_import_sanpham($adata);
+        $sp = $this->Sanpham_model->checkSanpham($post['id_product']);
+        $_data['mess'] = 'success';
+        $_data['ngay_tao'] = $sp['created_at'];
+            // var_dump($sp);
+       
+        echo json_encode($_data);
     }
     public function locSanpham()
     {
