@@ -20,15 +20,23 @@ class Sanpham_model extends CI_Model{
             return false;
         }
     }
+    public function selsectSPById($id='')
+    {
+        $sp =   $this->db->select('id,name,created_at')
+                            ->where('id', $id)
+                            ->get($this->_name)
+                            ->row_array();
+        return $sp;
+    }
     function list_sanpham(){
     	$sanpham = $this->db->select()
 				        ->get($this->_name)
 				        ->result_array();
     	return $sanpham;
     }
-    function nhap_kho_id_product($id_product){
-        $im = $this->db->select()->where('id_product',$id_product)
-                        ->get($this->_name)
+    function nhap_kho_id_product($id){
+        $im = $this->db->select()->where('id_product',$id)
+                        ->get($this->_import)
                         ->result_array();
         return $im;
     }
@@ -48,5 +56,13 @@ class Sanpham_model extends CI_Model{
                     ->get($this->_name)
                     ->result_array();
         return $dh;
+    }
+    function loc_lichSuNhapKho($match)
+    {
+        $im =   $this->db->select()
+                    ->where($match)
+                    ->get($this->_import)
+                    ->result_array();
+        return $im;
     }
 }

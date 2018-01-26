@@ -24,9 +24,11 @@ class Sanpham extends CI_Controller {
         $this->_data['html_body'] = $this->load->view('page/listSanpham',$data,true); 	        
 		return $this->load->view('home/master', $this->_data);
 	}
-    public function lichSuNhapKho($idProduct)
+    public function lichSuNhapKho($id)
     {   
-        $data['import'] = $this->Sanpham_model->nhap_kho_id_product($idProduct);
+        $data['sp'] = $this->Sanpham_model->selsectSPById($id);
+        $data['import'] = $this->Sanpham_model->nhap_kho_id_product($id);
+        // var_dump($data['import']);
         $this->_data['html_body'] = $this->load->view('page/chitiet_sanpham',$data,true);           
         return $this->load->view('home/master', $this->_data);
     }
@@ -63,12 +65,11 @@ class Sanpham extends CI_Controller {
     {   
         $post = $this->input->post();
         $adata['id_product']     = $post['id_sanpham'];
-        $adata['price']          = unNumber_Format($post['gia_nhap']);
-        $adata['qty']            = unNumber_Format($post['so_luong']);
+        $adata['price']          = unNumber_Format($post['price']);
+        $adata['qty']            = unNumber_Format($post['qty']);
 
         $this->Sanpham_model->insert_import_sanpham($adata);
-        $sp = $this->Sanpham_model->checkSanpham($post['id_product']);
-        $_data['mess'] = 'success';
+        $sp = $this->Sanpham_model->selsectSPById($post['id_sanpham']);
         $_data['ngay_tao'] = $sp['created_at'];
             // var_dump($sp);
        
@@ -85,6 +86,21 @@ class Sanpham extends CI_Controller {
         $data['start']      = $post['from'];
         $data['end']        = $post['to'];
         $this->_data['html_body'] = $this->load->view('page/listSanpham',$data,true);           
+        return $this->load->view('home/master', $this->_data);
+    }
+    public function locLichSuNhapId()
+    {
+        $post   = $this->input->post();
+        $data['sp'] = $this->Sanpham_model->selsectSPById($post['id']);
+        $match = array(
+            'id_product'   =>$post['id'],
+            'created_at >='=>$post['from'],
+            'created_at <='=>$post['to']
+        );
+        $data['import'] = $this->Sanpham_model->loc_lichSuNhapKho($match);
+        $data['start']      = $post['from'];
+        $data['end']        = $post['to'];
+        $this->_data['html_body'] = $this->load->view('page/chitiet_sanpham',$data,true);           
         return $this->load->view('home/master', $this->_data);
     }
 }
