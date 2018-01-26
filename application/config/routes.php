@@ -75,5 +75,7 @@ $route['insertSP'] 		= "Sanpham/insertSanpham";
 $route['editSP'] 		= "Sanpham/editSanpham";
 $route['locSanpham'] 	= "Sanpham/locSanpham";
 
+$route['chitietnhapkho/(:any)'] 	= "Sanpham/lichSuNhapKho/$1";
+
 //thống kê chart
 $route['thongke'] 		= "Thongke";
