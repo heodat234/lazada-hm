@@ -63,12 +63,17 @@ class Donhang_model extends CI_Model{
                     return $dh;
     }
 
-    // function thongke_theothang()
-    // {
-    //     $sql = "Select Month(a.created_at) as 'thang', Sum(b.into_money) as 'doanh thu' From `master` a , `detail` b WHERE a.id_bill = b.id_bill  Group by Month(a.created_at)";
-    //     $query = $this->db->query($sql); 
-    //     return $query->result_array();
-    // }
+    function thongke_theothang()
+    {
+        $sql = "Select Month(created_at) as 'thang', Sum(into_money) as 'doanh thu' From `detail`  Group by Month(created_at)";
+        $query = $this->db->query($sql); 
+        $adata['doanhthu'] = $query->result_array();
+
+        $sql1 = "Select Month(created_at) as 'thang', Count(*) as 'qty' From `master`  Group by Month(created_at)";
+        $query1 = $this->db->query($sql1); 
+        $adata['count'] = $query1->result_array();
+        return $adata;
+    }
 
     function get_data($match, $from){
         $data = $this->db->select()

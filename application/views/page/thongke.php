@@ -168,6 +168,10 @@
         series: [{
             name: 'Doanh thu',
             data: <?php echo $doanhthu ?>
+        },
+        {
+            name: 'Số lượng đơn hàng',
+            data: <?php echo $count ?>
         }],
     });
 
@@ -216,7 +220,7 @@
         
         series: [{
             name: 'Lợi nhuận',
-            data: <?php echo $loinhuan ?>
+            data: <?php echo $doanhthu ?>
         }],
     });
   });

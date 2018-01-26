@@ -39,11 +39,12 @@ class Sanpham extends CI_Controller {
         $data['name']           = $post['ten_sanpham'];
         // $adata['price']          = unNumber_Format($post['gia_nhap']);
         // $adata['qty']            = unNumber_Format($post['so_luong']);
-        if ($this->Sanpham_model->checkSanpham($post['id_product']) == false) {
+        if ($this->Sanpham_model->checkSanpham($post['id_sanpham']) == false) {
             $this->Sanpham_model->insert_sanpham($data);
-            $sp = $this->Sanpham_model->checkSanpham($post['id_product']);
+            $sp = $this->Sanpham_model->checkSanpham($post['id_sanpham']);
             $_data['mess'] = 'success';
-            $_data['ngay_tao'] = $sp['created_at'];
+            $_data['ngay_tao']  = $sp['created_at'];
+            $_data['id']        = $sp['id'];
             // var_dump($sp);
         }else{
             $_data['mess'] = 'error';
