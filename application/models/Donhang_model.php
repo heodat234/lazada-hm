@@ -23,6 +23,7 @@ class Donhang_model extends CI_Model{
     }
     function list_donhang(){
     	$donhang = $this->db->select()
+                        ->where('hidden',0)
 				        ->get($this->_master)
 				        ->result_array();
     	return $donhang;

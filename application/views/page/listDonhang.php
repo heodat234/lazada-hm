@@ -99,7 +99,7 @@
                          <td><?php echo date('d-m-Y H:i:s',strtotime($row['deliv_day'])) ?></td>
                         <td><?php echo $row['payment_method'] ?></td>
                         <td><?php echo $row['payment_status'] ?></td>
-                        <td><a class="btn btn-primary btn-flat" href="<?=base_url()?>suadonhang/<?php echo $row['id_bill']?>"><i class="fa fa-lg fa-edit"></i>Sửa</a></td>
+                        <td><a class="btn btn-primary btn-flat" href="<?=base_url()?>suadonhang/<?php echo $row['id_bill']?>"><i class="fa fa-lg fa-edit"></i> Sửa</a> <a class="btn btn-danger btn-flat" onclick="delRow('<?php echo $row['id_bill']?>')"><i class="fa fa-lg fa-trash"></i> Xóa</a></td>
                       </tr>                    
                   <?php endforeach;?>
                 </tbody>
@@ -251,4 +251,37 @@
                 alert("Please upgrade your browser, because your current browser lacks some new features we need!");
             }
         });
+function delRow(id){
+  ssi_modal.confirm({
+    content: 'Bạn có chắc muốn xóa đơn hàng này?',
+    okBtn: {
+      className:'btn btn-primary'
+    },
+    cancelBtn:{
+        className:'btn btn-danger'
+    }
+  },function (result) {
+      if(result){
+          var route="<?= base_url()?>Donhang/delete_bill/";
+          $.ajax({
+            url:route,
+            type:'post',
+            dataType:'json',
+            data:{
+              id:id,
+            },
+            success:function(data){
+              if (data.success) {
+                window.location.reload();
+              }else{
+                ssi_modal.notify('error', {content: 'Thất bại.'});
+              }   
+            }
+          });
+      }
+      else
+          ssi_modal.notify('error', {content: 'Thất bại: ' + result});
+      }
+  );
+}
 </script>
