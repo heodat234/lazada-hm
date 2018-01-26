@@ -19,11 +19,12 @@ class Donhang extends CI_Controller {
         if ( ! $data['donhang'] = $this->cache->get('donhang') )
          {
             $match= '';
-            $data['donhang'] = $this->Donhang_model->list_donhang();
+            
             // $data['thongke'] = $this->Donhang_model->thongke_donhang($match);
             $this->cache->save('donhang', $data['donhang'], 600);
             // $this->cache->save('thongke', $data['thongke'], 600);
          }
+        $data['donhang'] = $this->Donhang_model->list_donhang();
         $this->_data['html_body'] = $this->load->view('page/listDonhang',$data,true); 	        
 		return $this->load->view('home/master', $this->_data);
 	}
@@ -84,7 +85,7 @@ class Donhang extends CI_Controller {
                 'cost'                  => unNumber_Format($value['phi_co_dinh']),
                 'other_cost'            => unNumber_Format($value['phi_khac']),
                 'tax_gtgt'              => unNumber_Format($value['phi_gtgt']),
-                'acc_wht'               => unNumber_Format($value['khoan_gtgt']),
+                'acc_wht'               => unNumber_Format($value['khoan_wht']),
                 'acc_payment'           => unNumber_Format($value['khoan_thanh_toan']),
             );
             $this->Donhang_model->insert_detail($detail);
@@ -100,8 +101,16 @@ class Donhang extends CI_Controller {
         $data['success'] = "Thành công.";
         echo json_encode($data);
     }
+    public function delete_bill(){
+        $id = $this->input->post('id');
+        $match = array('id_bill'=>$id);
+        $up_data = array('hidden'=>1);
+        $this->M_data->update($match,$up_data,'master');
+        $data['success'] = "Thành công.";
+        echo json_encode($data);
+    }
     public function updateDonhang(){
-        $frm = $this->input->post();
+        $post = $this->input->post();
         $master = array(
                 'type_bill'             => $post['type_bill'],
                 'bill_status'           => $post['bill_status'],
@@ -114,6 +123,7 @@ class Donhang extends CI_Controller {
         $this->M_data->update(array('id_bill'=>$post['id_bill']),$master,'master');
         foreach ($post['product'] as $key => $value) {
             $detail = array(
+                'id_bill'               => $post['id_bill'],
                 'id_product'            => $value['id_sanpham'],
                 'id_sku_seller'         => $value['id_sanpham'],
                 'price'                 => unNumber_Format($value['sales_deliver']),
@@ -122,10 +132,14 @@ class Donhang extends CI_Controller {
                 'cost'                  => unNumber_Format($value['phi_co_dinh']),
                 'other_cost'            => unNumber_Format($value['phi_khac']),
                 'tax_gtgt'              => unNumber_Format($value['phi_gtgt']),
-                'acc_wht'               => unNumber_Format($value['khoan_gtgt']),
+                'acc_wht'               => unNumber_Format($value['khoan_wht']),
                 'acc_payment'           => unNumber_Format($value['khoan_thanh_toan']),
             );
-            $this->M_data->insert_detail(array('id'=> $value['id_bill_detail']),$detail,'detail');
+            if (isset($value['id_bill_detail'])) {
+                $this->M_data->update(array('id'=> $value['id_bill_detail']),$detail,'detail');
+            }else{
+                $this->M_data->insert($detail,'detail');
+            } 
         }
         redirect(base_url('donhang'));
     }
