@@ -281,7 +281,9 @@ $(".nav-tabs").on("click", "a", function(e){
 				      		if (data.success) {
 				      			$(anchor.attr('href')).remove();
         						$(act).parent().remove();
-        						$(".nav-tabs >li").children('a').first().click();
+        						if ($(".nav-tabs").children().length>1) {
+        							$(".nav-tabs >li").children('a').first().click();
+        						}
 				      		}else{
 				      			ssi_modal.notify('error', {content: 'Thất bại.'});
 				      		}  	
@@ -295,7 +297,9 @@ $(".nav-tabs").on("click", "a", function(e){
         }else{
         	$(anchor.attr('href')).remove();
         	$(this).parent().remove();
-        	$(".nav-tabs >li").children('a').first().click();
+        	if ($(".nav-tabs").children().length>1) {
+				$(".nav-tabs >li").children('a').first().click();
+			}
         }
     });
   $('.add-contact').click(function(e) {
