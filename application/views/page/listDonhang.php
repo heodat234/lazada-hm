@@ -58,13 +58,13 @@
               <button type="button" class="btn btn-box-tool thuphong" data-widget="collapse"><i class="fa fa-minus"></i></button>
             </h3>
             <div class="row" style="margin-top: 10px;">
-              <!-- <div class="col-sm-3">
-                <h5>Số lượng đơn hàng: <strong class="label label-info"><?php echo number_format($thongke[0]['qty']) ?></strong></h5>
+              <div class="col-sm-3">
+                <h5>Số lượng đơn hàng: <strong class="label label-info"><?php echo number_format(count($donhang)) ?></strong></h5>
               </div>
               <div class="col-sm-3">
                 <h5>Doanh thu: <strong class="label label-success"><?php echo number_format($thongke[0]['doanhthu']) ?></strong></h5>
               </div>
-              <div class="col-sm-3">
+              <!-- <div class="col-sm-3">
                 <h5>Chi phí: <strong class="label label-warning"><?php echo number_format($thongke[0]['chiphi']) ?></strong></h5>
               </div>
               <div class="col-sm-3">

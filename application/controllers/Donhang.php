@@ -18,13 +18,12 @@ class Donhang extends CI_Controller {
 	{	
         if ( ! $data['donhang'] = $this->cache->get('donhang') )
          {
-            $match= '';
-            
-            // $data['thongke'] = $this->Donhang_model->thongke_donhang($match);
+            $data['donhang'] = $this->Donhang_model->list_donhang();
             $this->cache->save('donhang', $data['donhang'], 600);
-            // $this->cache->save('thongke', $data['thongke'], 600);
+           
          }
-        $data['donhang'] = $this->Donhang_model->list_donhang();
+         $match= '';
+        $data['thongke'] = $this->Donhang_model->thongke_donhang($match);
         $this->_data['html_body'] = $this->load->view('page/listDonhang',$data,true); 	        
 		return $this->load->view('home/master', $this->_data);
 	}
@@ -204,7 +203,7 @@ class Donhang extends CI_Controller {
             $ten_sanpham = $objWorksheet->getCellByColumnAndRow(3,$row)->getValue();
 
             $master = array(
-                'id_donhang'            => $objWorksheet->getCellByColumnAndRow(0,$row)->getValue(),
+                'id_bill'               => $objWorksheet->getCellByColumnAndRow(0,$row)->getValue(),
                 'type_bill'             => 'Hàng Lazada',                
                 'order_day'             => $objWorksheet->getCellByColumnAndRow(6,$row)->getValue(),
                 'bill_status'           => $objWorksheet->getCellByColumnAndRow(7,$row)->getValue(),
@@ -214,7 +213,7 @@ class Donhang extends CI_Controller {
                 'payment_method'        => $objWorksheet->getCellByColumnAndRow(11,$row)->getValue(),
             );
             $detail = array(
-                'id_donhang'            => $objWorksheet->getCellByColumnAndRow(0,$row)->getValue(),
+                'id_bill'               => $objWorksheet->getCellByColumnAndRow(0,$row)->getValue(),
                 'id_product'            => $objWorksheet->getCellByColumnAndRow(1,$row)->getValue(), 
                 'id_sku_seller'         => $id_sanpham,
                 'price'                 => $objWorksheet->getCellByColumnAndRow(12,$row)->getValue(),
@@ -222,8 +221,8 @@ class Donhang extends CI_Controller {
                 'cost'                  => $commission,
             );
             
-            $this->Donhang_model->insert_donhang($data);
-
+            $this->Donhang_model->insert_master($master);
+            $this->Donhang_model->insert_detail($detail);
             $array = array(
                 'id_product'        => $id_sanpham,
                 'name'              => $ten_sanpham,
@@ -242,11 +241,12 @@ class Donhang extends CI_Controller {
     { 
         $post   = $this->input->post();
         $match = array(
-            'created_at >='=>$post['from'],
-            'created_at <='=>$post['to']
+            'master.hidden'       => 0,
+            'master.order_day >='=>$post['from'],
+            'master.order_day <='=>$post['to']
         );
         $data['donhang'] = $this->Donhang_model->loc_donhang($match);
-        // $data['thongke'] = $this->Donhang_model->thongke_donhang($match);
+        $data['thongke'] = $this->Donhang_model->thongke_donhang($match);
         $data['start']      = $post['from'];
         $data['end']        = $post['to'];
         $this->_data['html_body'] = $this->load->view('page/listDonhang',$data,true);           

@@ -1,7 +1,7 @@
 <div>
   <div class="content-wrapper">
     <h1>Bảng tổng quan</h1>
-    <div class="row">
+    <!-- <div class="row">
       <div class="col-md-12">
         <div class="box">
           <div class="box-header with-boder">
@@ -12,7 +12,7 @@
           </div>
           <div class="animate">
             <div class="box-body no-padding-bottom" >
-              <form method="post" action="<?php echo base_url() ?>locDonhang" id="filter-form">
+              <form method="post" action="<?php echo base_url() ?>locThongke" id="filter-form">
                 <div class="row">
                   <div class="col-sm-3">
                     <div class="form-group">
@@ -48,7 +48,8 @@
           </div>
         </div>
       </div>  
-    </div>
+    </div> -->
+    
     <div class="row">
       <div class="col-md-12">
         <div class="box">
@@ -168,10 +169,6 @@
         series: [{
             name: 'Doanh thu',
             data: <?php echo $doanhthu ?>
-        },
-        {
-            name: 'Số lượng đơn hàng',
-            data: <?php echo $count ?>
         }],
     });
 
@@ -181,7 +178,7 @@
             type: 'spline'
         },
         title: {
-            text: 'Lợi nhuận theo tháng',
+            text: 'Số lượng đơn hàng theo tháng',
         },
 
         plotOptions: {
@@ -195,7 +192,7 @@
         },
         yAxis: {
             title: {
-                text: 'Lợi nhuận'
+                text: 'Số lượng'
             },
             plotLines: [{
                 value: 0,
@@ -219,8 +216,8 @@
         },
         
         series: [{
-            name: 'Lợi nhuận',
-            data: <?php echo $doanhthu ?>
+            name: 'Số lượng đơn hàng',
+            data: <?php echo isset($count)?$count: '' ?>
         }],
     });
   });

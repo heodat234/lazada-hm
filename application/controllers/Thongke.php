@@ -30,10 +30,34 @@ class Thongke extends CI_Controller {
         }
         $data['doanhthu'] = json_encode($doanhthu);
         $data['count'] = json_encode($count);
+        
+        // $data['page'] = 'index';
         // var_dump($data['doanhthu']);
         $this->_data['html_body'] = $this->load->view('page/thongke',$data,true); 	        
 		return $this->load->view('home/master', $this->_data);
 	}
-
+    // public function locThongke()
+    // {   
+    //     $post   = $this->input->post();
+    //     $match = array(
+    //         'master.hidden'       => 0,
+    //         'master.order_day >='=>$post['from'],
+    //         'master.order_day <='=>$post['to']
+    //     );
+    //     $thongke = $this->Donhang_model->thongke_donhang($match);
+    //     // echo "<pre>";
+    //     // print_r($thongke);
+    //     // echo "</pre>";
+        
+    //     $doanhthu = $thongke['doanhthu'] - 0;
+        
+    //     $data['start']      = $post['from'];
+    //     $data['end']        = $post['to'];
+    //     $data['doanhthu']   = $doanhthu;
+    //     $data['page'] = 'loc';
+    //     // var_dump($data['doanhthu']);
+    //     $this->_data['html_body'] = $this->load->view('page/thongke',$data,true);           
+    //     return $this->load->view('home/master', $this->_data);
+    // }
     
 }

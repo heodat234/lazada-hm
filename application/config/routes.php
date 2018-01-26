@@ -80,4 +80,5 @@ $route['insertKho'] 		= "Sanpham/insertKho";
 $route['locLichSuNhapId'] 	= "Sanpham/locLichSuNhapId";
 
 //thống kê chart
-$route['thongke'] 		= "Thongke";
+$route['thongke'] 			= "Thongke";
+$route['locThongke'] 		= "Thongke/locThongke";

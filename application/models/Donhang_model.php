@@ -35,25 +35,27 @@ class Donhang_model extends CI_Model{
     function insert_detail($data){
         $donhang = $this->db->insert($this->_detail,$data);
     }
-    // function thongke_donhang($match)
-    // {
-    //     if ($match == null) {
-    //         $dh =   $this->db->select_sum('into_money','doanhthu')
-    //                 ->select_sum('sales_return','chiphi')
-    //                 ->get($this->_master)
-    //                 ->result_array();
-    //                 return $dh;
-    //     }else{
-    //         $dh =   $this->db->select('count(*) as qty' )
-    //                 ->select_sum('sales_deliver','doanhthu')
-    //                 ->select_sum('sales_return','chiphi')
-    //                 ->where($match)
-    //                 ->get($this->_master)
-    //                 ->result_array();
-    //                 return $dh;
-    //     }
+    function thongke_donhang($match)
+    {
+        if ($match == null) {
+            $dh =   $this->db->select_sum('detail.into_money','doanhthu')
+                    ->where('master.hidden',0)
+                    ->from($this->_master)
+                    ->join($this->_detail, 'master.id_bill = detail.id_bill')
+                    ->get()
+                    ->result_array();
+                    return $dh;
+        }else{
+            $dh =   $this->db->select_sum('detail.into_money','doanhthu')
+                    ->from($this->_master)
+                    ->join($this->_detail, 'master.id_bill = detail.id_bill')
+                    ->where($match)
+                    ->get()
+                    ->result_array();
+                    return $dh;
+        }
         
-    // }
+    }
     function loc_donhang($match)
     {   
         $dh =   $this->db->select()
@@ -65,11 +67,11 @@ class Donhang_model extends CI_Model{
 
     function thongke_theothang()
     {
-        $sql = "Select Month(created_at) as 'thang', Sum(into_money) as 'doanh thu' From `detail`  Group by Month(created_at)";
+        $sql = "Select Month(a.order_day) as 'thang', Sum(b.into_money) as 'doanh thu' From  `master` a, `detail` b WHERE a.id_bill = b.id_bill AND a.hidden=0  Group by Month(a.order_day)";
         $query = $this->db->query($sql); 
         $adata['doanhthu'] = $query->result_array();
 
-        $sql1 = "Select Month(created_at) as 'thang', Count(*) as 'qty' From `master`  Group by Month(created_at)";
+        $sql1 = "Select Month(order_day) as 'thang', Count(*) as 'qty' From `master` Where hidden = 0  Group by Month(order_day)";
         $query1 = $this->db->query($sql1); 
         $adata['count'] = $query1->result_array();
         return $adata;
