@@ -1,6 +1,6 @@
 <div>
   <div class="content-wrapper">
-    <h1>Sản phẩm</h1>
+    <h1>Lịch sử nhập kho</h1>
     <div class="row">
       <div class="col-md-12">
         <div class="box">
@@ -41,7 +41,7 @@
               <div class="quick_filter">
                 <button class="btn_margin_bottom btn btn-warning btn_quick_filter" id="btn-filter"><i class="fa fa-search"></i> Lọc kết quả</button>
                 <div class="pull-right">
-                  <button class="btn_margin_bottom btn btn-success btn_quick_filter" data-toggle="modal" data-target="#addSP"><i class="fa fa-plus"></i> Thêm sản phẩm mới</button> 
+                  <button class="btn_margin_bottom btn btn-success btn_quick_filter" data-toggle="modal" data-target="#addSP"><i class="fa fa-plus"></i> Nhập kho</button> 
                 </div>
               </div>
             </div>
@@ -54,7 +54,7 @@
       <div class="col-md-12">
         <div class="box">
           <div class="box-header with-boder">
-            <h3 class="box-title">Danh sách nhập kho sản phẩm</h3>
+            <h3 class="box-title"><?php echo $sp['name'] ?></h3>
             <h3 class="box-tools pull-right">
               <button type="button" class="btn btn-box-tool thuphong" data-widget="collapse"><i class="fa fa-minus"></i></button>
             </h3>
@@ -111,25 +111,34 @@
             <div class="row">
                <div class="col-xs-12 col-sm-12 col-md-12">
                   <div class="form-group">
-                     <div><b>Mã sản phẩm</b></div>
+                     <div><b>Tên sản phẩm</b></div>
                      <div class="input-group">
                         <div class="input-group-addon iga2">
                            <span class="glyphicon glyphicon-flag"></span>
                         </div>
-                        <input type="text" class="form-control" name="id_sanpham" >
+                        <input type="hidden" name="id_sanpham" value="<?php echo $sp['id'] ?>">
+                        <input type="text" class="form-control"  readonly="" value="<?php echo $sp['name'] ?>">
                      </div>
                      <div class="alert alert-danger hide"></div>
                   </div>
                   <div class="form-group">
-                     <div><b>Tên sản phẩm</b></div>
+                     <div><b>Giá nhập</b></div>
                      <div class="input-group">
                         <div class="input-group-addon iga2">
                            <span class="glyphicon glyphicon-pencil"></span>
                         </div>
-                        <input type="text" class="form-control" name="ten_sanpham" >
+                        <input type="text" class="form-control so" name="price" >
                      </div>
                   </div>
-                  
+                  <div class="form-group">
+                     <div><b>Số lượng nhập</b></div>
+                     <div class="input-group">
+                        <div class="input-group-addon iga2">
+                           <span class="glyphicon glyphicon-pencil"></span>
+                        </div>
+                        <input type="text" class="form-control so" name="qty" >
+                     </div>
+                  </div>
                </div>
             </div>
          </div>
@@ -277,10 +286,10 @@
 });
 //mở form thêm mới
 $('#btn-add').on('click',function(){
-  var route="<?= base_url()?>insertSP";
+  var route="<?= base_url()?>insertKho";
   var frm = new FormData($('form#add-form')[0]);
-  var id = frm.get('id_sanpham');
-  var name = frm.get('ten_sanpham');
+  var price = frm.get('price');
+  var qty = frm.get('qty');
   
       $.ajax({
         url:route,
@@ -290,16 +299,13 @@ $('#btn-add').on('click',function(){
         dataType:'json',
         data:frm,
         success:function(data) {
-          if (data['mess'] == 'error') {
-            $('.alert-danger').html('Mã sản phẩm đã tồn tại.');
-            $('.alert-danger').removeClass('hide');
-          }else{
+         
             var row = [];
               row.push('<td></td>');
-              row.push('<td>'+id+'</td>');
-              row.push('<td>'+name+'</td>');
+              row.push('<td>'+price+'</td>');
+              row.push('<td>'+qty+'</td>');
               row.push('<td>'+data['ngay_tao'] +'</td>');
-              row.push('<td><button class="btn btn-info btn-flat" data-toggle="modal" data-target="#edit" data-id='+id+' data-name='+name+' data-gianhap='+gia+' data-soluong='+so_luong+'><i class="fa fa-lg fa-pencil"></i></button></td>');
+              
               
               var rowIndex = $('#sampleTable').dataTable().fnAddData(row);
               var idrow =   $('#sampleTable').dataTable().fnGetNodes(rowIndex);
@@ -307,8 +313,7 @@ $('#btn-add').on('click',function(){
               $(idrow).attr('class','load');
               $('.alert-danger').addClass('hide');
               $('#addSP').modal('hide');
-              alert('Thêm sản phẩm thành công.');
-          }
+              alert('Nhập kho thành công.');
           
         }
       });

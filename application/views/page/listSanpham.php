@@ -83,7 +83,7 @@
                         <button class="btn btn-info btn-flat" data-toggle="modal" data-target="#edit" data-id='<?php echo $row['id_product'] ?>' data-name='<?php echo $row['name'] ?>' ><i class="fa fa-lg fa-pencil"></i></button>
                       </td>
                       <td>
-                        <a class="btn btn-success btn-flat" href="<?php echo base_url().'chitietnhapkho/'.$row['id_product'] ?> "><i class="fa fa-lg fa-eye"></i></a>
+                        <a class="btn btn-success btn-flat" href="<?php echo base_url().'chitietnhapkho/'.$row['id'] ?> "><i class="fa fa-lg fa-eye"></i></a>
                       </td>
                     </tr>                    
                 <?php endforeach;?>
