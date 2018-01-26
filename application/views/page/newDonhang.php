@@ -261,7 +261,9 @@ $(".nav-tabs").on("click", "a", function(e){
         var anchor = $(this).siblings('a');
         $(anchor.attr('href')).remove();
         $(this).parent().remove();
-        $(".nav-tabs >li").children('a').first().click();
+        if ($(".nav-tabs").children().length>1) {
+          $(".nav-tabs >li").children('a').first().click();
+        }
     });
   $('.add-contact').click(function(e) {
       e.preventDefault();
