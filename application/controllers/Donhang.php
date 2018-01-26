@@ -91,6 +91,10 @@ class Donhang extends CI_Controller {
         }
         redirect(base_url('donhang'));
     }
+    public function updateDonhang(){
+        $frm = $this->input->post();
+        var_dump($frm);
+    }
     public function addDonhangExcel() 
     {
         if (!empty($_FILES['file']['name'])) {

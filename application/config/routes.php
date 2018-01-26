@@ -66,6 +66,7 @@ $route['suadonhang/(:num)'] 	= "Donhang/editDonhang/$1";
 $route['checkDonhang'] 	= "Donhang/checkDonhang";
 $route['addExcel'] 		= "Donhang/addDonhangExcel";
 $route['insertDonhang'] = "Donhang/insertDonhang";
+$route['updateDonhang'] = "Donhang/updateDonhang";
 $route['locDonhang'] 	= "Donhang/locDonhang";
 
 //sản phẩm

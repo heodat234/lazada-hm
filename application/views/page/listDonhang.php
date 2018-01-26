@@ -99,7 +99,7 @@
                          <td><?php echo date('d-m-Y H:i:s',strtotime($row['deliv_day'])) ?></td>
                         <td><?php echo $row['payment_method'] ?></td>
                         <td><?php echo $row['payment_status'] ?></td>
-                        <td><!-- <button class="btn btn-primary btn-flat" data-toggle="modal" data-id='<?php echo $row['id_bill'];?>' data-target="#addPrice"><i class="fa fa-lg fa-edit"></i>Thêm giá bán</button> --></td>
+                        <td><a class="btn btn-primary btn-flat" href="<?=base_url()?>suadonhang/<?php echo $row['id_bill']?>"><i class="fa fa-lg fa-edit"></i>Sửa</a></td>
                       </tr>                    
                   <?php endforeach;?>
                 </tbody>

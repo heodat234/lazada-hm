@@ -115,51 +115,52 @@
                     	?>
                         <div class="tab-pane" id="contact_<?php echo($i);?>">
                           <h1><?php echo "Sản phẩm ".($i+1);?></h1>
+                          <input type="hidden" name="product[<?php echo ($i+1)?>]['id_bill_detail']" value="<?php echo $bill_detail[$i]['id'];?>">
                           <div class="form-group">
                             <div class="col-sm-9">
-                              <input type="text" list="product-data-list" id="decalpriceform-decaltype" class="form-control" name="product[1][id_sanpham]" required="" aria-required="true" value="<?php echo $bill_detail[$i]['id_product'];?>">
+                              <input type="text" list="product-data-list" id="decalpriceform-decaltype" class="form-control" name="product[<?php echo ($i+1)?>][id_sanpham]" required="" aria-required="true" value="<?php echo $bill_detail[$i]['id_product'];?>">
                             </div>
                             <span>*Sản phẩm</span>
                           </div>
                           <div class="form-group">
                             <div class="col-sm-9">
-                                 <input type="text" name="product[1][qty]" value="<?php echo $bill_detail[$i]['qty'];?>" class="form-control so" >
+                                 <input type="text" name="product[<?php echo ($i+1)?>][qty]" value="<?php echo $bill_detail[$i]['qty'];?>" class="form-control so" >
                             </div>
                             <span>*Số lượng</span>
                           </div>
                           <div class="form-group">
                             <div class="col-sm-9">
-                                 <input type="text" name="product[1][sales_deliver]" value="<?php echo $bill_detail[$i]['price'];?>" class="form-control so" >
+                                 <input type="text" name="product[<?php echo ($i+1)?>][sales_deliver]" value="<?php echo $bill_detail[$i]['price'];?>" class="form-control so" >
                             </div>
                             <span>*Giá bán</span>
                           </div>
                           <div class="form-group">
                             <div class="col-sm-9">
-                                 <input type="text" name="product[1][phi_co_dinh]" value="<?php echo $bill_detail[$i]['cost'];?>" class="form-control so" >
+                                 <input type="text" name="product[<?php echo ($i+1)?>][phi_co_dinh]" value="<?php echo $bill_detail[$i]['cost'];?>" class="form-control so" >
                             </div>
                             <span>*Phí cố định</span>
                           </div>
                           <div class="form-group">
                             <div class="col-sm-9">
-                                 <input type="text" name="product[1][phi_khac]" value="<?php echo $bill_detail[$i]['other_cost'];?>" class="form-control so" >
+                                 <input type="text" name="product[<?php echo ($i+1)?>][phi_khac]" value="<?php echo $bill_detail[$i]['other_cost'];?>" class="form-control so" >
                             </div>
                             <span>*Phí khác</span>
                           </div>
                           <div class="form-group">
                             <div class="col-sm-9">
-                                 <input type="text" name="product[1][phi_gtgt]" value="<?php echo $bill_detail[$i]['tax_gtgt'];?>" class="form-control so" >
+                                 <input type="text" name="product[<?php echo ($i+1)?>][phi_gtgt]" value="<?php echo $bill_detail[$i]['tax_gtgt'];?>" class="form-control so" >
                             </div>
                             <span>*Phí GTGT</span>
                           </div>
                           <div class="form-group">
                             <div class="col-sm-9">
-                                 <input type="text" name="product[1][khoan_wht]" value="<?php echo $bill_detail[$i]['acc_wht'];?>" class="form-control so" >
+                                 <input type="text" name="product[<?php echo ($i+1)?>][khoan_wht]" value="<?php echo $bill_detail[$i]['acc_wht'];?>" class="form-control so" >
                             </div>
                             <span>*Khoản WHT</span>
                           </div>
                           <div class="form-group">
                             <div class="col-sm-9">
-                                 <input type="text" name="product[1][khoan_thanh_toan]" value="<?php echo $bill_detail[$i]['acc_payment'];?>" class="form-control so" >
+                                 <input type="text" name="product[<?php echo ($i+1)?>][khoan_thanh_toan]" value="<?php echo $bill_detail[$i]['acc_payment'];?>" class="form-control so" >
                             </div>
                             <span>*Khoản thanh toán</span>
                           </div>
@@ -244,25 +245,7 @@ $(document).ready(function() {
 
 
     $('.saveDH').on('click', function() {
-      var id_dh = $('#id_donhang').val();
-      $.ajax({
-        url: '<?php echo base_url() ?>checkDonhang',
-        type: 'POST',
-        data: {id: id_dh},
-      })
-      .done(function(data) {
-        console.log(data);
-        if (data == '1') {
-          $('.alert-danger').html('Mã đơn hàng đã tồn tại.');
-          $('.alert-danger').removeClass('hide');
-        }else{
-          $('.alert-danger').addClass('hide');
-          $('form#add-form').submit();
-        }
-      })
-      .fail(function() {
-        console.log("error");
-      });   
+      $('form#add-form').submit();
     });
 });
 $(document).ready(function(){
