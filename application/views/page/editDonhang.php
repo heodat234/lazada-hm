@@ -115,7 +115,7 @@
                     	?>
                         <div class="tab-pane" id="contact_<?php echo($i);?>">
                           <h1><?php echo "Sản phẩm ".($i+1);?></h1>
-                          <input type="hidden" name="product[<?php echo ($i+1)?>]['id_bill_detail']" value="<?php echo $bill_detail[$i]['id'];?>">
+                          <input type="hidden" class="id-bill-detail" name="product[<?php echo ($i+1)?>]['id_bill_detail']" value="<?php echo $bill_detail[$i]['id'];?>">
                           <div class="form-group">
                             <div class="col-sm-9">
                               <input type="text" list="product-data-list" id="decalpriceform-decaltype" class="form-control" name="product[<?php echo ($i+1)?>][id_sanpham]" required="" aria-required="true" value="<?php echo $bill_detail[$i]['id_product'];?>">
@@ -256,9 +256,45 @@ $(".nav-tabs").on("click", "a", function(e){
     })
     .on("click", "span", function () {
         var anchor = $(this).siblings('a');
-        $(anchor.attr('href')).remove();
-        $(this).parent().remove();
-        $(".nav-tabs >li").children('a').first().click();
+        var id_bill_detail =  $(anchor.attr('href')).find('input.id-bill-detail').val();
+        if (id_bill_detail!=undefined) {
+        	ssi_modal.confirm({
+				content: 'Bạn có chắc muốn xóa detail này?',
+				okBtn: {
+					className:'btn btn-primary'
+				},
+				cancelBtn:{
+				  	className:'btn btn-danger'
+				}
+			},function (result) {
+			    if(result){
+			      	var route="<?= base_url()?>Donhang/delete_detail/";
+			      	$.ajax({
+				      	url:route,
+				      	type:'post',
+				      	data:{
+				        	id:id_bill_detail,
+				      	},
+				      	success:function(data){
+				      		if (data.success) {
+				      			$(anchor.attr('href')).remove();
+        						$(this).parent().remove();
+        						$(".nav-tabs >li").children('a').first().click();
+				      		}else{
+				      			ssi_modal.notify('error', {content: 'Thất bại.'});
+				      		}  	
+				        }
+			      	});
+			    }
+			    else
+			      	ssi_modal.notify('error', {content: 'Thất bại: ' + result});
+			    }
+			);
+        }else{
+        	$(anchor.attr('href')).remove();
+        	$(this).parent().remove();
+        	$(".nav-tabs >li").children('a').first().click();
+        }
     });
   $('.add-contact').click(function(e) {
       e.preventDefault();

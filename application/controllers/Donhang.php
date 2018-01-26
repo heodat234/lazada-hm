@@ -7,7 +7,7 @@ class Donhang extends CI_Controller {
         parent::__construct();
         $this->load->helper(array('url','my_helper'));
         $this->load->library(array('session','excel'));
-        $this->load->model(array('Donhang_model','Sanpham_model'));
+        $this->load->model(array('Donhang_model','Sanpham_model','M_data'));
         $this->load->driver('cache', array('adapter' => 'apc', 'backup' => 'file'));
         $this->_data['html_header']   = $this->load->view('home/header', NULL, TRUE); 
         $mdata['page'] = 'donhang';
@@ -90,6 +90,15 @@ class Donhang extends CI_Controller {
             $this->Donhang_model->insert_detail($detail);
         }
         redirect(base_url('donhang'));
+    }
+    public function delete_detail(){
+        $id = $this->input->post('id');
+        $match = array('id'=>$id);
+        $up_data = array('hidden'=>1);
+        $table = 'detail';
+        $this->M_data->update($match,$up_data,$table);
+        $data['success'] = "Thành công.";
+        echo json_encode($data);
     }
     public function updateDonhang(){
         $frm = $this->input->post();
