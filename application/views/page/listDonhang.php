@@ -83,6 +83,8 @@
                     <th class="col-data-table-0-7">Trạng thái đơn hàng</th>
                     <th class="col-data-table-1-7">Ngày đặt hàng</th>
                     <th class="col-data-table-1-7">Ngày giao hàng</th>
+                    <th class="col-data-table-1-7">Tổng tiền</th>
+                    <th class="col-data-table-1-7">Số sản phẩm</th>
                     <th class="col-data-table-1-7">Phương thức thanh toán</th>
                     <th class="col-data-table-1-7">Tình trạng thanh toán</th>
                     <th class="col-data-table-0-7">Thao tác</th>
@@ -96,7 +98,21 @@
                         <td><?php echo $row['type_bill'] ?></td>
                         <td><?php echo $row['bill_status'] ?></td>
                         <td><?php echo date('d-m-Y H:i:s',strtotime($row['order_day'])) ?></td>
-                         <td><?php echo date('d-m-Y H:i:s',strtotime($row['deliv_day'])) ?></td>
+                        <td><?php echo date('d-m-Y H:i:s',strtotime($row['deliv_day'])) ?></td>
+                        
+                        <?php $flag = true; for ($i=0; $i < count($tong) ; $i++) {
+                            if ($tong[$i]['id_bill'] == $row['id_bill']){ $flag= false; ?>
+                              <td><?php echo $tong[$i]['tongtien'] ?></td>
+                              <td><?php echo $tong[$i]['Qty'] ?></td>
+                            
+                        <?php break; }}if ($flag) {
+                          echo "<td>0</td><td>0</td>";
+                        } ?>
+                          
+                        
+                         
+                            
+                          
                         <td><?php echo $row['payment_method'] ?></td>
                         <td><?php echo $row['payment_status'] ?></td>
                         <td><a class="btn btn-primary btn-flat" href="<?=base_url()?>suadonhang/<?php echo $row['id_bill']?>"><i class="fa fa-lg fa-edit"></i> Sửa</a> <a class="btn btn-danger btn-flat" onclick="delRow('<?php echo $row['id_bill']?>')"><i class="fa fa-lg fa-trash"></i> Xóa</a></td>

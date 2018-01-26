@@ -16,12 +16,11 @@ class Donhang extends CI_Controller {
     }
 	public function index()
 	{	
-        if ( ! $data['donhang'] = $this->cache->get('donhang') )
-         {
-            $data['donhang'] = $this->Donhang_model->list_donhang();
-            $this->cache->save('donhang', $data['donhang'], 600);
-           
-         }
+        $data['donhang'] = $this->Donhang_model->listDonhang();
+        $data['tong'] = $this->Donhang_model->getTongtienDonhang();
+         // echo "<pre>";
+         // print_r($data['tong']);
+         // echo "</pre>";
          $match= '';
         $data['thongke'] = $this->Donhang_model->thongke_donhang($match);
         $this->_data['html_body'] = $this->load->view('page/listDonhang',$data,true); 	        
@@ -167,7 +166,7 @@ class Donhang extends CI_Controller {
             }else{
                 $a_data["file"] = '';
             }
-            // $data = $this->readExcel($a_data["file"]);
+            $data = $this->readExcel($a_data["file"]);
 
             redirect(base_url('donhang'));
     }
@@ -185,56 +184,47 @@ class Donhang extends CI_Controller {
         $array = array();
         $data = array();
         $k=1;
+
+
         for ($row = 6; $row <= $highestRow;++$row)
         {
             if ($objWorksheet->getCellByColumnAndRow(0,$row)->getValue() == null) {
                 break;
             }
+            $id_donhang           =  $objWorksheet->getCellByColumnAndRow(0,$row)->getValue();
+            
             $commission = $objWorksheet->getCellByColumnAndRow(18,$row)->getValue();
             if (substr($commission, 0,1) == '-') 
                     $commission = trim($commission,'-');
-
-            // $phi_khac  = $objWorksheet->getCellByColumnAndRow(17,$row)->getValue() + $objWorksheet->getCellByColumnAndRow(19,$row)->getValue();
-            // $sum_of_fee = $objWorksheet->getCellByColumnAndRow(29,$row)->getCalculatedValue();
+            
+            $sum_of_fee = $objWorksheet->getCellByColumnAndRow(29,$row)->getCalculatedValue();
+            if (substr($sum_of_fee, 0,1) == '-') 
+                    $sum_of_fee = trim($sum_of_fee,'-');
             $gia_nhap   = $objWorksheet->getCellByColumnAndRow(13,$row)->getCalculatedValue();
             
 
-            $id_sanpham = $objWorksheet->getCellByColumnAndRow(2,$row)->getValue();
-            $ten_sanpham = $objWorksheet->getCellByColumnAndRow(3,$row)->getValue();
+            $lazada = array(
+                'id_donhang'            => $id_donhang,
+                'id_monhang'            => $objWorksheet->getCellByColumnAndRow(1,$row)->getValue(),
+                'id_sanpham'            => $objWorksheet->getCellByColumnAndRow(2,$row)->getValue(),
+                'item_name'             => $objWorksheet->getCellByColumnAndRow(3,$row)->getValue(),
 
-            $master = array(
-                'id_bill'               => $objWorksheet->getCellByColumnAndRow(0,$row)->getValue(),
-                'type_bill'             => 'Hàng Lazada',                
-                'order_day'             => $objWorksheet->getCellByColumnAndRow(6,$row)->getValue(),
-                'bill_status'           => $objWorksheet->getCellByColumnAndRow(7,$row)->getValue(),
-                'deliv_day'             => $objWorksheet->getCellByColumnAndRow(8,$row)->getValue(),
+                'created_at'            => $objWorksheet->getCellByColumnAndRow(6,$row)->getValue(),
+                'status'                => $objWorksheet->getCellByColumnAndRow(7,$row)->getValue(),
                 // 'ma_van_don'            => $objWorksheet->getCellByColumnAndRow(9,$row)->getValue(),
-                'payment_status'        => 'Đã thanh toán',
-                'payment_method'        => $objWorksheet->getCellByColumnAndRow(11,$row)->getValue(),
-            );
-            $detail = array(
-                'id_bill'               => $objWorksheet->getCellByColumnAndRow(0,$row)->getValue(),
-                'id_product'            => $objWorksheet->getCellByColumnAndRow(1,$row)->getValue(), 
-                'id_sku_seller'         => $id_sanpham,
-                'price'                 => $objWorksheet->getCellByColumnAndRow(12,$row)->getValue(),
-                'qty'                   => 1,
-                'cost'                  => $commission,
+                'phuongthuc_thanhtoan'  => $objWorksheet->getCellByColumnAndRow(11,$row)->getValue(),
+                'sales_deliver'         => $objWorksheet->getCellByColumnAndRow(12,$row)->getValue(),
+                'sales_return'          => $gia_nhap,
+                'tro_gia'               => $objWorksheet->getCellByColumnAndRow(17,$row)->getValue(),
+                'commission'            => $commission,
+                'customer_shipping_fee' => $objWorksheet->getCellByColumnAndRow(19,$row)->getValue(),
+                'phi_boi_thuong'        => $objWorksheet->getCellByColumnAndRow(28,$row)->getValue(),
+                'sum_of_fee'            => $sum_of_fee,
             );
             
-            $this->Donhang_model->insert_master($master);
-            $this->Donhang_model->insert_detail($detail);
-            $array = array(
-                'id_product'        => $id_sanpham,
-                'name'              => $ten_sanpham,
-            );
-            if ($this->Sanpham_model->checkSanpham($id_sanpham) == false) 
-                $this->Sanpham_model->insert_sanpham($array);
-            // }else{
-            //     $sp = $this->Sanpham_model->checkSanpham($id_sanpham);
-            //     $so_luong_ban   = $sp['export_qty'];
-            //     $_data['export_qty'] = $so_luong_ban +1;
-            //     $this->Sanpham_model->edit_sanpham( $id_sanpham, $_data);
-            // }
+            
+            $this->Donhang_model->insert_lazada($lazada);
+            
         }
     }
     public function locDonhang()

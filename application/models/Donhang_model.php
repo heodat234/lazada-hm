@@ -2,8 +2,9 @@
 class Donhang_model extends CI_Model{
 	
 	/* Gán tên bảng cần xử lý*/
-	private $_master = 'master';
-    private $_detail = 'detail';
+	private $_master    = 'master';
+    private $_detail    = 'detail';
+    private $_excel     = 'baocao_lazada';
 	
 	function __construct(){
         parent::__construct();
@@ -21,12 +22,30 @@ class Donhang_model extends CI_Model{
             return false;
         }
     }
-    function list_donhang(){
-    	$donhang = $this->db->select()
+    public function listDonhang()
+    {
+       $donhang = $this->db->select()
+                    ->where('hidden',0)
+                    ->get($this->_master)
+                    ->result_array();
+        return $donhang;
+    }
+    function getTongtienDonhang(){
+    	$donhang = $this->db->select('id_bill, Count(id_bill) as Qty')->select_sum('detail.into_money','tongtien')
                         ->where('hidden',0)
-				        ->get($this->_master)
+                        ->group_by('id_bill')
+				        ->get($this->_detail)
 				        ->result_array();
     	return $donhang;
+    }
+    function select_donhang_lazada(){
+        $donhang = $this->db->select()
+                    ->where('master.hidden',0)->where('master.type_bill','Hàng Lazada')
+                    ->from($this->_master)
+                    ->join($this->_detail, 'master.id_bill = detail.id_bill')
+                    ->get()
+                    ->result_array();
+        return $donhang;
     }
 
     function insert_master($data){
@@ -34,6 +53,9 @@ class Donhang_model extends CI_Model{
     }
     function insert_detail($data){
         $donhang = $this->db->insert($this->_detail,$data);
+    }
+    function insert_lazada($data){
+        $donhang = $this->db->insert($this->_excel,$data);
     }
     function thongke_donhang($match)
     {
