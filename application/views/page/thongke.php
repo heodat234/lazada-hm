@@ -168,6 +168,10 @@
         series: [{
             name: 'Doanh thu',
             data: <?php echo $doanhthu ?>
+        },
+        {
+            name: 'Số lượng đơn hàng',
+            data: <?php echo $count ?>
         }],
     });
 

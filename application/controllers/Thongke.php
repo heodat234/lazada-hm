@@ -15,18 +15,21 @@ class Thongke extends CI_Controller {
     }
 	public function index()
 	{	
-        $doanhthu = array(null,null,null,null,null,null,null,null,null,null,null,null);
-        $loinhuan = array(null,null,null,null,null,null,null,null,null,null,null,null);
+        $doanhthu   = array(null,null,null,null,null,null,null,null,null,null,null,null);
+        $count      = array(null,null,null,null,null,null,null,null,null,null,null,null);
         $thongke = $this->Donhang_model->thongke_theothang();
         // echo "<pre>";
         // print_r($thongke);
         // echo "</pre>";
-        for ($i=0; $i < count($thongke) ; $i++) { 
-            $doanhthu[$thongke[$i]['thang']-1] = $thongke[$i]['doanh thu'] - 0;
+        for ($i=0; $i < count($thongke['doanhthu']) ; $i++) { 
+            $doanhthu[$thongke['doanhthu'][$i]['thang']-1] = $thongke['doanhthu'][$i]['doanh thu'] - 0;
             // $loinhuan[$thongke[$i]['thang']-1] = $thongke[$i]['doanh thu'] - $thongke[$i]['chi phi'];
         }
+        for ($i=0; $i < count($thongke['count']) ; $i++) { 
+            $count[$thongke['count'][$i]['thang']-1] = $thongke['count'][$i]['qty'] - 0;
+        }
         $data['doanhthu'] = json_encode($doanhthu);
-        // $data['loinhuan'] = json_encode($loinhuan);
+        $data['count'] = json_encode($count);
         // var_dump($data['doanhthu']);
         $this->_data['html_body'] = $this->load->view('page/thongke',$data,true); 	        
 		return $this->load->view('home/master', $this->_data);
