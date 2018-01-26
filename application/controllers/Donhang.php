@@ -167,7 +167,7 @@ class Donhang extends CI_Controller {
             }else{
                 $a_data["file"] = '';
             }
-            $data = $this->readExcel($a_data["file"]);
+            // $data = $this->readExcel($a_data["file"]);
 
             redirect(base_url('donhang'));
     }
