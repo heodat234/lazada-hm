@@ -63,6 +63,6 @@ class Sanpham_model extends CI_Model{
                     ->where($match)
                     ->get($this->_import)
                     ->result_array();
-        return $dh;
+        return $im;
     }
 }

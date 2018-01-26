@@ -91,7 +91,9 @@ class Sanpham extends CI_Controller {
     public function locLichSuNhapId()
     {
         $post   = $this->input->post();
+        $data['sp'] = $this->Sanpham_model->selsectSPById($post['id']);
         $match = array(
+            'id_product'   =>$post['id'],
             'created_at >='=>$post['from'],
             'created_at <='=>$post['to']
         );
