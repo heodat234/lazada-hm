@@ -216,7 +216,7 @@
         
         series: [{
             name: 'Lợi nhuận',
-            data: <?php echo $loinhuan ?>
+            data: <?php echo $doanhthu ?>
         }],
     });
   });

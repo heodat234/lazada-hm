@@ -74,7 +74,7 @@
               </thead>
               <tbody>
                 <?php foreach ($sanpham as $row): ?>
-                    <tr id="row_<?php echo $row['id_product'] ?>">
+                    <tr id="row_<?php echo $row['id'] ?>">
                       <td></td>
                       <td><?php echo $row['id_product'] ?></td>
                       <td><?php echo $row['name'] ?></td>
@@ -299,11 +299,11 @@ $('#btn-add').on('click',function(){
               row.push('<td>'+id+'</td>');
               row.push('<td>'+name+'</td>');
               row.push('<td>'+data['ngay_tao'] +'</td>');
-              row.push('<td><button class="btn btn-info btn-flat" data-toggle="modal" data-target="#edit" data-id='+id+' data-name='+name+' data-gianhap='+gia+' data-soluong='+so_luong+'><i class="fa fa-lg fa-pencil"></i></button></td>');
-              
+              row.push('<td><button class="btn btn-info btn-flat" data-toggle="modal" data-target="#edit" data-id='+id+' data-name='+name+'><i class="fa fa-lg fa-pencil"></i></button></td>');
+              row.push('<td><a class="btn btn-success btn-flat" href="<?php echo base_url().'chitietnhapkho/' ?>'+data['id']+' "><i class="fa fa-lg fa-eye"></i></a></td>');
               var rowIndex = $('#sampleTable').dataTable().fnAddData(row);
               var idrow =   $('#sampleTable').dataTable().fnGetNodes(rowIndex);
-              $(idrow).attr('id','row_'+id);
+              $(idrow).attr('id','row_'+data['id']);
               $(idrow).attr('class','load');
               $('.alert-danger').addClass('hide');
               $('#addSP').modal('hide');

@@ -18,13 +18,15 @@ class Thongke extends CI_Controller {
         $doanhthu = array(null,null,null,null,null,null,null,null,null,null,null,null);
         $loinhuan = array(null,null,null,null,null,null,null,null,null,null,null,null);
         $thongke = $this->Donhang_model->thongke_theothang();
+        // echo "<pre>";
         // print_r($thongke);
+        // echo "</pre>";
         for ($i=0; $i < count($thongke) ; $i++) { 
             $doanhthu[$thongke[$i]['thang']-1] = $thongke[$i]['doanh thu'] - 0;
-            $loinhuan[$thongke[$i]['thang']-1] = $thongke[$i]['doanh thu'] - $thongke[$i]['chi phi'];
+            // $loinhuan[$thongke[$i]['thang']-1] = $thongke[$i]['doanh thu'] - $thongke[$i]['chi phi'];
         }
         $data['doanhthu'] = json_encode($doanhthu);
-        $data['loinhuan'] = json_encode($loinhuan);
+        // $data['loinhuan'] = json_encode($loinhuan);
         // var_dump($data['doanhthu']);
         $this->_data['html_body'] = $this->load->view('page/thongke',$data,true); 	        
 		return $this->load->view('home/master', $this->_data);
