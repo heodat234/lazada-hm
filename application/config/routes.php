@@ -62,6 +62,7 @@ $route['login/success'] 	= "Login/success";
 //đơn hàng
 $route['donhang'] 		= "Donhang";
 $route['taodonhang'] 	= "Donhang/newDonhang";
+$route['suadonhang/(:num)'] 	= "Donhang/editDonhang/$1";
 $route['checkDonhang'] 	= "Donhang/checkDonhang";
 $route['addExcel'] 		= "Donhang/addDonhangExcel";
 $route['insertDonhang'] = "Donhang/insertDonhang";

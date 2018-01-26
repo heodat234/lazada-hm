@@ -15,17 +15,18 @@
         <div class="animate">
           <div class="box-body no-padding-bottom">
             <div class="alert alert-danger hide"></div>
-            <form class="form-horizontal bucket-form" enctype="multipart/form-data"  id="add-form" method="post" action="<?php echo base_url(); ?>insertDonhang">
+            <form class="form-horizontal bucket-form" enctype="multipart/form-data"  id="add-form" method="post" action="<?php echo base_url(); ?>updateDonhang">
               <div class="form-group">
                 <label class="col-sm-3 control-label">Mã đơn hàng</label>
                 <div class="col-sm-6">
-                     <input type="text" name="id_bill" id="id_donhang" class="form-control" placeholder="Nhập mã đơn hàng" required="">
+                     <input type="text" name="id_bill" id="id_donhang" class="form-control" placeholder="Nhập mã đơn hàng" required="" value="<?php echo isset($bill_master[0]['id_bill'])? $bill_master[0]['id_bill']:'';?>">
                 </div>
               </div>
               <div class="form-group">
                   <label class="col-sm-3 control-label">Loại đơn hàng</label>
                   <div class="col-sm-6">
                        <select class="form-control" name="type_bill">
+                       	 <option selected="" hidden="" value="<?php echo isset($bill_master[0]['type_bill'])? $bill_master[0]['type_bill']:'';?>"><?php echo isset($bill_master[0]['type_bill'])? $bill_master[0]['type_bill']:'';?></option>
                          <option value="Hàng Lazada">Hàng Lazada</option>
                          <option value="Hàng Shopee">Hàng Shopee</option>
                          <option value="Hàng bỏ sỉ">Hàng bỏ sỉ</option>
@@ -38,6 +39,7 @@
                 <label class="col-sm-3 control-label">Trạng thái</label>
                 <div class="col-sm-6">
                      <select class="form-control" name="bill_status">
+                     	<option selected="" hidden="" value="<?php echo isset($bill_master[0]['bill_status'])? $bill_master[0]['bill_status']:'';?>"><?php echo isset($bill_master[0]['bill_status'])? $bill_master[0]['bill_status']:'';?></option>
                        <option value="Đang giao hàng">Đang giao hàng</option>
                        <option value="Đã giao hàng">Đã giao hàng</option>
                        <option value="Trả lại">Trả lại</option>
@@ -49,6 +51,7 @@
                   <label class="col-sm-3 control-label">P.T Thanh toán</label>
                   <div class="col-sm-6">
                        <select class="form-control" name="payment_method">
+                       	 <option selected="" hidden="" value="<?php echo isset($bill_master[0]['payment_method'])? $bill_master[0]['payment_method']:'';?>"><?php echo isset($bill_master[0]['payment_method'])? $bill_master[0]['payment_method']:'';?></option>
                          <option value="CashOnDelivery">CashOnDelivery</option>
                          <option value="Cybersource">Cybersource</option>
                          <option value="VN123Pay">VN123Pay</option>
@@ -59,6 +62,7 @@
                   <label class="col-sm-3 control-label">Trạng thái Thanh toán</label>
                   <div class="col-sm-6">
                        <select class="form-control" name="payment_status">
+                       	 <option selected="" hidden="" value="<?php echo isset($bill_master[0]['payment_status'])? $bill_master[0]['payment_status']:'';?>"><?php echo isset($bill_master[0]['payment_status'])? $bill_master[0]['payment_status']:'';?></option>
                          <option value="Chờ thanh toán">Chờ thanh toán</option>
                          <option value="Đã thanh toán">Đã thanh toán</option>
                        </select>
@@ -67,13 +71,13 @@
               <div class="form-group">
                 <label class="col-sm-3 control-label">Ngày đặt hàng</label>
                 <div class="col-sm-6">
-                     <input type="date" name="order_day" class="form-control today" required="">
+                     <input type="date" name="order_day" class="form-control" required="" value="<?php echo isset($bill_master[0]['order_day'])? date("Y-m-d", strtotime($bill_master[0]['order_day'])):'';?>">
                 </div>
               </div>
               <div class="form-group">
                 <label class="col-sm-3 control-label">Ngày giao hàng</label>
                 <div class="col-sm-6">
-                     <input type="date" name="deliv_day"  class="form-control today" required="">
+                     <input type="date" name="deliv_day"  class="form-control" required="" value="<?php echo isset($bill_master[0]['deliv_day'])? date("Y-m-d", strtotime($bill_master[0]['deliv_day'])):'';?>">
                 </div>
               </div>    
               <div id="product-list" style="display: none;">
@@ -96,61 +100,71 @@
                   <label class="col-sm-3 control-label">Thông tin đơn hàng</label>
                   <div class="col-sm-6">
                     <ul class="nav nav-tabs">
-                        <li class="active"><a href="#contact_01" data-toggle="tab">S.phẩm 1 </a><span class="glyphicon glyphicon-remove remove-tab"></span></li>
+                    	<?php 
+                    		if (isset($bill_detail) && !empty($bill_detail)) {
+                    			for ($i=0; $i < count($bill_detail); $i++) { 
+                    	?>
+                        <li><a href="#contact_<?php echo($i);?>" data-toggle="tab"><?php echo "S.phẩm ".($i+1);?> </a><span class="glyphicon glyphicon-remove remove-tab"></span></li>
+                        <?php }} ?>
                         <li><a href="#" class="add-contact" data-toggle="tab"><span class="glyphicon glyphicon-plus"></span> Thêm</a></li>
                     </ul>
                     <div class="tab-content">
-                        <div class="tab-pane active" id="contact_01">
-                          <h1>Sản phẩm 1</h1>
+                    	<?php 
+                    		if (isset($bill_detail) && !empty($bill_detail)) {
+                    			for ($i=0; $i < count($bill_detail); $i++) { 
+                    	?>
+                        <div class="tab-pane" id="contact_<?php echo($i);?>">
+                          <h1><?php echo "Sản phẩm ".($i+1);?></h1>
                           <div class="form-group">
                             <div class="col-sm-9">
-                              <input type="text" list="product-data-list" id="decalpriceform-decaltype" class="form-control" name="product[1][id_sanpham]" required="" aria-required="true">
+                              <input type="text" list="product-data-list" id="decalpriceform-decaltype" class="form-control" name="product[1][id_sanpham]" required="" aria-required="true" value="<?php echo $bill_detail[$i]['id_product'];?>">
                             </div>
                             <span>*Sản phẩm</span>
                           </div>
                           <div class="form-group">
                             <div class="col-sm-9">
-                                 <input type="text" name="product[1][qty]" value="0" class="form-control so" >
+                                 <input type="text" name="product[1][qty]" value="<?php echo $bill_detail[$i]['qty'];?>" class="form-control so" >
                             </div>
                             <span>*Số lượng</span>
                           </div>
                           <div class="form-group">
                             <div class="col-sm-9">
-                                 <input type="text" name="product[1][sales_deliver]" value="0" class="form-control so" >
+                                 <input type="text" name="product[1][sales_deliver]" value="<?php echo $bill_detail[$i]['price'];?>" class="form-control so" >
                             </div>
                             <span>*Giá bán</span>
                           </div>
                           <div class="form-group">
                             <div class="col-sm-9">
-                                 <input type="text" name="product[1][phi_co_dinh]" value="0" class="form-control so" >
+                                 <input type="text" name="product[1][phi_co_dinh]" value="<?php echo $bill_detail[$i]['cost'];?>" class="form-control so" >
                             </div>
                             <span>*Phí cố định</span>
                           </div>
                           <div class="form-group">
                             <div class="col-sm-9">
-                                 <input type="text" name="product[1][phi_khac]" value="0" class="form-control so" >
+                                 <input type="text" name="product[1][phi_khac]" value="<?php echo $bill_detail[$i]['other_cost'];?>" class="form-control so" >
                             </div>
                             <span>*Phí khác</span>
                           </div>
                           <div class="form-group">
                             <div class="col-sm-9">
-                                 <input type="text" name="product[1][phi_gtgt]" value="0" class="form-control so" >
+                                 <input type="text" name="product[1][phi_gtgt]" value="<?php echo $bill_detail[$i]['tax_gtgt'];?>" class="form-control so" >
                             </div>
                             <span>*Phí GTGT</span>
                           </div>
                           <div class="form-group">
                             <div class="col-sm-9">
-                                 <input type="text" name="product[1][khoan_wht]" value="0" class="form-control so" >
+                                 <input type="text" name="product[1][khoan_wht]" value="<?php echo $bill_detail[$i]['acc_wht'];?>" class="form-control so" >
                             </div>
                             <span>*Khoản WHT</span>
                           </div>
                           <div class="form-group">
                             <div class="col-sm-9">
-                                 <input type="text" name="product[1][khoan_thanh_toan]" value="0" class="form-control so" >
+                                 <input type="text" name="product[1][khoan_thanh_toan]" value="<?php echo $bill_detail[$i]['acc_payment'];?>" class="form-control so" >
                             </div>
                             <span>*Khoản thanh toán</span>
                           </div>
                         </div>
+                        <?php }} ?>
                     </div>
                   </div>
               </div>

@@ -68,4 +68,12 @@ class Donhang_model extends CI_Model{
     //     $query = $this->db->query($sql); 
     //     return $query->result_array();
     // }
+
+    function get_data($match, $from){
+        $data = $this->db->select()
+            ->where($match)
+            ->get($from)
+            ->result_array();
+            return $data;
+    }
 }
