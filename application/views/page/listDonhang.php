@@ -108,14 +108,14 @@
                         <?php break; }}if ($flag) {
                           echo "<td>0</td><td>0</td>";
                         } ?>
-                          
-                        
-                         
-                            
-                          
+                       
                         <td><?php echo $row['payment_method'] ?></td>
                         <td><?php echo $row['payment_status'] ?></td>
-                        <td><a class="btn btn-primary btn-flat" href="<?=base_url()?>suadonhang/<?php echo $row['id_bill']?>"><i class="fa fa-lg fa-edit"></i> Sửa</a> <a class="btn btn-danger btn-flat" onclick="delRow('<?php echo $row['id_bill']?>')"><i class="fa fa-lg fa-trash"></i> Xóa</a></td>
+                        <td><a class="btn btn-primary btn-flat" href="<?=base_url()?>suadonhang/<?php echo $row['id_bill']?>"><i class="fa fa-lg fa-edit"></i> Sửa</a> <a class="btn btn-danger btn-flat" onclick="delRow('<?php echo $row['id_bill']?>')"><i class="fa fa-lg fa-trash"></i> Xóa</a>
+                          <?php if ($row['type_bill']=='Hàng Lazada'): ?>
+                            <button class="btn btn-info btn-flat" onclick="checkDonHang(<?php echo $row['id_bill'] ?>)"><i class="fa fa-lg fa-check"></i> Kiểm tra</button>
+                          <?php endif ?>
+                        </td>
                       </tr>                    
                   <?php endforeach;?>
                 </tbody>
@@ -212,6 +212,36 @@
   </div>
 </div>
 
+
+<!-- modal cảnh báo -->
+<div class="modal fade" id="alertInfo" data-backdrop='static'>
+  <div class="modal-dialog">
+   <div class="modal-content">
+      <div class="modal-header">
+         <button type="button" class="close" data-dismiss='modal' aria-hidden="true"><span class="glyphicon glyphicon-remove"></span></button>
+         <h4 class="modal-title" style="font-size: 20px; padding: 12px;">Kết quả kiểm tra</h4>
+      </div>
+      <form method="post" id="add-form" enctype="multipart/form-data">
+      <div class="modal-body">
+         <div class="container-fluid">
+            <div class="row">
+              <div class="alert alert-success"></div>
+              <div class="alert alert-warning"></div>
+              <div class="alert alert-danger"></div>
+              <div class="jumbotron" id="kq"></div>
+            </div>
+         </div>
+      </div>
+
+      <div class="modal-footer">
+         <div class="form-group">
+            <button type="button" data-dismiss="modal" class="btn btn-sm btn-default"> Cancel <span class="glyphicon glyphicon-remove"></span></button>
+         </div>
+      </div>
+      </form>
+    </div>
+  </div>
+</div>
 <script type="text/javascript">
   $('.thuphong').on('click',function(event) {
       this.classList.toggle("active");
@@ -299,5 +329,69 @@ function delRow(id){
           ssi_modal.notify('error', {content: 'Thất bại: ' + result});
       }
   );
+}
+
+function checkDonHang(id_bill) {
+  $('.alert-success').hide();
+  $('.alert-warning').hide();
+  $('.alert-danger').hide();
+  $('#kq').hide();
+  $.ajax({
+    url: '<?php echo base_url() ?>Donhang/checkLazada',
+    type: 'POST',
+    dataType: 'json',
+    data: {id_bill: id_bill},
+  })
+  .done(function(data) {
+    // console.log(data.danger[0].id_sanpham);
+    var kq = '<strong>Mã sản phẩm sai:</strong><br>';
+    // if (!data.checkSP) {
+    //   for (var i in data.danger) {
+        
+    //   }
+    // }
+    if (data.checkTien && data.checkSP) {
+      $('.alert-success').text('Dữ liệu trùng khớp.');
+      $('.alert-success').show();
+      $('#alertInfo').modal('show');
+    }else if (data.checkTien && !data.checkSP) {
+      $('.alert-success').text('Tổng giá trị của đơn hàng trùng khớp.');
+      $('.alert-success').show();
+      $('.alert-danger').html('<strong>Cảnh báo!</strong> Có sự khác nhau giữa các sản phẩm trong đơn hàng.');
+      for (var i in data.danger) {
+          kq += data.danger[i].id_sanpham+'<br>';
+        }
+        $('#kq').html(kq);
+        $('#kq').show();
+      $('.alert-danger').show();
+      $('#alertInfo').modal('show');
+    }
+    else if (!data.checkTien && data.checkSP) {
+      $('.alert-warning').html('<strong>Cảnh báo!</strong> Tổng giá trị của đơn hàng không trùng khớp.');
+      $('.alert-success').html('Sản phẩm trong các đơn hàng trùng khớp.');
+      $('.alert-success').show();
+      $('.alert-warning').show();
+      $('#alertInfo').modal('show');
+    }
+    else if (!data.checkTien && !data.checkSP) {
+      $('.alert-warning').html('<strong>Cảnh báo!</strong> Tổng giá trị của đơn hàng không trùng khớp.');
+      $('.alert-danger').html('<strong>Cảnh báo!</strong> Có sự khác nhau giữa các sản phẩm trong đơn hàng.');
+      for (var i in data.danger) {
+          kq += data.danger[i].id_sanpham+'<br>';
+        }
+        $('#kq').html(kq);
+        $('#kq').show();
+      $('.alert-warning').show();
+      $('.alert-danger').show();
+      $('#alertInfo').modal('show');
+    }
+  })
+  .fail(function() {
+    console.log("error");
+  })
+  .always(function() {
+    console.log("complete");
+  });
+  
 }
 </script>

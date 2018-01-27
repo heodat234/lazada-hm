@@ -242,4 +242,40 @@ class Donhang extends CI_Controller {
         $this->_data['html_body'] = $this->load->view('page/listDonhang',$data,true);           
         return $this->load->view('home/master', $this->_data);
     }
+
+    public function checkLazada()
+    {
+        $post   = $this->input->post();
+        $id_bill = '361759685';
+        $nhap = $this->Donhang_model->checkDonHangNhap($id_bill);
+        $lazada = $this->Donhang_model->checkLazada($id_bill);
+        $data['checkTien'] = false;
+        if ($nhap['tongtien'][0]['tongtien'] == $lazada['tongtien'][0]['tongtien']) {
+            $data['checkTien'] = true;
+        }
+        $a = count($nhap['sp']);
+        $b = count($lazada['sp']);
+        $mang1 = $nhap['sp'];
+        $mang2 = $lazada['sp'];
+        $kq = array();
+        $data['checkSP'] = true;
+        if ($a != $b) {
+            $data['checkSP'] = false;
+        }
+        else{
+            for ($i=0; $i < $a; $i++) { 
+               $ss[$i] = array_diff($mang1[$i],$mang2[$i]);
+               if(!empty($ss[$i])){
+                    $data['checkSP'] = false;
+                    $kq[$i]= $ss[$i];
+                }
+            }
+            
+        }
+        if (!$data['checkSP']) {
+           $data['danger'] = $kq;
+        }
+        
+        echo json_encode($data);
+    }
 }

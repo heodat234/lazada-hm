@@ -106,4 +106,33 @@ class Donhang_model extends CI_Model{
             ->result_array();
             return $data;
     }
+
+    function checkDonHangNhap($id_bill='')
+    {
+        $data['tongtien'] =   $this->db->select_sum('into_money','tongtien')
+                    ->where('id_bill',$id_bill)
+                    ->get($this->_detail)
+                    ->result_array();
+
+        $data['sp'] =   $this->db->select('id_sku_seller as id_sanpham')
+                    ->where('id_bill',$id_bill)
+                    ->group_by('id_sku_seller')
+                    ->get($this->_detail)
+                    ->result_array();
+        return $data;
+    }
+    function checkLazada($id_bill='')
+    {
+        $data['tongtien'] =   $this->db->select_sum('sales_deliver','tongtien')
+                    ->where('id_donhang',$id_bill)
+                    ->get($this->_excel)
+                    ->result_array();
+
+        $data['sp'] =   $this->db->select('id_sanpham')
+                    ->where('id_donhang',$id_bill)
+                    ->group_by('id_sanpham')
+                    ->get($this->_excel)
+                    ->result_array();
+        return $data;
+    }
 }
