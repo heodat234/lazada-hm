@@ -68,6 +68,7 @@ $route['addExcel'] 		= "Donhang/addDonhangExcel";
 $route['insertDonhang'] = "Donhang/insertDonhang";
 $route['updateDonhang'] = "Donhang/updateDonhang";
 $route['locDonhang'] 	= "Donhang/locDonhang";
+$route['xemdonhang/(:any)'] 	= "Donhang/xemDonhangLazada/$1";
 
 //sản phẩm
 $route['sanpham'] 		= "Sanpham";

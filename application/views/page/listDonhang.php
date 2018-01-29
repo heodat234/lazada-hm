@@ -102,8 +102,8 @@
                         
                         <?php $flag = true; for ($i=0; $i < count($tong) ; $i++) {
                             if ($tong[$i]['id_bill'] == $row['id_bill']){ $flag= false; ?>
-                              <td><?php echo $tong[$i]['tongtien'] ?></td>
-                              <td><?php echo $tong[$i]['Qty'] ?></td>
+                              <td><?php echo number_format($tong[$i]['tongtien']) ?></td>
+                              <td><?php echo number_format($tong[$i]['Qty']) ?></td>
                             
                         <?php break; }}if ($flag) {
                           echo "<td>0</td><td>0</td>";
@@ -114,6 +114,7 @@
                         <td><a class="btn btn-primary btn-flat" href="<?=base_url()?>suadonhang/<?php echo $row['id_bill']?>"><i class="fa fa-lg fa-edit"></i> Sửa</a> <a class="btn btn-danger btn-flat" onclick="delRow('<?php echo $row['id_bill']?>')"><i class="fa fa-lg fa-trash"></i> Xóa</a>
                           <?php if ($row['type_bill']=='Hàng Lazada'): ?>
                             <button class="btn btn-info btn-flat" onclick="checkDonHang(<?php echo $row['id_bill'] ?>)"><i class="fa fa-lg fa-check"></i> Kiểm tra</button>
+                            <a class="btn btn-success btn-flat" href="<?=base_url()?>xemdonhang/<?php echo $row['id_bill']?>"><i class="fa fa-lg fa-eye"></i> Xem đơn lazada</a> 
                           <?php endif ?>
                         </td>
                       </tr>                    
@@ -357,7 +358,7 @@ function checkDonHang(id_bill) {
     }else if (data.checkTien && !data.checkSP) {
       $('.alert-success').text('Tổng giá trị của đơn hàng trùng khớp.');
       $('.alert-success').show();
-      $('.alert-danger').html('<strong>Cảnh báo!</strong> Có sự khác nhau giữa các sản phẩm trong đơn hàng.');
+      $('.alert-danger').html('<strong>Cảnh báo!</strong> Có sự khác nhau về sản phẩm trong 2 đơn hàng.');
       for (var i in data.danger) {
           kq += data.danger[i].id_sanpham+'<br>';
         }
@@ -375,7 +376,7 @@ function checkDonHang(id_bill) {
     }
     else if (!data.checkTien && !data.checkSP) {
       $('.alert-warning').html('<strong>Cảnh báo!</strong> Tổng giá trị của đơn hàng không trùng khớp.');
-      $('.alert-danger').html('<strong>Cảnh báo!</strong> Có sự khác nhau giữa các sản phẩm trong đơn hàng.');
+      $('.alert-danger').html('<strong>Cảnh báo!</strong> Có sự khác nhau về sản phẩm trong 2 đơn hàng.');
       for (var i in data.danger) {
           kq += data.danger[i].id_sanpham+'<br>';
         }

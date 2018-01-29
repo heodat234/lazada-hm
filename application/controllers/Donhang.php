@@ -278,4 +278,17 @@ class Donhang extends CI_Controller {
         
         echo json_encode($data);
     }
+    public function xemDonhangLazada($id_bill)
+    {   
+         $data['lazada'] = $this->Donhang_model->getDonhangLazada($id_bill);
+         $data['tong'] = 0;
+         for ($i=0; $i < count($data['lazada']) ; $i++) { 
+            $data['tong'] += $data['lazada'][$i]['price']-0;
+         }
+         // echo "<pre>";
+         // print_r($data['tong']);
+         // echo "</pre>";
+        $this->_data['html_body'] = $this->load->view('page/pageDonLazada',$data,true);           
+        return $this->load->view('home/master', $this->_data);
+    }
 }

@@ -135,4 +135,16 @@ class Donhang_model extends CI_Model{
                     ->result_array();
         return $data;
     }
+    public function getDonhangLazada($id_bill)
+    {
+       $donhang = $this->db->select('id_sanpham,id_donhang,item_name,status,created_at,phuongthuc_thanhtoan,count(id_sanpham) as qty')
+                    ->where('id_donhang',$id_bill)
+                    ->select_sum('sales_deliver','price')
+                    ->select_sum('commission','phi')
+                    ->select_sum('sum_of_fee','tongphi')
+                    ->group_by('id_sanpham,id_donhang,item_name,status,created_at,phuongthuc_thanhtoan')
+                    ->get($this->_excel)
+                    ->result_array();
+        return $donhang;
+    }
 }
