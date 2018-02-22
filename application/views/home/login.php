@@ -10,7 +10,7 @@
     <link rel="stylesheet" type="text/css" href="<?php echo base_url(); ?>public/css/main.css">
     <!-- Font-icon css-->
     <link rel="stylesheet" type="text/css" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
-    <title>Xây Dựng</title>
+    <title>Quản Lý Đơn Hàng</title>
    
   </head>
   <body>
@@ -19,7 +19,7 @@
     </section>
     <section class="login-content">
       <div class="logo">
-        <h1 style="font-family: Minion;">Xây Dựng</h1>
+        <h1 style="font-family: Minion;">Quản lý đơn hàng</h1>
       </div>
       <div class="login-box">
         <form class="login-form" action="<?php echo base_url();?>login/login/" method="post" id="form">

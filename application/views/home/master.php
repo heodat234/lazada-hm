@@ -36,6 +36,7 @@ if($this->session->has_userdata('user')) {
     
   </head>
   <body class="sidebar-mini fixed">
+    
     <div class="wrapper">
       <?php echo isset($html_header) ? $html_header : ''; ?>
       <?php echo isset($html_menu) ? $html_menu : ''; ?>

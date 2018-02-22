@@ -1,3 +1,5 @@
+
+<div id="loader-overlay"><img src="<?php echo base_url() ?>public/images/loader.gif" alt="Loading" /></div>
 <div>
   <div class="content-wrapper">
     <h1>Đơn hàng</h1>
@@ -41,7 +43,8 @@
               <div class="quick_filter">
                 <button class="btn_margin_bottom btn btn-warning btn_quick_filter" id="btn-filter"><i class="fa fa-search"></i> Lọc kết quả</button>
                 <div class="pull-right">
-                  <button class="btn_margin_bottom btn btn-success btn_quick_filter" data-toggle="modal" data-target="#addDonhang"><i class="fa fa-plus"></i> Thêm đơn hàng mới</button>
+                  <button type="button" class="btn_margin_bottom btn btn-info btn_quick_filter" data-toggle="modal" data-target="#addFile"><i class="fa fa-upload"></i> Tải nhập file báo cáo</button> 
+                  <a class="btn_margin_bottom btn btn-success btn_quick_filter" href="<?php echo base_url() ?>taodonhang"><i class="fa fa-plus"></i> Thêm đơn hàng mới</a>
                 </div>
               </div>
             </div>
@@ -129,91 +132,83 @@
 
   </div>
 </div>
-<!-- modal thêm don hang -->
-<div class="modal fade" id="addDonhang" data-backdrop='static'>
-  <div class="modal-dialog">
-   <div class="modal-content">
-      <div class="modal-header">
-         <button type="button" class="close" data-dismiss='modal' aria-hidden="true"><span class="glyphicon glyphicon-remove"></span></button>
-         <h4 class="modal-title" style="font-size: 20px; padding: 12px;">Thêm các đơn hàng mới</h4>
-      </div>
-      <form method="post" id="add-form" enctype="multipart/form-data">
-      <div class="modal-body">
-         <div class="container-fluid">
-            <div class="row">
-               <div class="col-xs-6 col-sm-6 col-md-6">
-                  <div class="form-group">
-                     <div><b>Thêm bằng tay</b></div>
-                     <div class="input-group">
-                      <a class="btn_margin_bottom btn btn-info btn_quick_filter"  href="<?php echo base_url() ?>taodonhang"><i class="fa fa-plus"></i> Thêm bằng nhập form</a> 
-                     </div>
-                  </div>
-                </div>
-                <div class="col-xs-6 col-sm-6 col-md-6">
-                  <div class="form-group">
-                     <div><b>Thêm bằng file Excel</b></div>
-                     <div class="input-group">
-                      <button type="button" class="btn_margin_bottom btn btn-success btn_quick_filter" onclick="addFile()"><i class="fa fa-plus"></i> Thêm bằng file Excel</button> 
-                     </div>
-                  </div>
-               </div>
-            </div>
-         </div>
-      </div>
 
-      <div class="modal-footer">
-         <div class="form-group">
-            <button type="button" data-dismiss="modal" class="btn btn-sm btn-default"> Cancel <span class="glyphicon glyphicon-remove"></span></button>
-         </div>
-      </div>
-      </form>
-    </div>
-  </div>
-</div>
 
 <!-- add file -->
-<div class="modal fade" id="addFile" data-backdrop='static'>
+<div class="modal fade" id="addFile" data-backdrop='static' role="dialog">
   <div class="modal-dialog">
    <div class="modal-content">
       <div class="modal-header">
          <button type="button" class="close" data-dismiss='modal' aria-hidden="true"><span class="glyphicon glyphicon-remove"></span></button>
          <h4 class="modal-title" style="font-size: 20px; padding: 12px;">Thêm file excel</h4>
       </div>
-      <form method="post" id="add-form" enctype="multipart/form-data" action="<?php echo base_url() ?>addExcel">
-      <div class="modal-body">
-         <div class="container-fluid">
-            <div class="row">
-               <div class="col-xs-12 col-sm-12 col-md-12">
-                  <div class="form-group">
-                     <div><b>Chọn file</b></div>
-                     <div class="input-group">
-                        <div class="input-group-addon iga2">
-                           <span class="glyphicon glyphicon-folder-open"></span>
-                        </div>
-                        <input type="file" class="form-control" name="file" required="">
-                        
-                     </div>
-                     <div class="alert alert-danger hide"></div>
-                     <div class="alert alert-success hide"></div>
-                  </div>
-               </div>
-            </div>
-         </div>
-      </div>
-
-      <div class="modal-footer">
-         <div class="form-group">
-            <button type="submit" class="btn btn-sm btn-info"  id="btn-add"> Save <span class="glyphicon glyphicon-saved"></span></button>
-
-            <button type="button" data-dismiss="modal" class="btn btn-sm btn-default"> Cancel <span class="glyphicon glyphicon-remove"></span></button>
-         </div>
-      </div>
+      <form method="post" id="add-form" enctype="multipart/form-data" >
+        <div class="modal-body">
+           <div class="container-fluid">
+              <div class="row">
+                 <div class="col-xs-12 col-sm-12 col-md-12">
+                    <div class="form-group">
+                       <div><b>Chọn file</b></div>
+                       <div class="input-group">
+                          <div class="input-group-addon iga2">
+                             <span class="glyphicon glyphicon-folder-open"></span>
+                          </div>
+                          <input type="file" class="form-control" name="file" required="" id="i_file">
+                          
+                       </div>
+                       <div class="alert alert-danger hide"></div>
+                       <div class="alert alert-success hide"></div>
+                    </div>
+                 </div>
+              </div>
+           </div>
+        </div>
+        <div class="modal-footer">
+           <div class="form-group">
+              <button type="button" class="btn btn-sm btn-info"  id="btn-add"> Gửi <span class="glyphicon glyphicon-saved"></span></button>
+              <button type="button" data-dismiss="modal" class="btn btn-sm btn-default"> Hủy <span class="glyphicon glyphicon-remove"></span></button>
+           </div>
+        </div>
       </form>
     </div>
   </div>
 </div>
 
 
+<!-- modal kiểm tra -->
+<div id="checkExcel" class="modal fade" role="dialog">
+  <div class="modal-dialog">
+
+    <!-- Modal content-->
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal">&times;</button>
+        <h4 class="modal-title">Chọn hình thức so sánh</h4>
+      </div>
+      <form method="post">
+        <div class="modal-body col-md-offset-4">
+            <div class="form-group checkBC">
+              <input type="radio" name="check" value="qty">
+              So sánh số lượng đơn hàng
+            </div>
+            <div class="form-group checkBC">
+              <input type="radio" name="check" value="detail">
+              So sánh chi tiết đơn hàng
+            </div>
+            <div class="form-group checkBC">
+              <input type="radio" name="check" value="all">
+              So sánh tất cả
+            </div>
+        </div>
+        <div class="modal-footer">
+          <button type="submit">Kiểm tra</button>
+          <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+        </div>
+      </form>
+    </div>
+
+  </div>
+</div>
 <!-- modal cảnh báo -->
 <div class="modal fade" id="alertInfo" data-backdrop='static'>
   <div class="modal-dialog">
@@ -272,10 +267,13 @@
   $('#btn-filter').click(function(event) {
     $('#filter-form').submit();
   });
-  function addFile() {
-    $('#addDonhang').modal('hide');
-    $('#addFile').modal('show');
-  }
+
+
+  $('.checkBC').click(function() {
+    $('input[name="check"]', this).prop("checked",true);
+    $('.checkBC').removeClass('hli');
+    $(this).addClass('hli');
+  });
 
   $('#btn-add').click( function(e) {
            //kiem tra trinh duyet co ho tro File API
@@ -283,10 +281,33 @@
             {
               // lay dung luong va kieu file tu the input file
                 var ftype = $('#i_file')[0].files[0].type;
-               // .alert( ftype);
+               // alert( ftype);
                switch(ftype)
                 {
                     case 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet':
+                        var frm = new FormData($('form#add-form')[0]);
+                        // $('#addFile').modal('hide');
+                        // $('#loader-overlay').show();
+                        // $.ajax({
+                        //   url: '<?php echo base_url() ?>addExcel',
+                        //   processData:false,
+                        //   contentType:false,
+                        //   type:'post',
+                        //   dataType:'json',
+                        //   data:frm,
+                        // })
+                        // .done(function(data) {
+                          
+                        //   if (data==1) {
+                        //     $('#loader-overlay').hide();
+                        //     $('#checkExcel').modal('show');
+                        //   }
+                         
+                        // })
+                        // .fail(function() {
+                        //   console.log("error");
+                        // });
+                        $('#checkExcel').modal('show');
                         break;
                     default:
                         alert('File chỉ được Excel');
