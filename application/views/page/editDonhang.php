@@ -96,7 +96,7 @@
                 </div>
                 <span>*Sản phẩm</span>
               </div>                           
-              <div class="form-group">
+              <!-- <div class="form-group">
                   <label class="col-sm-3 control-label">Thông tin đơn hàng</label>
                   <div class="col-sm-6">
                     <ul class="nav nav-tabs">
@@ -168,25 +168,22 @@
                         <?php }} ?>
                     </div>
                   </div>
-              </div>
+              </div> -->
               <div id="donhang" style="display: none;">
               </div>
       <div class="panel panel-primary">
         <div class="panel-heading">
-            <h3>List of computer
+            <h4>Danh sách sản phẩm
                 <div class="pull-right">
-                    <button id="btn-admin" class="btn btn-default"><span class="glyphicon glyphicon-pencil"></span> Edit</button>
+                    <button id="btn-admin" class="btn btn-default"><span class="glyphicon glyphicon-cog"></span> Thao tác</button>
                 </div>
-            </h3>
+            </h4>
         </div>
         <div id="toolbar-admin" class="panel-body">
             <div class="btn-toolbar" role="toolbar" aria-label="admin">
                     <div class="btn-group pull-right" role="group">
-                        <button id="btn-online" class="btn btn-success">Online</button>
-                        <button id="btn-offline" class="btn btn-warning">Offline</button>
-                        <button id="btn-out-of-order" class="btn btn-danger">Out Of Order</button>
-                        <button onclick="addRow('dataTable')" class="btn btn-success">New</button>
-                        <button onclick="deleteRow('dataTable')" class="btn btn-warning">Delete</button>
+                        <button onclick="addRow('dataTable')" class="btn btn-success"><span class="glyphicon glyphicon-plus"></span> Thêm mới</button>
+                        <button onclick="deleteRow('dataTable')" class="btn btn-warning"><span class="glyphicon glyphicon-trash"></span> Xóa</button>
                     </div>
                 </div>
         </div>
@@ -252,27 +249,36 @@
         </table> -->
         <div style="overflow: auto;">
           <table id="dataTable" class="table table-striped table-hover" >
-              <thead>
+                <thead>
                     <tr>
                         <th class="col-check"></th>
-                        <th>Id</th>
-                        <th>Hostname</th>
-                        <th>IP</th>
-                        <th>MAC</th>
-                        <th>Status</th>
-                        <th>Description</th>
+                        <th>Sản phẩm</th>
+                        <th>Số lượng</th>
+                        <th>Giá bán</th>
+                        <th>Phí cố định</th>
+                        <th>Phí khác</th>
+                        <th>Phí GTGT</th>
+                        <th>Khoản WHT</th>
+                        <th>Khoản t.toán</th>
                     </tr>
                 </thead>
                   <tbody>
+                    <?php 
+                        if (isset($bill_detail) && !empty($bill_detail)) {
+                          for ($i=0; $i < count($bill_detail); $i++) { 
+                      ?>
                     <tr class="success">
                         <td class="col-check"><input type="checkbox" class="form-check-input"></td>
-                        <td><input disabled="" type="text" class="form-check-input" value="5" style="width: 30px;"></td>
-                        <td><input type="text" class="form-check-input" value="NML654"></td>
-                        <td><input type="text" class="form-check-input" value="192.168.1.95"></td>
-                        <td><input type="text" class="form-check-input" value="98:AB:76:CD:54:EF"></td>
-                        <td class="status"><input type="text" class="form-check-input" value="Offline"></td>
-                        <td><input type="text" class="form-check-input" value="test"></td>
+                        <td><input list="product-data-list" type="text" class="form-check-input" name="product[<?php echo ($i)?>][id_sanpham]" aria-required="true" value="<?php echo $bill_detail[$i]['id_product'];?>"></td>
+                        <td><input type="text" class="form-check-input" name="product[<?php echo ($i)?>][qty]" value="<?php echo $bill_detail[$i]['qty'];?>"></td>
+                        <td><input type="text" class="form-check-input" name="product[<?php echo ($i)?>][sales_deliver]" value="<?php echo $bill_detail[$i]['price'];?>"></td>
+                        <td><input type="text" class="form-check-input" name="product[<?php echo ($i)?>][phi_co_dinh]" value="<?php echo $bill_detail[$i]['cost'];?>"></td>
+                        <td class="status"><input type="text" class="form-check-input" name="product[<?php echo ($i)?>][phi_khac]" value="<?php echo $bill_detail[$i]['other_cost'];?>"></td>
+                        <td><input type="text" class="form-check-input" name="product[<?php echo ($i)?>][phi_gtgt]" value="<?php echo $bill_detail[$i]['tax_gtgt'];?>"></td>
+                        <td><input type="text" name="product[<?php echo ($i)?>][khoan_wht]" value="<?php echo $bill_detail[$i]['acc_wht'];?>" /></td>
+                        <td><input type="text" name="product[<?php echo ($i)?>][khoan_thanh_toan]" value="<?php echo $bill_detail[$i]['acc_payment'];?>"/></td>
                     </tr>
+                    <?php }} ?>
                   </tbody>
                     
           </table>
@@ -419,91 +425,5 @@ $(".nav-tabs").on("click", "a", function(e){
       $('.tab-content').append('<div class="tab-pane active" id="contact_'+id+'"><h1>Sản phẩm '+id+'</h1><div class="form-group">'+product_list.replace('name="id_sanpham"','name="product['+id+'][id_sanpham]"')+'</div><div class="form-group"><div class="col-sm-9"><input type="text" name="product['+id+'][qty]" value="0" class="form-control so" ></div><span>*Số lượng</span></div><div class="form-group"><div class="col-sm-9"><input type="text" name="product['+id+'][sales_deliver]" value="0" class="form-control so" ></div><span>*Giá bán</span></div><div class="form-group"><div class="col-sm-9"><input type="text" name="product['+id+'][phi_co_dinh]" value="0" class="form-control so" ></div><span>*Phí cố định</span></div><div class="form-group"><div class="col-sm-9"><input type="text" name="product['+id+'][phi_khac]" value="0" class="form-control so" ></div><span>*Phí khác</span></div><div class="form-group"><div class="col-sm-9"><input type="text" name="product['+id+'][phi_gtgt]" value="0" class="form-control so" ></div><span>*Phí GTGT</span></div><div class="form-group"><div class="col-sm-9"><input type="text" name="product['+id+'][khoan_wht]" value="0" class="form-control so" ></div><span>*Khoản WHT</span></div><div class="form-group"><div class="col-sm-9"><input type="text" name="product['+id+'][khoan_thanh_toan]" value="0" class="form-control so" ></div><span>*Khoản thanh toán</span></div></div>');
 });
 });
-
-
-
-$(function() {
-    $('input[type="checkbox"]').hide();
-    $('#btn-admin').on('click', function(){
-        if($("#toolbar-admin").is(":visible"))
-        {
-        $("#toolbar-admin").hide();
-        $('input[type="checkbox"]').hide();
-        }
-        else
-        {
-            $("#toolbar-admin").show();
-            $('input[type="checkbox"]').show();
-        }
-  });
-    
-    $('#btn-online').on('click', function(){
-         $('table tr').filter(':has(:checkbox:checked)').find('td').parent().removeClass().addClass('success');
-         $('table tr').filter(':has(:checkbox:checked)').find('td.status').text('Online');
-    });
-    $('#btn-offline').on('click', function(){
-         $('table tr').filter(':has(:checkbox:checked)').find('td').parent().removeClass().addClass('warning');
-         $('table tr').filter(':has(:checkbox:checked)').find('td.status').text('Offline');
-    });
-    $('#btn-out-of-order').on('click', function(){
-         $('table tr').filter(':has(:checkbox:checked)').find('td').parent().removeClass().addClass('danger');
-         $('table tr').filter(':has(:checkbox:checked)').find('td.status').text('Out Of Order');
-    });
-    
-});
-
-function addRow(tableID) {
-
-      var table = document.getElementById(tableID).getElementsByTagName('tbody')[0];
-
-      var rowCount = table.rows.length;
-      var row = table.insertRow(rowCount);
-
-      var colCount = table.rows[0].cells.length;
-
-      for(var i=0; i<colCount; i++) {
-
-        var newcell = row.insertCell(i);
-
-        newcell.innerHTML = table.rows[0].cells[i].innerHTML;
-        // alert(newcell.childNodes);
-        switch(newcell.childNodes[0].type) {
-          case "text":
-              newcell.childNodes[0].value = "";
-              break;
-          case "checkbox":
-              newcell.childNodes[0].checked = false;
-              break;
-          case "select-one":
-              newcell.childNodes[0].selectedIndex = 0;
-              break;
-        }
-      }
-    }
-
-    function deleteRow(tableID) {
-      try {
-      var table = document.getElementById(tableID);
-      var rowCount = table.rows.length;
-
-      for(var i=0; i<rowCount; i++) {
-        var row = table.rows[i];
-        var chkbox = row.cells[0].childNodes[0];
-        if(null != chkbox && true == chkbox.checked) {
-          if(rowCount <= 1) {
-            alert("Cannot delete all the rows.");
-            break;
-          }
-          table.deleteRow(i);
-          rowCount--;
-          i--;
-        }
-
-
-      }
-      }catch(e) {
-        alert(e);
-      }
-    }
 
 </script>

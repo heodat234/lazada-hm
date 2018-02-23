@@ -59,9 +59,7 @@
 #toolbar-admin{
     display: none;
 }
-.panel-heading {
-    padding: 1px 10px;
-}
+
 tbody input[type="checkbox"] {
         margin: 10px; 
     }
@@ -71,5 +69,5 @@ tbody input[type="text"] {
         margin: 0; 
         border: 1px solid #8080804a; 
         width: 100%;
-        font-size: 15px;
+        font-size: 14px;
     }
