@@ -116,3 +116,7 @@ function renameAllRow(tableID){
     }
   }
 }
+
+$("#check-all").change(function () {
+    $("input:checkbox").prop('checked', $(this).prop("checked"));
+});

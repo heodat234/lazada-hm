@@ -251,7 +251,7 @@
           <table id="dataTable" class="table table-striped table-hover" >
                 <thead>
                     <tr>
-                        <th class="col-check"></th>
+                        <th class="col-check"><input type="checkbox" class="form-check-input" id="check-all"></th>
                         <th>Sản phẩm</th>
                         <th>Số lượng</th>
                         <th>Giá bán</th>

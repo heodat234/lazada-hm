@@ -63,6 +63,9 @@
 tbody input[type="checkbox"] {
         margin: 10px; 
     }
+thead input[type="checkbox"] {
+        margin-left: 10px; 
+    }
 tbody input[type="text"] {
         display: block; 
         padding: 5px; 
