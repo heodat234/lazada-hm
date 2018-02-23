@@ -41,7 +41,9 @@ class Donhang extends CI_Controller {
             'hidden'=>0
         );
         $data['bill_master'] = $this->Donhang_model->get_data($match['bill'],'master');
-        $data['bill_detail'] = $this->Donhang_model->get_data($match['bill'],'detail');
+        // $data['bill_detail'] = $this->Donhang_model->get_data($match['bill'],'detail');
+        $data['bill_detail'] = json_decode($data['bill_master'][0]['detail'],true);
+        // var_dump($data['bill_detail']);
         $data['sanpham'] = $this->Sanpham_model->list_sanpham();
         $this->_data['html_body'] = $this->load->view('page/editDonhang',$data,true);           
         return $this->load->view('home/master', $this->_data);
@@ -67,27 +69,27 @@ class Donhang extends CI_Controller {
                 'payment_method'        => $post['payment_method'],
                 'order_day'             => $post['order_day'],
                 'deliv_day'             => $post['deliv_day'],
-                
+                'detail'                => json_encode($post['product']),
         );
         $this->Donhang_model->insert_master($master);
 
 
-        foreach ($post['product'] as $key => $value) {
-            $detail = array(
-                'id_bill'               => $post['id_bill'],
-                'id_product'            => $value['id_sanpham'],
-                'id_sku_seller'         => $value['id_sanpham'],
-                'price'                 => unNumber_Format($value['sales_deliver']),
-                'qty'                   => unNumber_Format($value['qty']),
-                'into_money'            => unNumber_Format($value['sales_deliver'])*unNumber_Format($value['qty']),
-                'cost'                  => unNumber_Format($value['phi_co_dinh']),
-                'other_cost'            => unNumber_Format($value['phi_khac']),
-                'tax_gtgt'              => unNumber_Format($value['phi_gtgt']),
-                'acc_wht'               => unNumber_Format($value['khoan_wht']),
-                'acc_payment'           => unNumber_Format($value['khoan_thanh_toan']),
-            );
-            $this->Donhang_model->insert_detail($detail);
-        }
+        // foreach ($post['product'] as $key => $value) {
+        //     $detail = array(
+        //         'id_bill'               => $post['id_bill'],
+        //         'id_product'            => $value['id_sanpham'],
+        //         'id_sku_seller'         => $value['id_sanpham'],
+        //         'price'                 => unNumber_Format($value['sales_deliver']),
+        //         'qty'                   => unNumber_Format($value['qty']),
+        //         'into_money'            => unNumber_Format($value['sales_deliver'])*unNumber_Format($value['qty']),
+        //         'cost'                  => unNumber_Format($value['phi_co_dinh']),
+        //         'other_cost'            => unNumber_Format($value['phi_khac']),
+        //         'tax_gtgt'              => unNumber_Format($value['phi_gtgt']),
+        //         'acc_wht'               => unNumber_Format($value['khoan_wht']),
+        //         'acc_payment'           => unNumber_Format($value['khoan_thanh_toan']),
+        //     );
+        //     $this->Donhang_model->insert_detail($detail);
+        // }
         redirect(base_url('donhang'));
     }
     public function delete_detail(){
@@ -109,6 +111,7 @@ class Donhang extends CI_Controller {
     }
     public function updateDonhang(){
         $post = $this->input->post();
+        // var_dump($post);
         $master = array(
                 'type_bill'             => $post['type_bill'],
                 'bill_status'           => $post['bill_status'],
@@ -116,29 +119,29 @@ class Donhang extends CI_Controller {
                 'payment_method'        => $post['payment_method'],
                 'order_day'             => $post['order_day'],
                 'deliv_day'             => $post['deliv_day'],
-                
+                'detail'                => json_encode($post['product']),
         );
         $this->M_data->update(array('id_bill'=>$post['id_bill']),$master,'master');
-        foreach ($post['product'] as $key => $value) {
-            $detail = array(
-                'id_bill'               => $post['id_bill'],
-                'id_product'            => $value['id_sanpham'],
-                'id_sku_seller'         => $value['id_sanpham'],
-                'price'                 => unNumber_Format($value['sales_deliver']),
-                'qty'                   => unNumber_Format($value['qty']),
-                'into_money'            => unNumber_Format($value['sales_deliver'])*unNumber_Format($value['qty']),
-                'cost'                  => unNumber_Format($value['phi_co_dinh']),
-                'other_cost'            => unNumber_Format($value['phi_khac']),
-                'tax_gtgt'              => unNumber_Format($value['phi_gtgt']),
-                'acc_wht'               => unNumber_Format($value['khoan_wht']),
-                'acc_payment'           => unNumber_Format($value['khoan_thanh_toan']),
-            );
-            if (isset($value['id_bill_detail'])) {
-                $this->M_data->update(array('id'=> $value['id_bill_detail']),$detail,'detail');
-            }else{
-                $this->M_data->insert($detail,'detail');
-            } 
-        }
+        // foreach ($post['product'] as $key => $value) {
+        //     $detail = array(
+        //         'id_bill'               => $post['id_bill'],
+        //         'id_product'            => $value['id_sanpham'],
+        //         'id_sku_seller'         => $value['id_sanpham'],
+        //         'price'                 => unNumber_Format($value['sales_deliver']),
+        //         'qty'                   => unNumber_Format($value['qty']),
+        //         'into_money'            => unNumber_Format($value['sales_deliver'])*unNumber_Format($value['qty']),
+        //         'cost'                  => unNumber_Format($value['phi_co_dinh']),
+        //         'other_cost'            => unNumber_Format($value['phi_khac']),
+        //         'tax_gtgt'              => unNumber_Format($value['phi_gtgt']),
+        //         'acc_wht'               => unNumber_Format($value['khoan_wht']),
+        //         'acc_payment'           => unNumber_Format($value['khoan_thanh_toan']),
+        //     );
+        //     if (isset($value['id_bill_detail'])) {
+        //         $this->M_data->update(array('id'=> $value['id_bill_detail']),$detail,'detail');
+        //     }else{
+        //         $this->M_data->insert($detail,'detail');
+        //     } 
+        // }
         redirect(base_url('donhang'));
     }
     public function addDonhangExcel() 

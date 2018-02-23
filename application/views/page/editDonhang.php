@@ -269,14 +269,14 @@
                       ?>
                     <tr class="success">
                         <td class="col-check"><input type="checkbox" class="form-check-input"></td>
-                        <td><input list="product-data-list" type="text" class="form-check-input" name="product[<?php echo ($i)?>][id_sanpham]" aria-required="true" value="<?php echo $bill_detail[$i]['id_product'];?>"></td>
+                        <td><input list="product-data-list" type="text" class="form-check-input" name="product[<?php echo ($i)?>][id_sanpham]" aria-required="true" value="<?php echo $bill_detail[$i]['id_sanpham'];?>"></td>
                         <td><input type="text" class="form-check-input" name="product[<?php echo ($i)?>][qty]" value="<?php echo $bill_detail[$i]['qty'];?>"></td>
-                        <td><input type="text" class="form-check-input" name="product[<?php echo ($i)?>][sales_deliver]" value="<?php echo $bill_detail[$i]['price'];?>"></td>
-                        <td><input type="text" class="form-check-input" name="product[<?php echo ($i)?>][phi_co_dinh]" value="<?php echo $bill_detail[$i]['cost'];?>"></td>
-                        <td class="status"><input type="text" class="form-check-input" name="product[<?php echo ($i)?>][phi_khac]" value="<?php echo $bill_detail[$i]['other_cost'];?>"></td>
-                        <td><input type="text" class="form-check-input" name="product[<?php echo ($i)?>][phi_gtgt]" value="<?php echo $bill_detail[$i]['tax_gtgt'];?>"></td>
-                        <td><input type="text" name="product[<?php echo ($i)?>][khoan_wht]" value="<?php echo $bill_detail[$i]['acc_wht'];?>" /></td>
-                        <td><input type="text" name="product[<?php echo ($i)?>][khoan_thanh_toan]" value="<?php echo $bill_detail[$i]['acc_payment'];?>"/></td>
+                        <td><input type="text" class="form-check-input" name="product[<?php echo ($i)?>][sales_deliver]" value="<?php echo $bill_detail[$i]['sales_deliver'];?>"></td>
+                        <td><input type="text" class="form-check-input" name="product[<?php echo ($i)?>][phi_co_dinh]" value="<?php echo $bill_detail[$i]['phi_co_dinh'];?>"></td>
+                        <td class="status"><input type="text" class="form-check-input" name="product[<?php echo ($i)?>][phi_khac]" value="<?php echo $bill_detail[$i]['phi_khac'];?>"></td>
+                        <td><input type="text" class="form-check-input" name="product[<?php echo ($i)?>][phi_gtgt]" value="<?php echo $bill_detail[$i]['phi_gtgt'];?>"></td>
+                        <td><input type="text" name="product[<?php echo ($i)?>][khoan_wht]" value="<?php echo $bill_detail[$i]['khoan_wht'];?>" /></td>
+                        <td><input type="text" name="product[<?php echo ($i)?>][khoan_thanh_toan]" value="<?php echo $bill_detail[$i]['khoan_thanh_toan'];?>"/></td>
                     </tr>
                     <?php }} ?>
                   </tbody>

@@ -45,7 +45,7 @@ function addRow(tableID) {
     }
 function deleteRow(tableID) {
   try {
-  var table = document.getElementById(tableID);
+  var table = document.getElementById(tableID).getElementsByTagName('tbody')[0];
   var rowCount = table.rows.length;
 
   for(var i=0; i<rowCount; i++) {
@@ -53,7 +53,12 @@ function deleteRow(tableID) {
     var chkbox = row.cells[0].childNodes[0];
     if(null != chkbox && true == chkbox.checked) {
       if(rowCount <= 1) {
-        alert("Cannot delete all the rows.");
+        // alert("Cannot delete all the rows.");
+        var colCount = table.rows[i].cells.length;
+        for(var j=0; j<colCount; j++){
+          var cell = table.rows[i].cells[j];
+          cell.getElementsByTagName('input')[0].value = '';
+        }
         break;
       }
       table.deleteRow(i);
