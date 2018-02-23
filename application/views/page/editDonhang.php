@@ -171,6 +171,114 @@
               </div>
               <div id="donhang" style="display: none;">
               </div>
+      <div class="panel panel-primary">
+        <div class="panel-heading">
+            <h3>List of computer
+                <div class="pull-right">
+                    <button id="btn-admin" class="btn btn-default"><span class="glyphicon glyphicon-pencil"></span> Edit</button>
+                </div>
+            </h3>
+        </div>
+        <div id="toolbar-admin" class="panel-body">
+            <div class="btn-toolbar" role="toolbar" aria-label="admin">
+                    <div class="btn-group pull-right" role="group">
+                        <button id="btn-online" class="btn btn-success">Online</button>
+                        <button id="btn-offline" class="btn btn-warning">Offline</button>
+                        <button id="btn-out-of-order" class="btn btn-danger">Out Of Order</button>
+                        <button onclick="addRow('dataTable')" class="btn btn-success">New</button>
+                        <button onclick="deleteRow('dataTable')" class="btn btn-warning">Delete</button>
+                    </div>
+                </div>
+        </div>
+        <!-- <table class="table table-striped table-hover">
+            <thead>
+                <tr>
+                    <th class="col-check"></th>
+                    <th>Id</th>
+                    <th>Hostname</th>
+                    <th>IP</th>
+                    <th>MAC</th>
+                    <th>Status</th>
+                    <th>Description</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr class="success">
+                    <td class="col-check"><input type="checkbox" class="form-check-input"></td>
+                    <td>1</td>
+                    <td>ZYX987</td>
+                    <td>192.168.1.99</td>
+                    <td>AA:BB:11:22:CC:DD</td>
+                    <td class="status">Online</td>
+                    <td>test</td>
+                </tr>
+                <tr class="success">
+                    <td class="col-check"><input type="checkbox" class="form-check-input"></td>
+                    <td>2</td>
+                    <td>WVU654</td>
+                    <td>192.168.1.98</td>
+                    <td>EE:FF:33:44:AB:CD</td>
+                    <td class="status">Online</td>
+                    <td>test</td>
+                </tr>
+                <tr class="warning">
+                    <td class="col-check"><input type="checkbox" class="form-check-input"></td>
+                    <td>3</td>
+                    <td>TSR321</td>
+                    <td>192.168.1.97</td>
+                    <td>EF:12:FE:34:AA:CC</td>
+                    <td class="status">Offline</td>
+                    <td>test</td>
+                </tr>
+                <tr class="danger">
+                    <td class="col-check"><input type="checkbox" class="form-check-input"></td>
+                    <td>4</td>
+                    <td>QPO987</td>
+                    <td>192.168.1.96</td>
+                    <td>FA:91:EB:82:DC:73</td>
+                    <td class="status">Out Of Order</td>
+                    <td>test</td>
+                </tr>
+                <tr class="warning">
+                    <td class="col-check"><input type="checkbox" class="form-check-input"></td>
+                    <td>5</td>
+                    <td>NML654</td>
+                    <td>192.168.1.95</td>
+                    <td>98:AB:76:CD:54:EF</td>
+                    <td class="status">Offline</td>
+                    <td>test</td>
+                </tr>
+            </tbody>
+        </table> -->
+        <div style="overflow: auto;">
+          <table id="dataTable" class="table table-striped table-hover" >
+              <thead>
+                    <tr>
+                        <th class="col-check"></th>
+                        <th>Id</th>
+                        <th>Hostname</th>
+                        <th>IP</th>
+                        <th>MAC</th>
+                        <th>Status</th>
+                        <th>Description</th>
+                    </tr>
+                </thead>
+                  <tbody>
+                    <tr class="success">
+                        <td class="col-check"><input type="checkbox" class="form-check-input"></td>
+                        <td><input disabled="" type="text" class="form-check-input" value="5" style="width: 30px;"></td>
+                        <td><input type="text" class="form-check-input" value="NML654"></td>
+                        <td><input type="text" class="form-check-input" value="192.168.1.95"></td>
+                        <td><input type="text" class="form-check-input" value="98:AB:76:CD:54:EF"></td>
+                        <td class="status"><input type="text" class="form-check-input" value="Offline"></td>
+                        <td><input type="text" class="form-check-input" value="test"></td>
+                    </tr>
+                  </tbody>
+                    
+          </table>
+        </div>
+        
+    </div>
               <div class="form-group">
                 <div style="margin: 0px 90%;">
                   <button type="button" class="btn btn-sm btn-info saveDH"  id="btn-add"> Lưu <span class="glyphicon glyphicon-saved"></span></button>
@@ -311,4 +419,91 @@ $(".nav-tabs").on("click", "a", function(e){
       $('.tab-content').append('<div class="tab-pane active" id="contact_'+id+'"><h1>Sản phẩm '+id+'</h1><div class="form-group">'+product_list.replace('name="id_sanpham"','name="product['+id+'][id_sanpham]"')+'</div><div class="form-group"><div class="col-sm-9"><input type="text" name="product['+id+'][qty]" value="0" class="form-control so" ></div><span>*Số lượng</span></div><div class="form-group"><div class="col-sm-9"><input type="text" name="product['+id+'][sales_deliver]" value="0" class="form-control so" ></div><span>*Giá bán</span></div><div class="form-group"><div class="col-sm-9"><input type="text" name="product['+id+'][phi_co_dinh]" value="0" class="form-control so" ></div><span>*Phí cố định</span></div><div class="form-group"><div class="col-sm-9"><input type="text" name="product['+id+'][phi_khac]" value="0" class="form-control so" ></div><span>*Phí khác</span></div><div class="form-group"><div class="col-sm-9"><input type="text" name="product['+id+'][phi_gtgt]" value="0" class="form-control so" ></div><span>*Phí GTGT</span></div><div class="form-group"><div class="col-sm-9"><input type="text" name="product['+id+'][khoan_wht]" value="0" class="form-control so" ></div><span>*Khoản WHT</span></div><div class="form-group"><div class="col-sm-9"><input type="text" name="product['+id+'][khoan_thanh_toan]" value="0" class="form-control so" ></div><span>*Khoản thanh toán</span></div></div>');
 });
 });
+
+
+
+$(function() {
+    $('input[type="checkbox"]').hide();
+    $('#btn-admin').on('click', function(){
+        if($("#toolbar-admin").is(":visible"))
+        {
+        $("#toolbar-admin").hide();
+        $('input[type="checkbox"]').hide();
+        }
+        else
+        {
+            $("#toolbar-admin").show();
+            $('input[type="checkbox"]').show();
+        }
+  });
+    
+    $('#btn-online').on('click', function(){
+         $('table tr').filter(':has(:checkbox:checked)').find('td').parent().removeClass().addClass('success');
+         $('table tr').filter(':has(:checkbox:checked)').find('td.status').text('Online');
+    });
+    $('#btn-offline').on('click', function(){
+         $('table tr').filter(':has(:checkbox:checked)').find('td').parent().removeClass().addClass('warning');
+         $('table tr').filter(':has(:checkbox:checked)').find('td.status').text('Offline');
+    });
+    $('#btn-out-of-order').on('click', function(){
+         $('table tr').filter(':has(:checkbox:checked)').find('td').parent().removeClass().addClass('danger');
+         $('table tr').filter(':has(:checkbox:checked)').find('td.status').text('Out Of Order');
+    });
+    
+});
+
+function addRow(tableID) {
+
+      var table = document.getElementById(tableID).getElementsByTagName('tbody')[0];
+
+      var rowCount = table.rows.length;
+      var row = table.insertRow(rowCount);
+
+      var colCount = table.rows[0].cells.length;
+
+      for(var i=0; i<colCount; i++) {
+
+        var newcell = row.insertCell(i);
+
+        newcell.innerHTML = table.rows[0].cells[i].innerHTML;
+        // alert(newcell.childNodes);
+        switch(newcell.childNodes[0].type) {
+          case "text":
+              newcell.childNodes[0].value = "";
+              break;
+          case "checkbox":
+              newcell.childNodes[0].checked = false;
+              break;
+          case "select-one":
+              newcell.childNodes[0].selectedIndex = 0;
+              break;
+        }
+      }
+    }
+
+    function deleteRow(tableID) {
+      try {
+      var table = document.getElementById(tableID);
+      var rowCount = table.rows.length;
+
+      for(var i=0; i<rowCount; i++) {
+        var row = table.rows[i];
+        var chkbox = row.cells[0].childNodes[0];
+        if(null != chkbox && true == chkbox.checked) {
+          if(rowCount <= 1) {
+            alert("Cannot delete all the rows.");
+            break;
+          }
+          table.deleteRow(i);
+          rowCount--;
+          i--;
+        }
+
+
+      }
+      }catch(e) {
+        alert(e);
+      }
+    }
+
 </script>
