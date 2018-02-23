@@ -92,7 +92,7 @@
                 </div>
                 <span>*Sản phẩm</span>
               </div>                           
-              <div class="form-group">
+              <!-- <div class="form-group">
                   <label class="col-sm-3 control-label">Thông tin đơn hàng</label>
                   <div class="col-sm-6">
                     <ul class="nav nav-tabs">
@@ -153,9 +153,120 @@
                         </div>
                     </div>
                   </div>
-              </div>
+              </div> -->
               <div id="donhang" style="display: none;">
               </div>
+        <div class="panel panel-primary">
+        <div class="panel-heading">
+            <h4>Danh sách sản phẩm
+                <div class="pull-right">
+                    <button id="btn-admin" class="btn btn-default"><span class="glyphicon glyphicon-cog"></span> Thao tác</button>
+                </div>
+            </h4>
+        </div>
+        <div id="toolbar-admin" class="panel-body">
+            <div class="btn-toolbar" role="toolbar" aria-label="admin">
+                    <div class="btn-group pull-right" role="group">
+                        <button onclick="addRow('dataTable')" class="btn btn-success"><span class="glyphicon glyphicon-plus"></span> Thêm mới</button>
+                        <button onclick="deleteRow('dataTable')" class="btn btn-warning"><span class="glyphicon glyphicon-trash"></span> Xóa</button>
+                    </div>
+                </div>
+        </div>
+        <!-- <table class="table table-striped table-hover">
+            <thead>
+                <tr>
+                    <th class="col-check"></th>
+                    <th>Id</th>
+                    <th>Hostname</th>
+                    <th>IP</th>
+                    <th>MAC</th>
+                    <th>Status</th>
+                    <th>Description</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr class="success">
+                    <td class="col-check"><input type="checkbox" class="form-check-input"></td>
+                    <td>1</td>
+                    <td>ZYX987</td>
+                    <td>192.168.1.99</td>
+                    <td>AA:BB:11:22:CC:DD</td>
+                    <td class="status">Online</td>
+                    <td>test</td>
+                </tr>
+                <tr class="success">
+                    <td class="col-check"><input type="checkbox" class="form-check-input"></td>
+                    <td>2</td>
+                    <td>WVU654</td>
+                    <td>192.168.1.98</td>
+                    <td>EE:FF:33:44:AB:CD</td>
+                    <td class="status">Online</td>
+                    <td>test</td>
+                </tr>
+                <tr class="warning">
+                    <td class="col-check"><input type="checkbox" class="form-check-input"></td>
+                    <td>3</td>
+                    <td>TSR321</td>
+                    <td>192.168.1.97</td>
+                    <td>EF:12:FE:34:AA:CC</td>
+                    <td class="status">Offline</td>
+                    <td>test</td>
+                </tr>
+                <tr class="danger">
+                    <td class="col-check"><input type="checkbox" class="form-check-input"></td>
+                    <td>4</td>
+                    <td>QPO987</td>
+                    <td>192.168.1.96</td>
+                    <td>FA:91:EB:82:DC:73</td>
+                    <td class="status">Out Of Order</td>
+                    <td>test</td>
+                </tr>
+                <tr class="warning">
+                    <td class="col-check"><input type="checkbox" class="form-check-input"></td>
+                    <td>5</td>
+                    <td>NML654</td>
+                    <td>192.168.1.95</td>
+                    <td>98:AB:76:CD:54:EF</td>
+                    <td class="status">Offline</td>
+                    <td>test</td>
+                </tr>
+            </tbody>
+        </table> -->
+       <div style="overflow: auto;">
+
+          <table id="dataTable" class="table table-striped table-hover" >
+                <thead>
+                    <tr>
+                        <th class="col-check"><input type="checkbox" class="form-check-input" id="check-all"></th>
+                        <th>Sản phẩm</th>
+                        <th>Số lượng</th>
+                        <th>Giá bán</th>
+                        <th>Phí cố định</th>
+                        <th>Phí khác</th>
+                        <th>Phí GTGT</th>
+                        <th>Khoản WHT</th>
+                        <th>Khoản t.toán</th>
+                    </tr>
+                </thead>
+                  <tbody>
+                    <tr class="success">
+                        <td class="col-check"><input type="checkbox" class="form-check-input"></td>
+                        <td><input list="product-data-list" type="text" class="form-check-input" name="product[0][id_sanpham]" aria-required="true" value="" required=""></td>
+                        <td><input type="text" class="form-check-input" name="product[0][qty]" value="0"></td>
+                        <td><input type="text" class="form-check-input" name="product[0][sales_deliver]" value="0"></td>
+                        <td><input type="text" class="form-check-input" name="product[0][phi_co_dinh]" value="0"></td>
+                        <td class="status"><input type="text" class="form-check-input" name="product[0][phi_khac]" value="0"></td>
+                        <td><input type="text" class="form-check-input" name="product[0][phi_gtgt]" value="0"></td>
+                        <td><input type="text" name="product[0][khoan_wht]" value="0" /></td>
+                        <td><input type="text" name="product[0][khoan_thanh_toan]" value="0"/></td>
+                    </tr>
+                  </tbody>
+                    
+          </table>
+        </div> 
+        
+    </div>      
+              
               <div class="form-group">
                 <div style="margin: 0px 90%;">
                   <button type="button" class="btn btn-sm btn-info saveDH"  id="btn-add"> Lưu <span class="glyphicon glyphicon-saved"></span></button>

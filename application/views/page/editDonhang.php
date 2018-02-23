@@ -96,7 +96,7 @@
                 </div>
                 <span>*Sản phẩm</span>
               </div>                           
-              <div class="form-group">
+              <!-- <div class="form-group">
                   <label class="col-sm-3 control-label">Thông tin đơn hàng</label>
                   <div class="col-sm-6">
                     <ul class="nav nav-tabs">
@@ -168,9 +168,123 @@
                         <?php }} ?>
                     </div>
                   </div>
-              </div>
+              </div> -->
               <div id="donhang" style="display: none;">
               </div>
+      <div class="panel panel-primary">
+        <div class="panel-heading">
+            <h4>Danh sách sản phẩm
+                <div class="pull-right">
+                    <button id="btn-admin" class="btn btn-default"><span class="glyphicon glyphicon-cog"></span> Thao tác</button>
+                </div>
+            </h4>
+        </div>
+        <div id="toolbar-admin" class="panel-body">
+            <div class="btn-toolbar" role="toolbar" aria-label="admin">
+                    <div class="btn-group pull-right" role="group">
+                        <button onclick="addRow('dataTable')" class="btn btn-success"><span class="glyphicon glyphicon-plus"></span> Thêm mới</button>
+                        <button onclick="deleteRow('dataTable')" class="btn btn-warning"><span class="glyphicon glyphicon-trash"></span> Xóa</button>
+                    </div>
+                </div>
+        </div>
+        <!-- <table class="table table-striped table-hover">
+            <thead>
+                <tr>
+                    <th class="col-check"></th>
+                    <th>Id</th>
+                    <th>Hostname</th>
+                    <th>IP</th>
+                    <th>MAC</th>
+                    <th>Status</th>
+                    <th>Description</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr class="success">
+                    <td class="col-check"><input type="checkbox" class="form-check-input"></td>
+                    <td>1</td>
+                    <td>ZYX987</td>
+                    <td>192.168.1.99</td>
+                    <td>AA:BB:11:22:CC:DD</td>
+                    <td class="status">Online</td>
+                    <td>test</td>
+                </tr>
+                <tr class="success">
+                    <td class="col-check"><input type="checkbox" class="form-check-input"></td>
+                    <td>2</td>
+                    <td>WVU654</td>
+                    <td>192.168.1.98</td>
+                    <td>EE:FF:33:44:AB:CD</td>
+                    <td class="status">Online</td>
+                    <td>test</td>
+                </tr>
+                <tr class="warning">
+                    <td class="col-check"><input type="checkbox" class="form-check-input"></td>
+                    <td>3</td>
+                    <td>TSR321</td>
+                    <td>192.168.1.97</td>
+                    <td>EF:12:FE:34:AA:CC</td>
+                    <td class="status">Offline</td>
+                    <td>test</td>
+                </tr>
+                <tr class="danger">
+                    <td class="col-check"><input type="checkbox" class="form-check-input"></td>
+                    <td>4</td>
+                    <td>QPO987</td>
+                    <td>192.168.1.96</td>
+                    <td>FA:91:EB:82:DC:73</td>
+                    <td class="status">Out Of Order</td>
+                    <td>test</td>
+                </tr>
+                <tr class="warning">
+                    <td class="col-check"><input type="checkbox" class="form-check-input"></td>
+                    <td>5</td>
+                    <td>NML654</td>
+                    <td>192.168.1.95</td>
+                    <td>98:AB:76:CD:54:EF</td>
+                    <td class="status">Offline</td>
+                    <td>test</td>
+                </tr>
+            </tbody>
+        </table> -->
+        <div style="overflow: auto;">
+          <table id="dataTable" class="table table-striped table-hover" >
+                <thead>
+                    <tr>
+                        <th class="col-check"><input type="checkbox" class="form-check-input" id="check-all"></th>
+                        <th>Sản phẩm</th>
+                        <th>Số lượng</th>
+                        <th>Giá bán</th>
+                        <th>Phí cố định</th>
+                        <th>Phí khác</th>
+                        <th>Phí GTGT</th>
+                        <th>Khoản WHT</th>
+                        <th>Khoản t.toán</th>
+                    </tr>
+                </thead>
+                  <tbody>
+                    <?php 
+                        if (isset($bill_detail) && !empty($bill_detail)) {
+                          for ($i=0; $i < count($bill_detail); $i++) { 
+                      ?>
+                    <tr class="success">
+                        <td class="col-check"><input type="checkbox" class="form-check-input"></td>
+                        <td><input list="product-data-list" type="text" class="form-check-input" name="product[<?php echo ($i)?>][id_sanpham]" aria-required="true" value="<?php echo $bill_detail[$i]['id_sanpham'];?>"></td>
+                        <td><input type="text" class="form-check-input" name="product[<?php echo ($i)?>][qty]" value="<?php echo $bill_detail[$i]['qty'];?>"></td>
+                        <td><input type="text" class="form-check-input" name="product[<?php echo ($i)?>][sales_deliver]" value="<?php echo $bill_detail[$i]['sales_deliver'];?>"></td>
+                        <td><input type="text" class="form-check-input" name="product[<?php echo ($i)?>][phi_co_dinh]" value="<?php echo $bill_detail[$i]['phi_co_dinh'];?>"></td>
+                        <td class="status"><input type="text" class="form-check-input" name="product[<?php echo ($i)?>][phi_khac]" value="<?php echo $bill_detail[$i]['phi_khac'];?>"></td>
+                        <td><input type="text" class="form-check-input" name="product[<?php echo ($i)?>][phi_gtgt]" value="<?php echo $bill_detail[$i]['phi_gtgt'];?>"></td>
+                        <td><input type="text" name="product[<?php echo ($i)?>][khoan_wht]" value="<?php echo $bill_detail[$i]['khoan_wht'];?>" /></td>
+                        <td><input type="text" name="product[<?php echo ($i)?>][khoan_thanh_toan]" value="<?php echo $bill_detail[$i]['khoan_thanh_toan'];?>"/></td>
+                    </tr>
+                    <?php }} ?>
+                  </tbody>
+                    
+          </table>
+        </div>
+        
+    </div>
               <div class="form-group">
                 <div style="margin: 0px 90%;">
                   <button type="button" class="btn btn-sm btn-info saveDH"  id="btn-add"> Lưu <span class="glyphicon glyphicon-saved"></span></button>
@@ -311,4 +425,5 @@ $(".nav-tabs").on("click", "a", function(e){
       $('.tab-content').append('<div class="tab-pane active" id="contact_'+id+'"><h1>Sản phẩm '+id+'</h1><div class="form-group">'+product_list.replace('name="id_sanpham"','name="product['+id+'][id_sanpham]"')+'</div><div class="form-group"><div class="col-sm-9"><input type="text" name="product['+id+'][qty]" value="0" class="form-control so" ></div><span>*Số lượng</span></div><div class="form-group"><div class="col-sm-9"><input type="text" name="product['+id+'][sales_deliver]" value="0" class="form-control so" ></div><span>*Giá bán</span></div><div class="form-group"><div class="col-sm-9"><input type="text" name="product['+id+'][phi_co_dinh]" value="0" class="form-control so" ></div><span>*Phí cố định</span></div><div class="form-group"><div class="col-sm-9"><input type="text" name="product['+id+'][phi_khac]" value="0" class="form-control so" ></div><span>*Phí khác</span></div><div class="form-group"><div class="col-sm-9"><input type="text" name="product['+id+'][phi_gtgt]" value="0" class="form-control so" ></div><span>*Phí GTGT</span></div><div class="form-group"><div class="col-sm-9"><input type="text" name="product['+id+'][khoan_wht]" value="0" class="form-control so" ></div><span>*Khoản WHT</span></div><div class="form-group"><div class="col-sm-9"><input type="text" name="product['+id+'][khoan_thanh_toan]" value="0" class="form-control so" ></div><span>*Khoản thanh toán</span></div></div>');
 });
 });
+
 </script>

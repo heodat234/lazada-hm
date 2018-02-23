@@ -89,6 +89,7 @@ if($this->session->has_userdata('user')) {
             }
         });
   </script>
+  <script src="<?php echo base_url(); ?>public/js/customer.js"></script>
 </html>
 <?php 
 }else{redirect(base_url('login'));}

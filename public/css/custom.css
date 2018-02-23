@@ -47,3 +47,30 @@
 .checkBC {
     cursor: pointer;
 }
+  h3{
+    margin:5px;
+    padding: 5px;
+}
+
+.btn-custom{
+ border: none;   
+}
+
+#toolbar-admin{
+    display: none;
+}
+
+tbody input[type="checkbox"] {
+        margin: 10px; 
+    }
+thead input[type="checkbox"] {
+        margin-left: 10px; 
+    }
+tbody input[type="text"] {
+        display: block; 
+        padding: 5px; 
+        margin: 0; 
+        border: 1px solid #8080804a; 
+        width: 100%;
+        font-size: 14px;
+    }
