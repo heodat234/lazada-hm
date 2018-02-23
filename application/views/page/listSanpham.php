@@ -73,7 +73,8 @@
                 </tr>
               </thead>
               <tbody>
-                <?php foreach ($sanpham as $row): ?>
+                <?php foreach ($sanpham as $row): 
+                 ?>
                     <tr id="row_<?php echo $row['id'] ?>">
                       <td></td>
                       <td><?php echo $row['id_product'] ?></td>
@@ -83,7 +84,7 @@
                         <button class="btn btn-info btn-flat" data-toggle="modal" data-target="#edit" data-id='<?php echo $row['id_product'] ?>' data-name='<?php echo $row['name'] ?>' ><i class="fa fa-lg fa-pencil"></i></button>
                       </td>
                       <td>
-                        <a class="btn btn-success btn-flat" href="<?php echo base_url().'chitietnhapkho/'.$row['id'] ?> "><i class="fa fa-lg fa-eye"></i></a>
+                        <a class="btn btn-success btn-flat" href="<?php echo base_url().'chitietnhapkho/'.$row['slug'].'.html' ?> "><i class="fa fa-lg fa-eye"></i></a>
                       </td>
                     </tr>                    
                 <?php endforeach;?>

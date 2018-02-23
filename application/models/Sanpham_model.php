@@ -28,6 +28,14 @@ class Sanpham_model extends CI_Model{
                             ->row_array();
         return $sp;
     }
+    public function selsectSPBySlug($slug='')
+    {
+        $sp =   $this->db->select('id,name,created_at')
+                            ->where('slug', $slug)
+                            ->get($this->_name)
+                            ->row_array();
+        return $sp;
+    }
     function list_sanpham(){
     	$sanpham = $this->db->select()
 				        ->get($this->_name)

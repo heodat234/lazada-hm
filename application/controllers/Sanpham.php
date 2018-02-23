@@ -24,10 +24,10 @@ class Sanpham extends CI_Controller {
         $this->_data['html_body'] = $this->load->view('page/listSanpham',$data,true); 	        
 		return $this->load->view('home/master', $this->_data);
 	}
-    public function lichSuNhapKho($id)
+    public function lichSuNhapKho($slug)
     {   
-        $data['sp'] = $this->Sanpham_model->selsectSPById($id);
-        $data['import'] = $this->Sanpham_model->nhap_kho_id_product($id);
+        $data['sp'] = $this->Sanpham_model->selsectSPBySlug($slug);
+        $data['import'] = $this->Sanpham_model->nhap_kho_id_product($data['sp']['id']);
         // var_dump($data['import']);
         $this->_data['html_body'] = $this->load->view('page/chitiet_sanpham',$data,true);           
         return $this->load->view('home/master', $this->_data);
@@ -37,6 +37,7 @@ class Sanpham extends CI_Controller {
         $post = $this->input->post();
         $data['id_product']     = $post['id_sanpham'];
         $data['name']           = $post['ten_sanpham'];
+        $data['slug']           = create_slug($post['ten_sanpham']);
         // $adata['price']          = unNumber_Format($post['gia_nhap']);
         // $adata['qty']            = unNumber_Format($post['so_luong']);
         if ($this->Sanpham_model->checkSanpham($post['id_sanpham']) == false) {
@@ -57,6 +58,7 @@ class Sanpham extends CI_Controller {
         $post = $this->input->post();
     
         $data['name']       = $post['ten_sanpham'];
+        $data['slug']           = create_slug($post['ten_sanpham']);
         // $data['price']      = unNumber_Format($post['gia_nhap']);
         // $data['qty']        = unNumber_Format($post['so_luong']);
         $this->Sanpham_model->edit_sanpham( $post['id_sanpham'], $data);
