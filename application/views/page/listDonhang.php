@@ -6,7 +6,7 @@
 <div id="loader-overlay"><img src="<?php echo base_url() ?>public/images/loader.gif" alt="Loading" /></div>
 <div>
   <div class="content-wrapper">
-    <h1>Đơn hàng</h1>
+    <h1 class="title-page">Đơn hàng</h1>
     <div class="row">
       <div class="col-md-6">
         <div class="box">
@@ -110,7 +110,7 @@
             </h3>
             <div class="row" style="margin-top: 10px;">
               <div class="col-sm-3">
-                <h4>Số lượng đơn hàng: <strong class="label label-info"><?php echo number_format(count($donhang)) ?></strong></h4>
+                <h5>Số lượng đơn hàng: <strong class="label label-info"><?php echo number_format(count($donhang)) ?></strong></h5>
               </div>
               <!-- <div class="col-sm-3">
                 <h5>Doanh thu: <strong class="label label-success"><?php echo number_format($thongke[0]['doanhthu']) ?></strong></h5>

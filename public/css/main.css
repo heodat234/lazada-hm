@@ -2500,7 +2500,7 @@ select[multiple].input-lg,
     vertical-align: middle;
   }
   .form-inline .btn {
-    padding: 10px 15px;
+    padding: 5px 10px;
     font-size: 13px;
     line-height: 1.428571429;
     border-radius: 3px;
@@ -9644,6 +9644,7 @@ div.dataTables_wrapper div.dataTables_filter input {
   margin-left: 0.5em;
   display: inline-block;
   width: auto;
+  padding: 0;
 }
 
 div.dataTables_wrapper div.dataTables_info {

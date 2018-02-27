@@ -1,6 +1,6 @@
 <div>
   <div class="content-wrapper">
-    <h1>Sản phẩm</h1>
+    <h1 class="title-page">Sản phẩm</h1>
     <div class="row">
       <div class="col-md-12">
         <div class="box">

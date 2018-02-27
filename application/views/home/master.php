@@ -15,7 +15,7 @@ if($this->session->has_userdata('user')) {
     <!-- Font-icon css-->
     <link rel="stylesheet" type="text/css" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
     <link href="//netdna.bootstrapcdn.com/bootstrap/3.0.0/css/bootstrap-glyphicons.css" rel="stylesheet">
-    <link rel="stylesheet" type="text/css" href="<?php echo base_url(); ?>public/css/custom.css">
+    
 
     <!-- <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css"> -->
     <link href="<?php echo base_url(); ?>public/css/jquery-ui.css" rel="stylesheet">  
@@ -25,6 +25,7 @@ if($this->session->has_userdata('user')) {
 
     <script type="text/javascript" src="https://printjs-4de6.kxcdn.com/print.min.js"></script>
     <link rel="stylesheet" type="text/css" href="https://printjs-4de6.kxcdn.com/print.min.css">
+    <link rel="stylesheet" type="text/css" href="<?php echo base_url(); ?>public/css/custom.css">
     <script src="<?php echo base_url(); ?>public/ssi-modal/js/ssi-modal.min.js"></script>
     <link rel="stylesheet" href="<?php echo base_url(); ?>public/ssi-modal/styles/ssi-modal.css"/> 
     <script type="text/javascript" src="<?php echo base_url(); ?>public/js/jquery-ui.js"></script>
