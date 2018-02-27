@@ -62,39 +62,40 @@
               <button type="button" class="btn btn-box-tool accordion" data-widget="collapse"><i class="fa fa-minus"></i></button>
             </h3>
           </div>
-          <div class="animate">
-            <div class="box-body no-padding-bottom" >
-              <form method="post" action="<?php echo base_url() ?>locDonhang" id="filter-form">
-                <div class="row">
-                  <div class="col-sm-4">
-                    <div class="form-group checkBC">
-                      <input type="radio" name="check" value="qty">
-                      So sánh số lượng đơn hàng
+          <form method="post" action="<?php echo base_url() ?>Donhang/checkLazada" id="filter-form">
+            <div class="animate">
+              <div class="box-body no-padding-bottom" >
+                  <div class="row">
+                    <div class="col-sm-4">
+                      <div class="form-group checkBC">
+                        <input type="radio" name="check" value="qty">
+                        So sánh số lượng đơn hàng
+                      </div>
+                    </div>
+                    <div class="col-sm-4">
+                      <div class="form-group checkBC">
+                        <input type="radio" name="check" value="detail">
+                        So sánh chi tiết đơn hàng
+                      </div>
+                    </div>
+                    <div class="col-sm-4">
+                      <div class="form-group checkBC">
+                        <input type="radio" name="check" value="all">
+                        So sánh tất cả
+                      </div>
                     </div>
                   </div>
-                  <div class="col-sm-4">
-                    <div class="form-group checkBC">
-                      <input type="radio" name="check" value="detail">
-                      So sánh chi tiết đơn hàng
-                    </div>
-                  </div>
-                  <div class="col-sm-4">
-                    <div class="form-group checkBC">
-                      <input type="radio" name="check" value="all">
-                      So sánh tất cả
-                    </div>
-                  </div>
-                </div>
-              </form>
-            </div>
-            <div class="box-footer no-padding-bottom quick_filter_container">
-              <div class="quick_filter">
-                <a class="btn_margin_bottom btn btn-default btn_quick_filter" href="<?php echo base_url() ?>file_mau.xlsx">Tải file mẫu</a>
-                <div class="pull-right">
+              </div>
+              <div class="box-footer no-padding-bottom quick_filter_container">
+                <div class="quick_filter">
+                  <a class="btn_margin_bottom btn btn-default btn_quick_filter" href="<?php echo base_url() ?>file_mau.xlsx"><i class="fa fa-download"></i> Tải file mẫu</a>
                   <button type="button" class="btn_margin_bottom btn btn-info btn_quick_filter" data-toggle="modal" data-target="#addFile"><i class="fa fa-upload"></i> Tải nhập file báo cáo</button> 
+                  <div class="pull-right">
+                    <button type="submit" class="btn_margin_bottom btn btn-primary btn_quick_filter" ><i class="fa fa-check"></i> Kiểm tra</button> 
+                  </div>
                 </div>
               </div>
-            </div>
+            </form>
           </div>
         </div>
       </div>   
@@ -109,7 +110,7 @@
             </h3>
             <div class="row" style="margin-top: 10px;">
               <div class="col-sm-3">
-                <h5>Số lượng đơn hàng: <strong class="label label-info"><?php echo number_format(count($donhang)) ?></strong></h5>
+                <h4>Số lượng đơn hàng: <strong class="label label-info"><?php echo number_format(count($donhang)) ?></strong></h4>
               </div>
               <!-- <div class="col-sm-3">
                 <h5>Doanh thu: <strong class="label label-success"><?php echo number_format($thongke[0]['doanhthu']) ?></strong></h5>

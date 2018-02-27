@@ -238,9 +238,9 @@ class Donhang extends CI_Controller {
                 $qty_Lazada = $this->Donhang_model->countLazada();
                 $qty_Donhang = $this->Donhang_model->countDonHang();
                 if ($qty_Donhang == $qty_Lazada) {
-                    $data['thongbao']        = '<div class="alert alert-success">Số lượng đơn hàng trùng khớp. </div>';
+                    $data['thongbao']        = '<h5 style="color:blue">Số lượng đơn hàng trùng khớp. </h4>';
                 }else{
-                    $data['thongbao']        = '<div class="alert alert-danger">Số lượng đơn hàng không trùng khớp. </div>';
+                    $data['thongbao']        = '<h4 style="color:red">Số lượng đơn hàng không trùng khớp. </h4>';
                 }
                  $data['donhang'] = $this->Donhang_model->listDonhang();
                  $match= '';
@@ -294,9 +294,9 @@ class Donhang extends CI_Controller {
                 $qty_Lazada = $this->Donhang_model->countLazada();
                 $qty_Donhang = $this->Donhang_model->countDonHang();
                 if ($qty_Donhang == $qty_Lazada) {
-                    $data['thongbao']        = '<div class="alert alert-success">Số lượng đơn hàng trùng khớp. </div>';
+                    $data['thongbao']        = '<h4 style="color:blue">Số lượng đơn hàng trùng khớp. </h4>';
                 }else{
-                    $data['thongbao']        = '<div class="alert alert-danger">Số lượng đơn hàng không trùng khớp. </div>';
+                    $data['thongbao']        = '<h4 style="color:red">Số lượng đơn hàng không trùng khớp. </h4>';
                 }
                 $donhang = $this->Donhang_model->getDonHangCheck();
                 foreach ($donhang as $dh) {
