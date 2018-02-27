@@ -153,14 +153,15 @@
                         <td><?php echo $row['bill_status'] ?></td>
                         <td><?php echo date('d-m-Y H:i:s',strtotime($row['order_day'])) ?></td>
                         <td><?php echo date('d-m-Y H:i:s',strtotime($row['deliv_day'])) ?></td>
-                        <?php if ($row['checkLazada'] == 0 && $row['type_bill']=='Hàng Lazada'){ ?>
-                          <td><span class="btn btn-primary">Chưa kiểm tra</span></td>
-                        <?php }elseif ($row['checkLazada'] == 1 && $row['type_bill']=='Hàng Lazada') { ?>
-                          <td><span class="btn btn-success"><i class="fa fa-thumbs-up"></i> ok</span></td>
-                        <?php }elseif ($row['checkLazada'] == 2 && $row['type_bill']=='Hàng Lazada') { ?>
-                          <td><span class="btn btn-danger"><i class="fa fa-question"></i> Không khớp</span></td>
-                        <?php }else{echo "<td></td>";} ?>
-
+                        <td style="text-align: center;">
+                          <?php if ($row['checkLazada'] == 0 && $row['type_bill']=='Hàng Lazada'){ ?>
+                            
+                          <?php }elseif ($row['checkLazada'] == 1 && $row['type_bill']=='Hàng Lazada') { ?>
+                            <i class="fa fa-check"></i>
+                          <?php }elseif ($row['checkLazada'] == 2 && $row['type_bill']=='Hàng Lazada') { ?>
+                            <i class="fa fa-minus-circle"></i>
+                          <?php }else{echo "";} ?>
+                        </td>
                         <?php 
                             $detail     = json_decode($row['detail'],true);
                             $qty = count($detail);
