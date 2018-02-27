@@ -130,6 +130,7 @@ class Donhang extends CI_Controller {
         if (!empty($_FILES['file']['name'])) {
             $config['upload_path'] = './files';
             $config['allowed_types'] = 'xlsx';
+            $config['overwrite'] = TRUE;
             $config['file_name'] = $_FILES['file']['name'];
             $this->load->library('upload', $config);
             $this->upload->initialize($config);
@@ -149,26 +150,25 @@ class Donhang extends CI_Controller {
     }
 	public function readExcel($filename)
     {   
+        $this->Donhang_model->delete();
         $object = new PHPExcel();
         $objReader = PHPExcel_IOFactory::createReader('Excel2007');
         $objPHPExcel = $objReader->load('files/'.$filename);
 
         $objWorksheet  = $objPHPExcel->setActiveSheetIndex(0);
         $highestRow    = $objWorksheet->getHighestRow();
-        // var_dump($highestRow);
         $highestColumn = $objWorksheet->getHighestColumn();
         $highestColumnIndex = PHPExcel_Cell::columnIndexFromString($highestColumn);
         $array = array();
         $data = array();
         $k=1;
-        for ($row = 6; $row <= $highestRow;++$row)
+        for ($row = 2; $row <= $highestRow;++$row)
         {
             if ($objWorksheet->getCellByColumnAndRow(0,$row)->getValue() == null) {
                 return 1;
                 break;
             }
             $id_donhang           =  $objWorksheet->getCellByColumnAndRow(0,$row)->getValue();
-            // echo $id_donhang;
             if ($this->Donhang_model->checkDonhangLazada($id_donhang) == false) {
                 $detail = array(
                     'id_sanpham'            => $objWorksheet->getCellByColumnAndRow(7,$row)->getValue(),
@@ -194,22 +194,22 @@ class Donhang extends CI_Controller {
                 $this->Donhang_model->insert_lazada($lazada);
 
             }else {
-                $dh = $this->Donhang_model->checkDonhangLazada($id_donhang);
-                $detail = json_decode($dh['detail'],true);
-                $update_detail = array(
-                    'id_sanpham'            => $objWorksheet->getCellByColumnAndRow(7,$row)->getValue(),
-                    'qty'                   => $objWorksheet->getCellByColumnAndRow(8,$row)->getValue(),
-                    'sales_deliver'         => $objWorksheet->getCellByColumnAndRow(9,$row)->getValue(),
-                    'phi_co_dinh'           => $objWorksheet->getCellByColumnAndRow(10,$row)->getValue(),
-                    'phi_khac'              => $objWorksheet->getCellByColumnAndRow(11,$row)->getValue(),
-                    'phi_gtgt'              => $objWorksheet->getCellByColumnAndRow(12,$row)->getValue(),
-                    'khoan_wht'             => $objWorksheet->getCellByColumnAndRow(13,$row)->getValue(),
-                    'khoan_thanh_toan'      => $objWorksheet->getCellByColumnAndRow(14,$row)->getValue(),
-                );
-                array_push($detail, $update_detail);
-                $lazada = array(
-                    'detail'                => json_encode($detail),
-                ); 
+                    $dh = $this->Donhang_model->checkDonhangLazada($id_donhang);
+                    $detail = json_decode($dh['detail'],true);
+                    $update_detail = array(
+                        'id_sanpham'            => $objWorksheet->getCellByColumnAndRow(7,$row)->getValue(),
+                        'qty'                   => $objWorksheet->getCellByColumnAndRow(8,$row)->getValue(),
+                        'sales_deliver'         => $objWorksheet->getCellByColumnAndRow(9,$row)->getValue(),
+                        'phi_co_dinh'           => $objWorksheet->getCellByColumnAndRow(10,$row)->getValue(),
+                        'phi_khac'              => $objWorksheet->getCellByColumnAndRow(11,$row)->getValue(),
+                        'phi_gtgt'              => $objWorksheet->getCellByColumnAndRow(12,$row)->getValue(),
+                        'khoan_wht'             => $objWorksheet->getCellByColumnAndRow(13,$row)->getValue(),
+                        'khoan_thanh_toan'      => $objWorksheet->getCellByColumnAndRow(14,$row)->getValue(),
+                    );
+                    array_push($detail, $update_detail);
+                    $lazada = array(
+                        'detail'                => json_encode($detail),
+                    ); 
                 $this->Donhang_model->update_lazada($id_donhang,$lazada);  
             }
         }
@@ -271,13 +271,16 @@ class Donhang extends CI_Controller {
                             if($checkSP){
                                 $data = array('checkLazada' => '1');
                                 $this->Donhang_model->update_donhang($dh['id_bill'],$data);
+                                $this->Donhang_model->update_lazada($dh['id_bill'],$data);
                             }else{
                                 $data = array('checkLazada' => '2');
                                 $this->Donhang_model->update_donhang($dh['id_bill'],$data);
+                                $this->Donhang_model->update_lazada($dh['id_bill'],$data);
                             }
                         }else{
                             $data = array('checkLazada' => '2');
                             $this->Donhang_model->update_donhang($dh['id_bill'],$data);
+                            $this->Donhang_model->update_lazada($dh['id_bill'],$data);
                         }
                         
                     }
@@ -319,13 +322,16 @@ class Donhang extends CI_Controller {
                             if($checkSP){
                                 $data = array('checkLazada' => '1');
                                 $this->Donhang_model->update_donhang($dh['id_bill'],$data);
+                                $this->Donhang_model->update_lazada($dh['id_bill'],$data);
                             }else{
                                 $data = array('checkLazada' => '2');
                                 $this->Donhang_model->update_donhang($dh['id_bill'],$data);
+                                $this->Donhang_model->update_lazada($dh['id_bill'],$data);
                             }
                         }else{
                             $data = array('checkLazada' => '2');
                             $this->Donhang_model->update_donhang($dh['id_bill'],$data);
+                            $this->Donhang_model->update_lazada($dh['id_bill'],$data);
                         }
                         
                     }

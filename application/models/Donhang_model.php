@@ -23,7 +23,7 @@ class Donhang_model extends CI_Model{
     }
     public function countLazada()
     {
-        $query=$this->db->where('check',0)->get($this->_excel);
+        $query=$this->db->where('checkLazada',0)->get($this->_excel);
         return $query->num_rows(); 
     }
 
@@ -69,6 +69,10 @@ class Donhang_model extends CI_Model{
     {
          $this->db->where('id_bill',$id)
             ->update($this->_excel,$data);
+    }
+    function delete_lazada()
+    {
+        $this->db->where('checkLazada',0)->delete($this->_excel);
     }
     function update_donhang($id,$data='')
     {
