@@ -74,10 +74,12 @@ tbody input[type="text"] {
         width: 100%;
         font-size: 14px;
     }
-
 .check_2{
     background-color: red;
 }
 .box-body {
     min-height: 100px;
   }
+.btn-custom{
+    margin-top: -5px;
+}

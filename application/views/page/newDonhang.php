@@ -17,37 +17,12 @@
             <div class="alert alert-danger hide"></div>
             <form class="form-horizontal bucket-form" enctype="multipart/form-data"  id="add-form" method="post" action="<?php echo base_url(); ?>insertDonhang">
               <div class="form-group">
-                <label class="col-sm-3 control-label">Mã đơn hàng</label>
-                <div class="col-sm-6">
+                <label class="col-sm-2 control-label">Mã đơn hàng</label>
+                <div class="col-sm-4">
                      <input type="text" name="id_bill" id="id_donhang" class="form-control" placeholder="Nhập mã đơn hàng" required="">
                 </div>
-              </div>
-              <div class="form-group">
-                  <label class="col-sm-3 control-label">Loại đơn hàng</label>
-                  <div class="col-sm-6">
-                       <select class="form-control" name="type_bill">
-                         <option value="Hàng Lazada">Hàng Lazada</option>
-                         <option value="Hàng Shopee">Hàng Shopee</option>
-                         <option value="Hàng bỏ sỉ">Hàng bỏ sỉ</option>
-                         <option value="Hàng bán lẻ">Hàng bán lẻ</option>
-                       </select>
-                  </div>
-              </div>
-              
-              <div class="form-group">
-                <label class="col-sm-3 control-label">Trạng thái</label>
-                <div class="col-sm-6">
-                     <select class="form-control" name="bill_status">
-                       <option value="Đang giao hàng">Đang giao hàng</option>
-                       <option value="Đã giao hàng">Đã giao hàng</option>
-                       <option value="Trả lại">Trả lại</option>
-                       <option value="Đã nhận hàng trả">Đã nhận hàng trả</option>
-                     </select>
-                </div>
-              </div>
-              <div class="form-group">
-                  <label class="col-sm-3 control-label">P.T Thanh toán</label>
-                  <div class="col-sm-6">
+                <label class="col-sm-2 control-label">P.T Thanh toán</label>
+                  <div class="col-sm-4">
                        <select class="form-control" name="payment_method">
                          <option value="CashOnDelivery">CashOnDelivery</option>
                          <option value="Cybersource">Cybersource</option>
@@ -56,26 +31,47 @@
                   </div>
               </div>
               <div class="form-group">
-                  <label class="col-sm-3 control-label">Trạng thái Thanh toán</label>
-                  <div class="col-sm-6">
+                  <label class="col-sm-2 control-label">Loại đơn hàng</label>
+                  <div class="col-sm-4">
+                       <select class="form-control" name="type_bill">
+                         <option value="Hàng Lazada">Hàng Lazada</option>
+                         <option value="Hàng Shopee">Hàng Shopee</option>
+                         <option value="Hàng bỏ sỉ">Hàng bỏ sỉ</option>
+                         <option value="Hàng bán lẻ">Hàng bán lẻ</option>
+                       </select>
+                  </div>
+                  <label class="col-sm-2 control-label">Ngày đặt hàng</label>
+                <div class="col-sm-4">
+                     <input type="date" name="order_day" class="form-control today" required="">
+                </div>
+              </div>
+              
+              <div class="form-group">
+                <label class="col-sm-2 control-label">Trạng thái</label>
+                <div class="col-sm-4">
+                     <select class="form-control" name="bill_status">
+                       <option value="Đang giao hàng">Đang giao hàng</option>
+                       <option value="Đã giao hàng">Đã giao hàng</option>
+                       <option value="Trả lại">Trả lại</option>
+                       <option value="Đã nhận hàng trả">Đã nhận hàng trả</option>
+                     </select>
+                </div>
+                <label class="col-sm-2 control-label">Ngày giao hàng</label>
+                <div class="col-sm-4">
+                     <input type="date" name="deliv_day"  class="form-control today" required="">
+                </div>
+              </div>
+              <div class="form-group">
+                <label class="col-sm-2 control-label">Trạng thái Thanh toán</label>
+                  <div class="col-sm-4">
                        <select class="form-control" name="payment_status">
                          <option value="Chờ thanh toán">Chờ thanh toán</option>
                          <option value="Đã thanh toán">Đã thanh toán</option>
                        </select>
                   </div>
+                
               </div>
-              <div class="form-group">
-                <label class="col-sm-3 control-label">Ngày đặt hàng</label>
-                <div class="col-sm-6">
-                     <input type="date" name="order_day" class="form-control today" required="">
-                </div>
-              </div>
-              <div class="form-group">
-                <label class="col-sm-3 control-label">Ngày giao hàng</label>
-                <div class="col-sm-6">
-                     <input type="date" name="deliv_day"  class="form-control today" required="">
-                </div>
-              </div>    
+            
               <div id="product-list" style="display: none;">
                 <div class="col-sm-9">
                     <input type="text" list="product-data-list" id="decalpriceform-decaltype" class="form-control" name="id_sanpham" required="" aria-required="true">
@@ -160,15 +156,16 @@
         <div class="panel-heading">
             <h4>Danh sách sản phẩm
                 <div class="pull-right">
-                    <button id="btn-admin" class="btn btn-default"><span class="glyphicon glyphicon-cog"></span> Thao tác</button>
+                    <button onclick="addRow('dataTable')" class="btn btn-default btn-custom"><span class="glyphicon glyphicon-plus"></span></button>
+                    <button onclick="deleteRow('dataTable')" class="btn btn-default btn-custom"><span class="glyphicon glyphicon-trash"></span></button>
                 </div>
             </h4>
         </div>
         <div id="toolbar-admin" class="panel-body">
             <div class="btn-toolbar" role="toolbar" aria-label="admin">
                     <div class="btn-group pull-right" role="group">
-                        <button onclick="addRow('dataTable')" class="btn btn-success"><span class="glyphicon glyphicon-plus"></span> Thêm mới</button>
-                        <button onclick="deleteRow('dataTable')" class="btn btn-warning"><span class="glyphicon glyphicon-trash"></span> Xóa</button>
+                        
+                        
                     </div>
                 </div>
         </div>
