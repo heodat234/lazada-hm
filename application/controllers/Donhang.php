@@ -17,10 +17,6 @@ class Donhang extends CI_Controller {
 	public function index()
 	{	
         $data['donhang'] = $this->Donhang_model->listDonhang();
-        $data['tong'] = $this->Donhang_model->getTongtienDonhang();
-         // echo "<pre>";
-         // print_r($data['tong']);
-         // echo "</pre>";
          $match= '';
         $data['thongke'] = $this->Donhang_model->thongke_donhang($match);
         $this->_data['html_body'] = $this->load->view('page/listDonhang',$data,true); 	        
@@ -74,22 +70,6 @@ class Donhang extends CI_Controller {
         $this->Donhang_model->insert_master($master);
 
 
-        // foreach ($post['product'] as $key => $value) {
-        //     $detail = array(
-        //         'id_bill'               => $post['id_bill'],
-        //         'id_product'            => $value['id_sanpham'],
-        //         'id_sku_seller'         => $value['id_sanpham'],
-        //         'price'                 => unNumber_Format($value['sales_deliver']),
-        //         'qty'                   => unNumber_Format($value['qty']),
-        //         'into_money'            => unNumber_Format($value['sales_deliver'])*unNumber_Format($value['qty']),
-        //         'cost'                  => unNumber_Format($value['phi_co_dinh']),
-        //         'other_cost'            => unNumber_Format($value['phi_khac']),
-        //         'tax_gtgt'              => unNumber_Format($value['phi_gtgt']),
-        //         'acc_wht'               => unNumber_Format($value['khoan_wht']),
-        //         'acc_payment'           => unNumber_Format($value['khoan_thanh_toan']),
-        //     );
-        //     $this->Donhang_model->insert_detail($detail);
-        // }
         redirect(base_url('donhang'));
     }
     public function delete_detail(){
@@ -144,15 +124,10 @@ class Donhang extends CI_Controller {
         // }
         redirect(base_url('donhang'));
     }
+
     public function addDonhangExcel() 
     {
         if (!empty($_FILES['file']['name'])) {
-            //Kiểm tra tồn tại thư mục
-            // if (!is_dir('./files'))
-            // {
-            //    //Tạo thư mục
-            //     mkdir('./files',777);
-            // }
             $config['upload_path'] = './files';
             $config['allowed_types'] = 'xlsx';
             $config['file_name'] = $_FILES['file']['name'];
@@ -170,8 +145,7 @@ class Donhang extends CI_Controller {
                 $a_data["file"] = '';
             }
             $data = $this->readExcel($a_data["file"]);
-            echo '1';
-            // redirect(base_url('donhang'));
+            echo $data;
     }
 	public function readExcel($filename)
     {   
@@ -179,7 +153,7 @@ class Donhang extends CI_Controller {
         $objReader = PHPExcel_IOFactory::createReader('Excel2007');
         $objPHPExcel = $objReader->load('files/'.$filename);
 
-        $objWorksheet  = $objPHPExcel->setActiveSheetIndex(1);
+        $objWorksheet  = $objPHPExcel->setActiveSheetIndex(0);
         $highestRow    = $objWorksheet->getHighestRow();
         // var_dump($highestRow);
         $highestColumn = $objWorksheet->getHighestColumn();
@@ -187,47 +161,57 @@ class Donhang extends CI_Controller {
         $array = array();
         $data = array();
         $k=1;
-
-
         for ($row = 6; $row <= $highestRow;++$row)
         {
             if ($objWorksheet->getCellByColumnAndRow(0,$row)->getValue() == null) {
+                return 1;
                 break;
             }
             $id_donhang           =  $objWorksheet->getCellByColumnAndRow(0,$row)->getValue();
-            
-            $commission = $objWorksheet->getCellByColumnAndRow(18,$row)->getValue();
-            if (substr($commission, 0,1) == '-') 
-                    $commission = trim($commission,'-');
-            
-            $sum_of_fee = $objWorksheet->getCellByColumnAndRow(29,$row)->getCalculatedValue();
-            if (substr($sum_of_fee, 0,1) == '-') 
-                    $sum_of_fee = trim($sum_of_fee,'-');
-            $gia_nhap   = $objWorksheet->getCellByColumnAndRow(13,$row)->getCalculatedValue();
-            
+            // echo $id_donhang;
+            if ($this->Donhang_model->checkDonhangLazada($id_donhang) == false) {
+                $detail = array(
+                    'id_sanpham'            => $objWorksheet->getCellByColumnAndRow(7,$row)->getValue(),
+                    'qty'                   => $objWorksheet->getCellByColumnAndRow(8,$row)->getValue(),
+                    'sales_deliver'         => $objWorksheet->getCellByColumnAndRow(9,$row)->getValue(),
+                    'phi_co_dinh'           => $objWorksheet->getCellByColumnAndRow(10,$row)->getValue(),
+                    'phi_khac'              => $objWorksheet->getCellByColumnAndRow(11,$row)->getValue(),
+                    'phi_gtgt'              => $objWorksheet->getCellByColumnAndRow(12,$row)->getValue(),
+                    'khoan_wht'             => $objWorksheet->getCellByColumnAndRow(13,$row)->getValue(),
+                    'khoan_thanh_toan'      => $objWorksheet->getCellByColumnAndRow(14,$row)->getValue(),
+                );
 
-            $lazada = array(
-                'id_donhang'            => $id_donhang,
-                'id_monhang'            => $objWorksheet->getCellByColumnAndRow(1,$row)->getValue(),
-                'id_sanpham'            => $objWorksheet->getCellByColumnAndRow(2,$row)->getValue(),
-                'item_name'             => $objWorksheet->getCellByColumnAndRow(3,$row)->getValue(),
+                $lazada = array(
+                    'id_bill'               => $id_donhang,
+                    'type_bill'             => $objWorksheet->getCellByColumnAndRow(1,$row)->getValue(),
+                    'bill_status'           => $objWorksheet->getCellByColumnAndRow(2,$row)->getValue(),
+                    'payment_method'        => $objWorksheet->getCellByColumnAndRow(3,$row)->getValue(),
+                    'payment_status'        => $objWorksheet->getCellByColumnAndRow(4,$row)->getValue(),
+                    'order_day'             => $objWorksheet->getCellByColumnAndRow(5,$row)->getValue(),
+                    'deliv_day'             => $objWorksheet->getCellByColumnAndRow(6,$row)->getValue(),
+                    'detail'                => json_encode($detail),
+                );
+                $this->Donhang_model->insert_lazada($lazada);
 
-                'created_at'            => $objWorksheet->getCellByColumnAndRow(6,$row)->getValue(),
-                'status'                => $objWorksheet->getCellByColumnAndRow(7,$row)->getValue(),
-                // 'ma_van_don'            => $objWorksheet->getCellByColumnAndRow(9,$row)->getValue(),
-                'phuongthuc_thanhtoan'  => $objWorksheet->getCellByColumnAndRow(11,$row)->getValue(),
-                'sales_deliver'         => $objWorksheet->getCellByColumnAndRow(12,$row)->getValue(),
-                'sales_return'          => $gia_nhap,
-                'tro_gia'               => $objWorksheet->getCellByColumnAndRow(17,$row)->getValue(),
-                'commission'            => $commission,
-                'customer_shipping_fee' => $objWorksheet->getCellByColumnAndRow(19,$row)->getValue(),
-                'phi_boi_thuong'        => $objWorksheet->getCellByColumnAndRow(28,$row)->getValue(),
-                'sum_of_fee'            => $sum_of_fee,
-            );
-            
-            
-            $this->Donhang_model->insert_lazada($lazada);
-            
+            }else {
+                $dh = $this->Donhang_model->checkDonhangLazada($id_donhang);
+                $detail = json_decode($dh['detail'],true);
+                $update_detail = array(
+                    'id_sanpham'            => $objWorksheet->getCellByColumnAndRow(7,$row)->getValue(),
+                    'qty'                   => $objWorksheet->getCellByColumnAndRow(8,$row)->getValue(),
+                    'sales_deliver'         => $objWorksheet->getCellByColumnAndRow(9,$row)->getValue(),
+                    'phi_co_dinh'           => $objWorksheet->getCellByColumnAndRow(10,$row)->getValue(),
+                    'phi_khac'              => $objWorksheet->getCellByColumnAndRow(11,$row)->getValue(),
+                    'phi_gtgt'              => $objWorksheet->getCellByColumnAndRow(12,$row)->getValue(),
+                    'khoan_wht'             => $objWorksheet->getCellByColumnAndRow(13,$row)->getValue(),
+                    'khoan_thanh_toan'      => $objWorksheet->getCellByColumnAndRow(14,$row)->getValue(),
+                );
+                array_push($detail, $update_detail);
+                $lazada = array(
+                    'detail'                => json_encode($detail),
+                ); 
+                $this->Donhang_model->update_lazada($id_donhang,$lazada);  
+            }
         }
     }
     public function locDonhang()
@@ -248,50 +232,117 @@ class Donhang extends CI_Controller {
 
     public function checkLazada()
     {
-        $post   = $this->input->post();
-        $id_bill = '361759685';
-        $nhap = $this->Donhang_model->checkDonHangNhap($id_bill);
-        $lazada = $this->Donhang_model->checkLazada($id_bill);
-        $data['checkTien'] = false;
-        if ($nhap['tongtien'][0]['tongtien'] == $lazada['tongtien'][0]['tongtien']) {
-            $data['checkTien'] = true;
-        }
-        $a = count($nhap['sp']);
-        $b = count($lazada['sp']);
-        $mang1 = $nhap['sp'];
-        $mang2 = $lazada['sp'];
-        $kq = array();
-        $data['checkSP'] = true;
-        if ($a != $b) {
-            $data['checkSP'] = false;
-        }
-        else{
-            for ($i=0; $i < $a; $i++) { 
-               $ss[$i] = array_diff($mang1[$i],$mang2[$i]);
-               if(!empty($ss[$i])){
-                    $data['checkSP'] = false;
-                    $kq[$i]= $ss[$i];
+        $check   = $this->input->post('check');
+        switch ($check) {
+            case 'qty':
+                $qty_Lazada = $this->Donhang_model->countLazada();
+                $qty_Donhang = $this->Donhang_model->countDonHang();
+                if ($qty_Donhang == $qty_Lazada) {
+                    $data['thongbao']        = '<div class="alert alert-success">Số lượng đơn hàng trùng khớp. </div>';
+                }else{
+                    $data['thongbao']        = '<div class="alert alert-danger">Số lượng đơn hàng không trùng khớp. </div>';
                 }
-            }
+                 $data['donhang'] = $this->Donhang_model->listDonhang();
+                 $match= '';
+                $data['thongke'] = $this->Donhang_model->thongke_donhang($match);
+                $this->_data['html_body'] = $this->load->view('page/listDonhang',$data,true);           
+                    return $this->load->view('home/master', $this->_data);
+                break;
             
-        }
-        if (!$data['checkSP']) {
-           $data['danger'] = $kq;
+            case 'detail':
+                $donhang = $this->Donhang_model->getDonHangCheck();
+                foreach ($donhang as $dh) {
+                    $lazada = $this->Donhang_model->checkDonhangLazada($dh['id_bill']);
+                    if ($lazada == false) {
+                        $data = array('checkLazada' => '2');
+                        $this->Donhang_model->update_donhang($dh['id_bill'],$data);
+                    }else{
+                        $detail_dh      = json_decode($dh['detail'],true);
+                        $detail_lazada  = json_decode($lazada['detail'],true);
+                        $checkSP = true;
+                        if (count($detail_dh) == count($detail_lazada)) {
+                            for ($i=0; $i < count($detail_dh); $i++) {
+                                $ss[$i] = array_diff($detail_dh[$i],$detail_lazada[$i]);
+                                if(!empty($ss[$i])){
+                                    $checkSP = false;
+                                }
+                            }
+                            
+                            if($checkSP){
+                                $data = array('checkLazada' => '1');
+                                $this->Donhang_model->update_donhang($dh['id_bill'],$data);
+                            }else{
+                                $data = array('checkLazada' => '2');
+                                $this->Donhang_model->update_donhang($dh['id_bill'],$data);
+                            }
+                        }else{
+                            $data = array('checkLazada' => '2');
+                            $this->Donhang_model->update_donhang($dh['id_bill'],$data);
+                        }
+                        
+                    }
+                }
+                
+                $data['donhang'] = $this->Donhang_model->listDonhang();
+                $match= '';
+                $data['thongke'] = $this->Donhang_model->thongke_donhang($match);
+                $this->_data['html_body'] = $this->load->view('page/listDonhang',$data,true);           
+                return $this->load->view('home/master', $this->_data);
+                break;
+
+            case 'all':
+                $qty_Lazada = $this->Donhang_model->countLazada();
+                $qty_Donhang = $this->Donhang_model->countDonHang();
+                if ($qty_Donhang == $qty_Lazada) {
+                    $data['thongbao']        = '<div class="alert alert-success">Số lượng đơn hàng trùng khớp. </div>';
+                }else{
+                    $data['thongbao']        = '<div class="alert alert-danger">Số lượng đơn hàng không trùng khớp. </div>';
+                }
+                $donhang = $this->Donhang_model->getDonHangCheck();
+                foreach ($donhang as $dh) {
+                    $lazada = $this->Donhang_model->checkDonhangLazada($dh['id_bill']);
+                    if ($lazada == false) {
+                        $data = array('checkLazada' => '2');
+                        $this->Donhang_model->update_donhang($dh['id_bill'],$data);
+                    }else{
+                        $detail_dh      = json_decode($dh['detail'],true);
+                        $detail_lazada  = json_decode($lazada['detail'],true);
+                        $checkSP = true;
+                        if (count($detail_dh) == count($detail_lazada)) {
+                            for ($i=0; $i < count($detail_dh); $i++) {
+                                $ss[$i] = array_diff($detail_dh[$i],$detail_lazada[$i]);
+                                if(!empty($ss[$i])){
+                                    $checkSP = false;
+                                }
+                            }
+                            
+                            if($checkSP){
+                                $data = array('checkLazada' => '1');
+                                $this->Donhang_model->update_donhang($dh['id_bill'],$data);
+                            }else{
+                                $data = array('checkLazada' => '2');
+                                $this->Donhang_model->update_donhang($dh['id_bill'],$data);
+                            }
+                        }else{
+                            $data = array('checkLazada' => '2');
+                            $this->Donhang_model->update_donhang($dh['id_bill'],$data);
+                        }
+                        
+                    }
+                }
+                
+                $data['donhang'] = $this->Donhang_model->listDonhang();
+                 $match= '';
+                $data['thongke'] = $this->Donhang_model->thongke_donhang($match);
+                $this->_data['html_body'] = $this->load->view('page/listDonhang',$data,true);           
+                    return $this->load->view('home/master', $this->_data);
+                break;
+
+            default:
+                # code...
+                break;
         }
         
-        echo json_encode($data);
     }
-    public function xemDonhangLazada($id_bill)
-    {   
-         $data['lazada'] = $this->Donhang_model->getDonhangLazada($id_bill);
-         $data['tong'] = 0;
-         for ($i=0; $i < count($data['lazada']) ; $i++) { 
-            $data['tong'] += $data['lazada'][$i]['price']-0;
-         }
-         // echo "<pre>";
-         // print_r($data['tong']);
-         // echo "</pre>";
-        $this->_data['html_body'] = $this->load->view('page/pageDonLazada',$data,true);           
-        return $this->load->view('home/master', $this->_data);
-    }
+    
 }

@@ -4,20 +4,47 @@ class Donhang_model extends CI_Model{
 	/* Gán tên bảng cần xử lý*/
 	private $_master    = 'master';
     private $_detail    = 'detail';
-    private $_excel     = 'baocao_lazada';
+    private $_excel     = 'lazada';
 	
 	function __construct(){
         parent::__construct();
         $this->load->database();
     } 
 
+    public function countDonHang()
+    {
+        $match = array(
+            'hidden' => 0,
+            'checkLazada' => 0,
+            'type_bill'  => 'Hàng Lazada'
+        );
+        $query=$this->db->where($match)->get($this->_master);
+        return $query->num_rows(); 
+    }
+    public function countLazada()
+    {
+        $query=$this->db->where('check',0)->get($this->_excel);
+        return $query->num_rows(); 
+    }
+
+    function checkDonhangLazada( $id_dh ){
+        $dh =   $this->db->select()
+                            ->where('id_bill', $id_dh)
+                            ->get($this->_excel)
+                            ->row_array();
+        if(count($dh) >0){
+            return $dh;
+        } else {
+            return false;
+        }
+    }
     function checkDonhang( $id_dh ){
         $dh =   $this->db->select()
                             ->where('id_bill', $id_dh)
                             ->get($this->_master)
                             ->row_array();
         if(count($dh) >0){
-            return true;
+            return $dh;
         } else {
             return false;
         }
@@ -30,32 +57,23 @@ class Donhang_model extends CI_Model{
                     ->result_array();
         return $donhang;
     }
-    function getTongtienDonhang(){
-    	$donhang = $this->db->select('id_bill, Count(id_bill) as Qty')->select_sum('detail.into_money','tongtien')
-                        ->where('hidden',0)
-                        ->group_by('id_bill')
-				        ->get($this->_detail)
-				        ->result_array();
-    	return $donhang;
-    }
-    function select_donhang_lazada(){
-        $donhang = $this->db->select()
-                    ->where('master.hidden',0)->where('master.type_bill','Hàng Lazada')
-                    ->from($this->_master)
-                    ->join($this->_detail, 'master.id_bill = detail.id_bill')
-                    ->get()
-                    ->result_array();
-        return $donhang;
-    }
 
     function insert_master($data){
         $donhang = $this->db->insert($this->_master,$data);
     }
-    function insert_detail($data){
-        $donhang = $this->db->insert($this->_detail,$data);
-    }
+    
     function insert_lazada($data){
         $donhang = $this->db->insert($this->_excel,$data);
+    }
+    function update_lazada($id,$data='')
+    {
+         $this->db->where('id_bill',$id)
+            ->update($this->_excel,$data);
+    }
+    function update_donhang($id,$data='')
+    {
+         $this->db->where('id_bill',$id)
+            ->update($this->_master,$data);
     }
     function thongke_donhang($match)
     {
@@ -121,29 +139,17 @@ class Donhang_model extends CI_Model{
                     ->result_array();
         return $data;
     }
-    function checkLazada($id_bill='')
+    
+    public function getDonHangCheck()
     {
-        $data['tongtien'] =   $this->db->select_sum('sales_deliver','tongtien')
-                    ->where('id_donhang',$id_bill)
-                    ->get($this->_excel)
-                    ->result_array();
-
-        $data['sp'] =   $this->db->select('id_sanpham')
-                    ->where('id_donhang',$id_bill)
-                    ->group_by('id_sanpham')
-                    ->get($this->_excel)
-                    ->result_array();
-        return $data;
-    }
-    public function getDonhangLazada($id_bill)
-    {
-       $donhang = $this->db->select('id_sanpham,id_donhang,item_name,status,created_at,phuongthuc_thanhtoan,count(id_sanpham) as qty')
-                    ->where('id_donhang',$id_bill)
-                    ->select_sum('sales_deliver','price')
-                    ->select_sum('commission','phi')
-                    ->select_sum('sum_of_fee','tongphi')
-                    ->group_by('id_sanpham,id_donhang,item_name,status,created_at,phuongthuc_thanhtoan')
-                    ->get($this->_excel)
+        $match = array(
+            'hidden' => 0,
+            'checkLazada' => 0,
+            'type_bill'  => 'Hàng Lazada'
+        );
+        $donhang = $this->db->select()
+                    ->where($match)
+                    ->get($this->_master)
                     ->result_array();
         return $donhang;
     }
