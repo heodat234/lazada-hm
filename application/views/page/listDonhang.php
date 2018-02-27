@@ -141,6 +141,7 @@
                     <th class="col-data-table-1-7">Phương thức thanh toán</th>
                     <th class="col-data-table-1-7">Tình trạng thanh toán</th>
                     <th class="col-data-table-0-7">Thao tác</th>
+                    <th class="col-data-table-0-7">Chi tiết đơn hàng</th>
                   </tr>
                 </thead>
                 <tbody>
@@ -176,6 +177,7 @@
                         <td><a class="btn btn-primary btn-flat" href="<?=base_url()?>suadonhang/<?php echo $row['id_bill']?>"><i class="fa fa-lg fa-edit"></i> Sửa</a> <a class="btn btn-danger btn-flat" onclick="delRow('<?php echo $row['id_bill']?>')"><i class="fa fa-lg fa-trash"></i> Xóa</a>
                           
                         </td>
+                        <td><?php echo $row['id_bill'].$row['table_detail'] ?></td>
                       </tr>                    
                   <?php endforeach?>
                 </tbody>

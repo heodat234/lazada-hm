@@ -11,13 +11,49 @@ class Donhang extends CI_Controller {
         $this->load->driver('cache', array('adapter' => 'apc', 'backup' => 'file'));
         $this->_data['html_header']   = $this->load->view('home/header', NULL, TRUE); 
         $mdata['page'] = 'donhang';
-        $this->_data['html_menu']     = $this->load->view('home/menu', $mdata, TRUE);
-        
+        $this->_data['html_menu']     = $this->load->view('home/menu', $mdata, TRUE);      
     }
 	public function index()
 	{	
         $data['donhang'] = $this->Donhang_model->listDonhang();
-         $match= '';
+        $match= '';
+        for ($i=0; $i < count($data['donhang']); $i++) {
+            $table_detail = '
+                <table class="table table-hover table-bordered table-responsive" cellspacing="0" width="100%">
+                    <thead>
+                        <tr>
+                            <th>Sản phẩm</th>
+                            <th>Số lượng</th>
+                            <th>Giá bán</th>
+                            <th>Phí cố định</th>
+                            <th>Phí khác</th>
+                            <th>Phí GTGT</th>
+                            <th>Khoản WHT</th>
+                            <th>Khoản T.toán</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+            ';
+            $detail = json_decode($data['donhang'][$i]['detail'],true);
+            for ($j=0; $j < count($detail); $j++) { 
+                $table_detail .= '<tr>';
+                $table_detail .= '<td>'.$detail[$j]['id_sanpham'].'</td>';
+                $table_detail .= '<td>'.$detail[$j]['qty'].'</td>';
+                $table_detail .= '<td>'.$detail[$j]['sales_deliver'].'</td>';
+                $table_detail .= '<td>'.$detail[$j]['phi_co_dinh'].'</td>';
+                $table_detail .= '<td>'.$detail[$j]['phi_khac'].'</td>';
+                $table_detail .= '<td>'.$detail[$j]['phi_gtgt'].'</td>';
+                $table_detail .= '<td>'.$detail[$j]['khoan_wht'].'</td>';
+                $table_detail .= '<td>'.$detail[$j]['khoan_thanh_toan'].'</td>';
+                $table_detail .= '</tr>';
+            }  
+            // var_dump($detail);
+            $table_detail.= '
+                    </tbody>
+                </table>
+            '; 
+            $data['donhang'][$i]['table_detail'] = $table_detail;
+        }
         $data['thongke'] = $this->Donhang_model->thongke_donhang($match);
         $this->_data['html_body'] = $this->load->view('page/listDonhang',$data,true); 	        
 		return $this->load->view('home/master', $this->_data);
