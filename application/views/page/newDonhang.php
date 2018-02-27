@@ -260,7 +260,7 @@
                   </tbody>
                     
           </table>
-          <button onclick="addRow('dataTable')" class="btn btn-default btn-custom" style="margin-left: 6px; margin-top: 2px;"><span class="glyphicon glyphicon-plus"></span></button>
+          <button onclick="addRow('dataTable')" class="btn btn-default btn-custom" style="margin-left: 6px; margin-top: 2px; margin-bottom: 5px;"><span class="glyphicon glyphicon-plus"></span></button>
         </div> 
         
     </div>      

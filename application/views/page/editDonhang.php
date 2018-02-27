@@ -17,14 +17,23 @@
             <div class="alert alert-danger hide"></div>
             <form class="form-horizontal bucket-form" enctype="multipart/form-data"  id="add-form" method="post" action="<?php echo base_url(); ?>updateDonhang">
               <div class="form-group">
-                <label class="col-sm-3 control-label">Mã đơn hàng</label>
-                <div class="col-sm-6">
+                <label class="col-sm-2 control-label">Mã đơn hàng</label>
+                <div class="col-sm-4">
                      <input type="text" readonly="" name="id_bill" id="id_donhang" class="form-control" placeholder="Nhập mã đơn hàng" required="" value="<?php echo isset($bill_master[0]['id_bill'])? $bill_master[0]['id_bill']:'';?>">
                 </div>
+                <label class="col-sm-2 control-label">P.T Thanh toán</label>
+                  <div class="col-sm-4">
+                       <select class="form-control" name="payment_method">
+                         <option selected="" hidden="" value="<?php echo isset($bill_master[0]['payment_method'])? $bill_master[0]['payment_method']:'';?>"><?php echo isset($bill_master[0]['payment_method'])? $bill_master[0]['payment_method']:'';?></option>
+                         <option value="CashOnDelivery">CashOnDelivery</option>
+                         <option value="Cybersource">Cybersource</option>
+                         <option value="VN123Pay">VN123Pay</option>
+                       </select>
+                  </div>
               </div>
               <div class="form-group">
-                  <label class="col-sm-3 control-label">Loại đơn hàng</label>
-                  <div class="col-sm-6">
+                  <label class="col-sm-2 control-label">Loại đơn hàng</label>
+                  <div class="col-sm-4">
                        <select class="form-control" name="type_bill">
                        	 <option selected="" hidden="" value="<?php echo isset($bill_master[0]['type_bill'])? $bill_master[0]['type_bill']:'';?>"><?php echo isset($bill_master[0]['type_bill'])? $bill_master[0]['type_bill']:'';?></option>
                          <option value="Hàng Lazada">Hàng Lazada</option>
@@ -33,11 +42,15 @@
                          <option value="Hàng bán lẻ">Hàng bán lẻ</option>
                        </select>
                   </div>
+                  <label class="col-sm-2 control-label">Ngày đặt hàng</label>
+                <div class="col-sm-4">
+                     <input type="date" name="order_day" class="form-control" required="" value="<?php echo isset($bill_master[0]['order_day'])? date("Y-m-d", strtotime($bill_master[0]['order_day'])):'';?>">
+                </div>
               </div>
               
               <div class="form-group">
-                <label class="col-sm-3 control-label">Trạng thái</label>
-                <div class="col-sm-6">
+                <label class="col-sm-2 control-label">Trạng thái</label>
+                <div class="col-sm-4">
                      <select class="form-control" name="bill_status">
                      	<option selected="" hidden="" value="<?php echo isset($bill_master[0]['bill_status'])? $bill_master[0]['bill_status']:'';?>"><?php echo isset($bill_master[0]['bill_status'])? $bill_master[0]['bill_status']:'';?></option>
                        <option value="Đang giao hàng">Đang giao hàng</option>
@@ -46,21 +59,15 @@
                        <option value="Đã nhận hàng trả">Đã nhận hàng trả</option>
                      </select>
                 </div>
+                <label class="col-sm-2 control-label">Ngày giao hàng</label>
+                <div class="col-sm-4">
+                     <input type="date" name="deliv_day"  class="form-control" required="" value="<?php echo isset($bill_master[0]['deliv_day'])? date("Y-m-d", strtotime($bill_master[0]['deliv_day'])):'';?>">
+                </div>
               </div>
+              
               <div class="form-group">
-                  <label class="col-sm-3 control-label">P.T Thanh toán</label>
-                  <div class="col-sm-6">
-                       <select class="form-control" name="payment_method">
-                       	 <option selected="" hidden="" value="<?php echo isset($bill_master[0]['payment_method'])? $bill_master[0]['payment_method']:'';?>"><?php echo isset($bill_master[0]['payment_method'])? $bill_master[0]['payment_method']:'';?></option>
-                         <option value="CashOnDelivery">CashOnDelivery</option>
-                         <option value="Cybersource">Cybersource</option>
-                         <option value="VN123Pay">VN123Pay</option>
-                       </select>
-                  </div>
-              </div>
-              <div class="form-group">
-                  <label class="col-sm-3 control-label">Trạng thái Thanh toán</label>
-                  <div class="col-sm-6">
+                  <label class="col-sm-2 control-label">Trạng thái Thanh toán</label>
+                  <div class="col-sm-4">
                        <select class="form-control" name="payment_status">
                        	 <option selected="" hidden="" value="<?php echo isset($bill_master[0]['payment_status'])? $bill_master[0]['payment_status']:'';?>"><?php echo isset($bill_master[0]['payment_status'])? $bill_master[0]['payment_status']:'';?></option>
                          <option value="Chờ thanh toán">Chờ thanh toán</option>
@@ -68,18 +75,8 @@
                        </select>
                   </div>
               </div>
-              <div class="form-group">
-                <label class="col-sm-3 control-label">Ngày đặt hàng</label>
-                <div class="col-sm-6">
-                     <input type="date" name="order_day" class="form-control" required="" value="<?php echo isset($bill_master[0]['order_day'])? date("Y-m-d", strtotime($bill_master[0]['order_day'])):'';?>">
-                </div>
-              </div>
-              <div class="form-group">
-                <label class="col-sm-3 control-label">Ngày giao hàng</label>
-                <div class="col-sm-6">
-                     <input type="date" name="deliv_day"  class="form-control" required="" value="<?php echo isset($bill_master[0]['deliv_day'])? date("Y-m-d", strtotime($bill_master[0]['deliv_day'])):'';?>">
-                </div>
-              </div>    
+              
+                
               <div id="product-list" style="display: none;">
                 <div class="col-sm-9">
                     <input type="text" list="product-data-list" id="decalpriceform-decaltype" class="form-control" name="id_sanpham" required="" aria-required="true">
@@ -175,15 +172,15 @@
         <div class="panel-heading">
             <h4>Danh sách sản phẩm
                 <div class="pull-right">
-                    <button id="btn-admin" class="btn btn-default"><span class="glyphicon glyphicon-cog"></span> Thao tác</button>
+                    <button onclick="addRow('dataTable')" class="btn btn-default btn-custom"><span class="glyphicon glyphicon-plus"></span></button>
+                    <button onclick="deleteRow('dataTable')" class="btn btn-default btn-custom"><span class="glyphicon glyphicon-trash"></span></button>
                 </div>
             </h4>
         </div>
         <div id="toolbar-admin" class="panel-body">
             <div class="btn-toolbar" role="toolbar" aria-label="admin">
                     <div class="btn-group pull-right" role="group">
-                        <button onclick="addRow('dataTable')" class="btn btn-success"><span class="glyphicon glyphicon-plus"></span> Thêm mới</button>
-                        <button onclick="deleteRow('dataTable')" class="btn btn-warning"><span class="glyphicon glyphicon-trash"></span> Xóa</button>
+                        
                     </div>
                 </div>
         </div>
@@ -248,7 +245,7 @@
             </tbody>
         </table> -->
         <div style="overflow: auto;">
-          <table id="dataTable" class="table table-striped table-hover" >
+          <table id="dataTable" class="table table-striped table-hover" style="margin-bottom: 0;">
                 <thead>
                     <tr>
                         <th class="col-check"><input type="checkbox" class="form-check-input" id="check-all"></th>
@@ -267,9 +264,9 @@
                         if (isset($bill_detail) && !empty($bill_detail)) {
                           for ($i=0; $i < count($bill_detail); $i++) { 
                       ?>
-                    <tr class="success">
+                    <tr class="default">
                         <td class="col-check"><input type="checkbox" class="form-check-input"></td>
-                        <td><input list="product-data-list" type="text" class="form-check-input" name="product[<?php echo ($i)?>][id_sanpham]" aria-required="true" value="<?php echo $bill_detail[$i]['id_sanpham'];?>"></td>
+                        <td><input required="" list="product-data-list" type="text" class="form-check-input" name="product[<?php echo ($i)?>][id_sanpham]" aria-required="true" value="<?php echo $bill_detail[$i]['id_sanpham'];?>"></td>
                         <td><input type="text" class="form-check-input" name="product[<?php echo ($i)?>][qty]" value="<?php echo $bill_detail[$i]['qty'];?>"></td>
                         <td><input type="text" class="form-check-input" name="product[<?php echo ($i)?>][sales_deliver]" value="<?php echo $bill_detail[$i]['sales_deliver'];?>"></td>
                         <td><input type="text" class="form-check-input" name="product[<?php echo ($i)?>][phi_co_dinh]" value="<?php echo $bill_detail[$i]['phi_co_dinh'];?>"></td>
@@ -281,7 +278,7 @@
                     <?php }} ?>
                   </tbody>
                     
-          </table>
+          </table><button onclick="addRow('dataTable')" class="btn btn-default btn-custom" style="margin-left: 6px; margin-top: 2px; margin-bottom: 5px;"><span class="glyphicon glyphicon-plus"></span></button>
         </div>
         
     </div>
