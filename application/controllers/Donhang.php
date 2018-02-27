@@ -163,6 +163,7 @@ class Donhang extends CI_Controller {
 
     public function addDonhangExcel() 
     {
+        $this->Donhang_model->delete_lazada();
         if (!empty($_FILES['file']['name'])) {
             $config['upload_path'] = './files';
             $config['allowed_types'] = 'xlsx';
@@ -186,7 +187,7 @@ class Donhang extends CI_Controller {
     }
 	public function readExcel($filename)
     {   
-        $this->Donhang_model->delete();
+        $this->Donhang_model->delete_lazada();
         $object = new PHPExcel();
         $objReader = PHPExcel_IOFactory::createReader('Excel2007');
         $objPHPExcel = $objReader->load('files/'.$filename);
