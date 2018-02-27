@@ -1,5 +1,5 @@
 $(function() {
-    $('input[type="checkbox"]').hide();
+    $('input[type="checkbox"]').show();
     $('#btn-admin').on('click', function(){
         if($("#toolbar-admin").is(":visible"))
         {

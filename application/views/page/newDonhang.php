@@ -156,15 +156,16 @@
         <div class="panel-heading">
             <h4>Danh sách sản phẩm
                 <div class="pull-right">
-                    <button id="btn-admin" class="btn btn-default"><span class="glyphicon glyphicon-cog"></span> Thao tác</button>
+                    <button onclick="addRow('dataTable')" class="btn btn-default btn-custom"><span class="glyphicon glyphicon-plus"></span></button>
+                    <button onclick="deleteRow('dataTable')" class="btn btn-default btn-custom"><span class="glyphicon glyphicon-trash"></span></button>
                 </div>
             </h4>
         </div>
         <div id="toolbar-admin" class="panel-body">
             <div class="btn-toolbar" role="toolbar" aria-label="admin">
                     <div class="btn-group pull-right" role="group">
-                        <button onclick="addRow('dataTable')" class="btn btn-success"><span class="glyphicon glyphicon-plus"></span> Thêm mới</button>
-                        <button onclick="deleteRow('dataTable')" class="btn btn-warning"><span class="glyphicon glyphicon-trash"></span> Xóa</button>
+                        
+                        
                     </div>
                 </div>
         </div>
