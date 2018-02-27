@@ -231,7 +231,7 @@
         </table> -->
        <div style="overflow: auto;">
 
-          <table id="dataTable" class="table table-striped table-hover" >
+          <table id="dataTable" class="table table-striped table-hover" style="margin-bottom: 0;">
                 <thead>
                     <tr>
                         <th class="col-check"><input type="checkbox" class="form-check-input" id="check-all"></th>
@@ -246,7 +246,7 @@
                     </tr>
                 </thead>
                   <tbody>
-                    <tr class="success">
+                    <tr class="default">
                         <td class="col-check"><input type="checkbox" class="form-check-input"></td>
                         <td><input list="product-data-list" type="text" class="form-check-input" name="product[0][id_sanpham]" aria-required="true" value="" required=""></td>
                         <td><input type="text" class="form-check-input" name="product[0][qty]" value="0"></td>
@@ -260,6 +260,7 @@
                   </tbody>
                     
           </table>
+          <button onclick="addRow('dataTable')" class="btn btn-default btn-custom" style="margin-left: 6px; margin-top: 2px;"><span class="glyphicon glyphicon-plus"></span></button>
         </div> 
         
     </div>      
