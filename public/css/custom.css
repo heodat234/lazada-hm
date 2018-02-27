@@ -77,3 +77,6 @@ tbody input[type="text"] {
 .btn-custom{
     margin-top: -5px;
 }
+#dataTable{
+    margin-bottom: 0;
+}
