@@ -6832,3 +6832,7 @@ th.tabco4 {
 .title-page{
     margin-top: 15px;
 }
+.num-info{
+    float: right !important;
+    margin-right: 100px;
+}

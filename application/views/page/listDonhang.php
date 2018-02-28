@@ -1,8 +1,4 @@
-<style type="text/css">
-  .box-body {
-    min-height: 100px;
-  }
-</style>
+
 <div id="loader-overlay"><img src="<?php echo base_url() ?>public/images/loader.gif" alt="Loading" /></div>
 <div>
   <div class="content-wrapper">
@@ -109,20 +105,30 @@
               <button type="button" class="btn btn-box-tool thuphong" data-widget="collapse"><i class="fa fa-minus"></i></button>
             </h3>
             <div class="row" style="margin-top: 10px;">
-              <div class="col-sm-3">
-                <h5>Số lượng đơn hàng: <strong class="label label-info"><?php echo number_format(count($donhang)) ?></strong></h5>
+              <div class="col-sm-4">
+                <h4><input type="checkbox" onclick="check_all()"  name="checkBox" id="check_all" > Tổng số đơn hàng: <strong class="label label-info num-info"><?php echo number_format(count($donhang)) ?></strong>
+                </h4>
               </div>
-              <!-- <div class="col-sm-3">
-                <h5>Doanh thu: <strong class="label label-success"><?php echo number_format($thongke[0]['doanhthu']) ?></strong></h5>
-              </div> -->
-              <!-- <div class="col-sm-3">
-                <h5>Chi phí: <strong class="label label-warning"><?php echo number_format($thongke[0]['chiphi']) ?></strong></h5>
+              <div class="col-sm-4">
+                <h4><input type="checkbox" onchange="filterme()" name="check_lazada" id="checkbox1" value="1|2"> Tổng đơn đã tải lên: <strong class="label label-info num-info"><?php echo number_format(count($donhang)-$dem['chua_tai']) ?></strong></h4>
               </div>
-              <div class="col-sm-3">
-                <h5>Lợi nhuận: <strong class="label label-danger"><?php echo number_format($thongke[0]['doanhthu'] - $thongke[0]['chiphi']) ?></strong></h5>
-              </div> -->
+              <div class="col-sm-4">
+                <h4><input type="checkbox" onchange="filterme()" name="check_lazada" id="checkbox1" value="1"> Trùng khớp: <strong class="label label-info num-info"><?php echo number_format($dem['trung_khop']) ?></strong></h4>
+              </div>
+              <div class="col-sm-4">
+                <h4><input type="checkbox" onchange="filterme()" name="check_status" id="checkbox1" value="Đã giao hàng"> Đã giao hàng: <strong class="label label-info num-info"><?php echo number_format($dem['da_giaohang']) ?></strong></h4>
+              </div>
+              <div class="col-sm-4">
+                <h4><input type="checkbox" onchange="filterme()" name="check_lazada" id="checkbox1" value="0"> Tổng đơn chưa tải lên: <strong class="label label-info num-info"><?php echo number_format($dem['chua_tai']) ?></strong></h4>
+              </div>
+              <div class="col-sm-4">
+                <h4><input type="checkbox" onchange="filterme()" name="check_lazada" id="checkbox1" value="2"> Sai lệch: <strong class="label label-info num-info"><?php echo number_format(count($donhang)-$dem['chua_tai']-$dem['trung_khop']) ?></strong></h4>
+              </div>
+              <div class="col-sm-4">
+                <h4><input type="checkbox" onchange="filterme()" name="check_status" id="checkbox1" value="Trả lại"> Đã hủy: <strong class="label label-info num-info"><?php echo number_format($dem['da_huy']) ?></strong></h4>
+              </div>
             </div>
-            <?php echo isset($thongbao)? $thongbao : '' ?>
+            <?php if($this->session->has_userdata('thongbao')) echo $this->session->userdata('thongbao') ?>
           </div>
           <div class="animate_1">
             <div class="box-body no-padding-bottom" >
@@ -142,6 +148,7 @@
                     <th class="col-data-table-1-7">Tình trạng thanh toán</th>
                     <th class="col-data-table-0-7">Thao tác</th>
                     <th class="col-data-table-0-7">Chi tiết đơn hàng</th>
+                    <th style="display: none;"></th>
                   </tr>
                 </thead>
                 <tbody>
@@ -159,7 +166,7 @@
                           <?php }elseif ($row['checkLazada'] == 1 && $row['type_bill']=='Hàng Lazada') { ?>
                             <i class="fa fa-check"></i>
                           <?php }elseif ($row['checkLazada'] == 2 && $row['type_bill']=='Hàng Lazada') { ?>
-                            <i class="fa fa-minus-circle"></i>
+                            <a href="javascrip:void(0)" onclick="showCheck('<?php echo $row['id_bill'] ?>')" style="color:red;" ><i class="fa fa-minus-circle"></i></a>
                           <?php }else{echo "";} ?>
                         </td>
                         <?php 
@@ -179,6 +186,7 @@
                           
                         </td>
                         <td><?php echo $row['id_bill'].$row['table_detail'] ?></td>
+                        <td><?php echo $row['checkLazada'] ?> </td>
                       </tr>                    
                   <?php endforeach?>
                 </tbody>
@@ -194,7 +202,7 @@
 
 
 <!-- add file -->
-<div class="modal fade" id="addFile" data-backdrop='static' role="dialog">
+<div class="modal fade" id="addFile"  role="dialog"  tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
   <div class="modal-dialog">
    <div class="modal-content">
       <div class="modal-header">
@@ -233,6 +241,32 @@
   </div>
 </div>
 
+<!-- show 2 đơn hàng so sánh -->
+<div class="modal fade" id="showCheck"  tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+   <div class="modal-content">
+      <div class="modal-header">
+         <button type="button" class="close" data-dismiss='modal' aria-hidden="true"><span class="glyphicon glyphicon-remove"></span></button>
+         <h4 class="modal-title" style="font-size: 20px; padding: 12px;">Chi tiết đơn hàng so sánh</h4>
+      </div>
+      <div class="modal-body">
+         <div class="container-fluid">
+            <div class="row">
+                Đơn hàng nhập
+               <div class="dom_check1"></div>
+               Báo cáo Lazada
+               <div class="dom_check2"></div>
+            </div>
+         </div>
+      </div>
+      <div class="modal-footer">
+         <div class="form-group">
+            <button type="button" data-dismiss="modal" class="btn btn-sm btn-default"> Đóng <span class="glyphicon glyphicon-remove"></span></button>
+         </div>
+      </div>
+    </div>
+  </div>
+</div>
 
 <script type="text/javascript">
   $('.thuphong').on('click',function(event) {
@@ -347,4 +381,48 @@ function delRow(id){
   );
 }
 
+
+$(function() {
+  otable = $('#sampleTable').dataTable();
+})
+
+function filterme() {
+  
+
+  var check_status = $('input:checkbox[name="check_status"]:checked').map(function() {
+    return '^' + this.value + '\$';
+  }).get().join('|');
+  otable.fnFilter(check_status, 3, true, false, false, false);
+
+  var check_lazada = $('input:checkbox[name="check_lazada"]:checked').map(function() {
+    return '^' + this.value + '\$';
+  }).get().join('|');
+  otable.fnFilter(check_lazada, 13, true, false, false, false);
+
+  
+
+}
+function check_all() {
+  console.log('test');
+  $('#sampleTable').dataTable().fnFilterClear();
+  $('#checkbox1').prop('checked','');
+}
+
+
+function showCheck($id) {
+   $('.dom_check1').html('');
+    $('.dom_check2').html('');
+  $.ajax({
+    url: '<?php echo base_url() ?>Donhang/showCheck',
+    type: 'post',
+    dataType: 'json',
+    data: {id: $id},
+  })
+  .done(function(data) {
+    $('.dom_check1').html(data.table_detail);
+    $('.dom_check2').html(data.lazada_detail);
+    $('#showCheck').modal('show');
+  });
+  
+}
 </script>

@@ -11,13 +11,8 @@ class Donhang_model extends CI_Model{
         $this->load->database();
     } 
 
-    public function countDonHang()
+    public function countDonHang($match)
     {
-        $match = array(
-            'hidden' => 0,
-            'checkLazada' => 0,
-            'type_bill'  => 'Hàng Lazada'
-        );
         $query=$this->db->where($match)->get($this->_master);
         return $query->num_rows(); 
     }

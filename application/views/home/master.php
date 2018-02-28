@@ -19,10 +19,10 @@ if($this->session->has_userdata('user')) {
 
     <!-- <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css"> -->
     <link href="<?php echo base_url(); ?>public/css/jquery-ui.css" rel="stylesheet">  
-
+  
     <script src="<?php echo base_url(); ?>public/js/jquery-2.1.4.min.js"></script>
    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
-
+    
     <script type="text/javascript" src="https://printjs-4de6.kxcdn.com/print.min.js"></script>
     <link rel="stylesheet" type="text/css" href="https://printjs-4de6.kxcdn.com/print.min.css">
     <link rel="stylesheet" type="text/css" href="<?php echo base_url(); ?>public/css/custom.css">
@@ -31,7 +31,7 @@ if($this->session->has_userdata('user')) {
     <script type="text/javascript" src="<?php echo base_url(); ?>public/js/jquery-ui.js"></script>
     <!-- chart -->
     <script src="https://code.highcharts.com/highcharts.src.js"></script>
-
+    
     <title>Quản lý đơn hàng</title>
     <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries-->
     
@@ -58,6 +58,7 @@ if($this->session->has_userdata('user')) {
     <link rel="stylesheet" type="text/css" href="<?php echo base_url() ?>public/css/responsive.dataTables.min.css">
     <link rel="stylesheet" type="text/css" href="<?php echo base_url() ?>public/css/fixedColumns.dataTables.min.css">
     <link rel="stylesheet" type="text/css" href="<?php echo base_url() ?>public/css/jquery.dataTables.yadcf.css">
+    <script type="text/javascript" src="https://cdn.datatables.net/plug-ins/1.10.16/api/fnFilterClear.js"></script>
     <script type="text/javascript">$('#sampleTable').DataTable({
       // colReorder: true,
                 responsive: {

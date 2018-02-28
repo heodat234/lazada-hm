@@ -17,6 +17,28 @@ class Donhang extends CI_Controller {
 	{	
         $data['donhang'] = $this->Donhang_model->listDonhang();
         $match= '';
+        $data['thongke'] = $this->Donhang_model->thongke_donhang($match);
+        $match = array(
+            'hidden' => 0,
+            'bill_status'  => 'Đã giao hàng'
+        );
+        $mdata['da_giaohang'] = $this->Donhang_model->countDonHang($match);
+        $match = array(
+            'hidden' => 0,
+            'bill_status'  => 'Đã hủy'
+        );
+        $mdata['da_huy'] = $this->Donhang_model->countDonHang($match);
+        $match = array(
+            'hidden' => 0,
+            'checkLazada'  => '0'
+        );
+        $mdata['chua_tai'] = $this->Donhang_model->countDonHang($match);
+        $match = array(
+            'hidden' => 0,
+            'checkLazada'  => '1'
+        );
+        $mdata['trung_khop'] = $this->Donhang_model->countDonHang($match);
+        
         for ($i=0; $i < count($data['donhang']); $i++) {
             $table_detail = '
                 <table class="table table-hover table-bordered table-responsive" cellspacing="0" width="100%">
@@ -54,7 +76,7 @@ class Donhang extends CI_Controller {
             '; 
             $data['donhang'][$i]['table_detail'] = $table_detail;
         }
-        $data['thongke'] = $this->Donhang_model->thongke_donhang($match);
+        $data['dem'] = $mdata;
         $this->_data['html_body'] = $this->load->view('page/listDonhang',$data,true); 	        
 		return $this->load->view('home/master', $this->_data);
 	}
@@ -269,21 +291,26 @@ class Donhang extends CI_Controller {
 
     public function checkLazada()
     {
+        if ($this->session->has_userdata('thongbao')) {
+            $this->session->unset_userdata('thongbao');
+        }
         $check   = $this->input->post('check');
         switch ($check) {
             case 'qty':
+                $match = array(
+                    'hidden' => 0,
+                    'checkLazada' => 0,
+                    'type_bill'  => 'Hàng Lazada'
+                );
                 $qty_Lazada = $this->Donhang_model->countLazada();
-                $qty_Donhang = $this->Donhang_model->countDonHang();
+                $qty_Donhang = $this->Donhang_model->countDonHang($match);
                 if ($qty_Donhang == $qty_Lazada) {
-                    $data['thongbao']        = '<h5 style="color:blue">Số lượng đơn hàng trùng khớp. </h4>';
+                    $thongbao        = '<h5 style="color:blue">Số lượng đơn hàng trùng khớp. </h4>';
                 }else{
-                    $data['thongbao']        = '<h4 style="color:red">Số lượng đơn hàng không trùng khớp. </h4>';
+                    $thongbao       = '<h4 style="color:red">Số lượng đơn hàng không trùng khớp. </h4>';
                 }
-                 $data['donhang'] = $this->Donhang_model->listDonhang();
-                 $match= '';
-                $data['thongke'] = $this->Donhang_model->thongke_donhang($match);
-                $this->_data['html_body'] = $this->load->view('page/listDonhang',$data,true);           
-                    return $this->load->view('home/master', $this->_data);
+                $this->session->set_userdata('thongbao', $thongbao);
+                 redirect(base_url('donhang'));
                 break;
             
             case 'detail':
@@ -323,21 +350,23 @@ class Donhang extends CI_Controller {
                     }
                 }
                 
-                $data['donhang'] = $this->Donhang_model->listDonhang();
-                $match= '';
-                $data['thongke'] = $this->Donhang_model->thongke_donhang($match);
-                $this->_data['html_body'] = $this->load->view('page/listDonhang',$data,true);           
-                return $this->load->view('home/master', $this->_data);
+                redirect(base_url('donhang'));
                 break;
 
             case 'all':
+                $match = array(
+                    'hidden' => 0,
+                    'checkLazada' => 0,
+                    'type_bill'  => 'Hàng Lazada'
+                );
                 $qty_Lazada = $this->Donhang_model->countLazada();
-                $qty_Donhang = $this->Donhang_model->countDonHang();
+                $qty_Donhang = $this->Donhang_model->countDonHang($match);
                 if ($qty_Donhang == $qty_Lazada) {
-                    $data['thongbao']        = '<h4 style="color:blue">Số lượng đơn hàng trùng khớp. </h4>';
+                    $thongbao        = '<h5 style="color:blue">Số lượng đơn hàng trùng khớp. </h4>';
                 }else{
-                    $data['thongbao']        = '<h4 style="color:red">Số lượng đơn hàng không trùng khớp. </h4>';
+                    $thongbao       = '<h4 style="color:red">Số lượng đơn hàng không trùng khớp. </h4>';
                 }
+                $this->session->set_userdata('thongbao', $thongbao);
                 $donhang = $this->Donhang_model->getDonHangCheck();
                 foreach ($donhang as $dh) {
                     $lazada = $this->Donhang_model->checkDonhangLazada($dh['id_bill']);
@@ -374,11 +403,7 @@ class Donhang extends CI_Controller {
                     }
                 }
                 
-                $data['donhang'] = $this->Donhang_model->listDonhang();
-                 $match= '';
-                $data['thongke'] = $this->Donhang_model->thongke_donhang($match);
-                $this->_data['html_body'] = $this->load->view('page/listDonhang',$data,true);           
-                    return $this->load->view('home/master', $this->_data);
+                redirect(base_url('donhang'));
                 break;
 
             default:
@@ -386,6 +411,84 @@ class Donhang extends CI_Controller {
                 break;
         }
         
+    }
+
+    public function showCheck()
+    {
+       $id = $this->input->post('id');
+       $donhang = $this->Donhang_model->checkDonhang($id);
+       $lazada = $this->Donhang_model->checkDonhangLazada($id);
+       $table_detail = '
+            <table class="table table-hover table-bordered table-responsive" cellspacing="0" width="100%">
+                <thead>
+                    <tr>
+                        <th>Sản phẩm</th>
+                        <th>Số lượng</th>
+                        <th>Giá bán</th>
+                        <th>Phí cố định</th>
+                        <th>Phí khác</th>
+                        <th>Phí GTGT</th>
+                        <th>Khoản WHT</th>
+                        <th>Khoản T.toán</th>
+                    </tr>
+                </thead>
+                <tbody>
+        ';
+        $detail = json_decode($donhang['detail'],true);
+        for ($j=0; $j < count($detail); $j++) { 
+            $table_detail .= '<tr>';
+            $table_detail .= '<td>'.$detail[$j]['id_sanpham'].'</td>';
+            $table_detail .= '<td>'.$detail[$j]['qty'].'</td>';
+            $table_detail .= '<td>'.$detail[$j]['sales_deliver'].'</td>';
+            $table_detail .= '<td>'.$detail[$j]['phi_co_dinh'].'</td>';
+            $table_detail .= '<td>'.$detail[$j]['phi_khac'].'</td>';
+            $table_detail .= '<td>'.$detail[$j]['phi_gtgt'].'</td>';
+            $table_detail .= '<td>'.$detail[$j]['khoan_wht'].'</td>';
+            $table_detail .= '<td>'.$detail[$j]['khoan_thanh_toan'].'</td>';
+            $table_detail .= '</tr>';
+        }  
+        $table_detail.= '
+                </tbody>
+            </table>
+        '; 
+
+        $lazada_detail = '
+            <table class="table table-hover table-bordered table-responsive" cellspacing="0" width="100%">
+                <thead>
+                    <tr>
+                        <th>Sản phẩm</th>
+                        <th>Số lượng</th>
+                        <th>Giá bán</th>
+                        <th>Phí cố định</th>
+                        <th>Phí khác</th>
+                        <th>Phí GTGT</th>
+                        <th>Khoản WHT</th>
+                        <th>Khoản T.toán</th>
+                    </tr>
+                </thead>
+                <tbody>
+        ';
+        $detail = json_decode($lazada['detail'],true);
+        for ($j=0; $j < count($detail); $j++) { 
+            $lazada_detail .= '<tr>';
+            $lazada_detail .= '<td>'.$detail[$j]['id_sanpham'].'</td>';
+            $lazada_detail .= '<td>'.$detail[$j]['qty'].'</td>';
+            $lazada_detail .= '<td>'.$detail[$j]['sales_deliver'].'</td>';
+            $lazada_detail .= '<td>'.$detail[$j]['phi_co_dinh'].'</td>';
+            $lazada_detail .= '<td>'.$detail[$j]['phi_khac'].'</td>';
+            $lazada_detail .= '<td>'.$detail[$j]['phi_gtgt'].'</td>';
+            $lazada_detail .= '<td>'.$detail[$j]['khoan_wht'].'</td>';
+            $lazada_detail .= '<td>'.$detail[$j]['khoan_thanh_toan'].'</td>';
+            $lazada_detail .= '</tr>';
+        }  
+        $lazada_detail.= '
+                </tbody>
+            </table>
+        '; 
+            $data['table_detail']   = $table_detail;
+            $data['lazada_detail']  = $lazada_detail;
+
+        echo json_encode($data);
     }
     
 }
