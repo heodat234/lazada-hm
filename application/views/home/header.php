@@ -1,10 +1,10 @@
 <header class="main-header hidden-print">
   <a class="logo" href="/donhang">
     <span class="logo-mini">
-      <img src="http://demo-wallet.mediaz.vn/images/logo_f5money_small.png">
+      <img src="http://hungminhits.com/lazada/logo_mini.png">
     </span>
     <span class="logo-lg">
-      <img src="http://demo-wallet.mediaz.vn/images/upload/07261792ba2067df3c4f6b3f18640fce.png">
+      <img src="http://hungminhits.com/lazada/logo.png">
     </span>
   </a>
         <nav class="navbar navbar-static-top">
